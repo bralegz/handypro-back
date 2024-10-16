@@ -1,25 +1,63 @@
 {
   "categories": [
-    { "id": 1, "name": "Electricista" },
-    { "id": 2, "name": "Mecánico" },
-    { "id": 3, "name": "Jardinero" },
-    { "id": 4, "name": "Plomero" },
-    { "id": 5, "name": "Fotógrafo" },
-    { "id": 6, "name": "Diseñador" },
-    { "id": 7, "name": "Entrenador" },
-    { "id": 8, "name": "Pintor" },
-    { "id": 9, "name": "Carpintero" }
+    {
+      "id": 1,
+      "name": "Electricista"
+    },
+    {
+      "id": 2,
+      "name": "Mecánico"
+    },
+    {
+      "id": 3,
+      "name": "Jardinero"
+    },
+    {
+      "id": 4,
+      "name": "Plomero"
+    },
+    {
+      "id": 5,
+      "name": "Fotógrafo"
+    },
+    {
+      "id": 6,
+      "name": "Diseñador"
+    },
+    {
+      "id": 7,
+      "name": "Entrenador"
+    },
+    {
+      "id": 8,
+      "name": "Pintor"
+    },
+    {
+      "id": 9,
+      "name": "Carpintero"
+    }
   ],
   "professionals": [
     {
       "id": 1,
       "name": "Carlos Martínez",
-      "profession": ["Electricista", "Mecánico"],
+      "profession": [
+        "Electricista",
+        "Mecánico"
+      ],
       "location": "San Isidro",
       "rating": 4.8,
-      "services": ["Reparaciones eléctricas", "Instalación de cableado", "Configuración de iluminación", "Reparación de motores"],
+      "services": [
+        "Reparaciones eléctricas",
+        "Instalación de cableado",
+        "Configuración de iluminación",
+        "Reparación de motores"
+      ],
       "availability": true,
-      "portfolio_gallery": ["https://example.com/carlos1.jpg", "https://example.com/carlos2.jpg"],
+      "portfolio_gallery": [
+        "https://example.com/carlos1.jpg",
+        "https://example.com/carlos2.jpg"
+      ],
       "experience": 10,
       "contact": {
         "phone": "+51-555-0123",
@@ -32,12 +70,21 @@
     {
       "id": 2,
       "name": "Ana López",
-      "profession": ["Jardinero"],
+      "profession": [
+        "Jardinero"
+      ],
       "location": "Lince",
       "rating": 4.5,
-      "services": ["Cuidado del césped", "Poda de árboles", "Diseño de jardines"],
+      "services": [
+        "Cuidado del césped",
+        "Poda de árboles",
+        "Diseño de jardines"
+      ],
       "availability": true,
-      "portfolio_gallery": ["https://example.com/ana1.jpg", "https://example.com/ana2.jpg"],
+      "portfolio_gallery": [
+        "https://example.com/ana1.jpg",
+        "https://example.com/ana2.jpg"
+      ],
       "experience": 7,
       "contact": {
         "phone": "+51-555-0456",
@@ -50,12 +97,21 @@
     {
       "id": 3,
       "name": "Roberto García",
-      "profession": ["Carpintero"],
+      "profession": [
+        "Carpintero"
+      ],
       "location": "Comas",
       "rating": 4.9,
-      "services": ["Muebles personalizados", "Reparaciones del hogar", "Restauración de trabajos en madera"],
+      "services": [
+        "Muebles personalizados",
+        "Reparaciones del hogar",
+        "Restauración de trabajos en madera"
+      ],
       "availability": true,
-      "portfolio_gallery": ["https://example.com/roberto1.jpg", "https://example.com/roberto2.jpg"],
+      "portfolio_gallery": [
+        "https://example.com/roberto1.jpg",
+        "https://example.com/roberto2.jpg"
+      ],
       "experience": 15,
       "contact": {
         "phone": "+51-555-0789",
@@ -68,12 +124,21 @@
     {
       "id": 4,
       "name": "Laura Fernández",
-      "profession": ["Plomero"],
+      "profession": [
+        "Plomero"
+      ],
       "location": "Miraflores",
       "rating": 4.7,
-      "services": ["Reparación de tuberías", "Instalación de sanitarios", "Detección de fugas"],
+      "services": [
+        "Reparación de tuberías",
+        "Instalación de sanitarios",
+        "Detección de fugas"
+      ],
       "availability": true,
-      "portfolio_gallery": ["https://example.com/laura1.jpg", "https://example.com/laura2.jpg"],
+      "portfolio_gallery": [
+        "https://example.com/laura1.jpg",
+        "https://example.com/laura2.jpg"
+      ],
       "experience": 8,
       "contact": {
         "phone": "+51-555-1011",
@@ -86,12 +151,21 @@
     {
       "id": 5,
       "name": "Diego Sánchez",
-      "profession": ["Pintor"],
+      "profession": [
+        "Pintor"
+      ],
       "location": "Surco",
       "rating": 4.6,
-      "services": ["Pintura de interiores", "Pintura de exteriores", "Decoración mural"],
+      "services": [
+        "Pintura de interiores",
+        "Pintura de exteriores",
+        "Decoración mural"
+      ],
       "availability": true,
-      "portfolio_gallery": ["https://example.com/diego1.jpg", "https://example.com/diego2.jpg"],
+      "portfolio_gallery": [
+        "https://example.com/diego1.jpg",
+        "https://example.com/diego2.jpg"
+      ],
       "experience": 12,
       "contact": {
         "phone": "+51-555-1213",
@@ -104,12 +178,21 @@
     {
       "id": 6,
       "name": "Carmen Rojas",
-      "profession": ["Diseñador"],
+      "profession": [
+        "Diseñador"
+      ],
       "location": "La Molina",
       "rating": 4.8,
-      "services": ["Diseño de interiores", "Diseño gráfico", "Diseño web"],
+      "services": [
+        "Diseño de interiores",
+        "Diseño gráfico",
+        "Diseño web"
+      ],
       "availability": true,
-      "portfolio_gallery": ["https://example.com/carmen1.jpg", "https://example.com/carmen2.jpg"],
+      "portfolio_gallery": [
+        "https://example.com/carmen1.jpg",
+        "https://example.com/carmen2.jpg"
+      ],
       "experience": 9,
       "contact": {
         "phone": "+51-555-1415",
@@ -122,12 +205,21 @@
     {
       "id": 7,
       "name": "Javier Mendoza",
-      "profession": ["Electricista"],
+      "profession": [
+        "Electricista"
+      ],
       "location": "Jesús María",
       "rating": 4.9,
-      "services": ["Instalación de sistemas eléctricos", "Reparación de circuitos", "Mantenimiento eléctrico"],
+      "services": [
+        "Instalación de sistemas eléctricos",
+        "Reparación de circuitos",
+        "Mantenimiento eléctrico"
+      ],
       "availability": true,
-      "portfolio_gallery": ["https://example.com/javier1.jpg", "https://example.com/javier2.jpg"],
+      "portfolio_gallery": [
+        "https://example.com/javier1.jpg",
+        "https://example.com/javier2.jpg"
+      ],
       "experience": 14,
       "contact": {
         "phone": "+51-555-1617",
@@ -140,12 +232,21 @@
     {
       "id": 8,
       "name": "Patricia Vargas",
-      "profession": ["Diseñador"],
+      "profession": [
+        "Diseñador"
+      ],
       "location": "San Borja",
       "rating": 4.7,
-      "services": ["Diseño de espacios", "Asesoría de decoración", "Remodelaciones"],
+      "services": [
+        "Diseño de espacios",
+        "Asesoría de decoración",
+        "Remodelaciones"
+      ],
       "availability": true,
-      "portfolio_gallery": ["https://example.com/patricia1.jpg", "https://example.com/patricia2.jpg"],
+      "portfolio_gallery": [
+        "https://example.com/patricia1.jpg",
+        "https://example.com/patricia2.jpg"
+      ],
       "experience": 11,
       "contact": {
         "phone": "+51-555-1819",
@@ -158,12 +259,21 @@
     {
       "id": 9,
       "name": "Andrés Quiroga",
-      "profession": ["Electricista"],
+      "profession": [
+        "Electricista"
+      ],
       "location": "Magdalena",
       "rating": 4.6,
-      "services": ["Instalación de aire acondicionado", "Mantenimiento de sistemas de climatización", "Reparación de equipos"],
+      "services": [
+        "Instalación de aire acondicionado",
+        "Mantenimiento de sistemas de climatización",
+        "Reparación de equipos"
+      ],
       "availability": true,
-      "portfolio_gallery": ["https://example.com/andres1.jpg", "https://example.com/andres2.jpg"],
+      "portfolio_gallery": [
+        "https://example.com/andres1.jpg",
+        "https://example.com/andres2.jpg"
+      ],
       "experience": 6,
       "contact": {
         "phone": "+51-555-2021",
@@ -176,12 +286,21 @@
     {
       "id": 10,
       "name": "Lucía Torres",
-      "profession": ["Entrenador"],
+      "profession": [
+        "Entrenador"
+      ],
       "location": "San Miguel",
       "rating": 4.8,
-      "services": ["Entrenamiento personalizado", "Planes de nutrición", "Preparación física"],
+      "services": [
+        "Entrenamiento personalizado",
+        "Planes de nutrición",
+        "Preparación física"
+      ],
       "availability": true,
-      "portfolio_gallery": ["https://example.com/lucia1.jpg", "https://example.com/lucia2.jpg"],
+      "portfolio_gallery": [
+        "https://example.com/lucia1.jpg",
+        "https://example.com/lucia2.jpg"
+      ],
       "experience": 8,
       "contact": {
         "phone": "+51-555-2223",
@@ -194,12 +313,21 @@
     {
       "id": 11,
       "name": "Eduardo Paredes",
-      "profession": ["Fotógrafo"],
+      "profession": [
+        "Fotógrafo"
+      ],
       "location": "Barranco",
       "rating": 4.9,
-      "services": ["Fotografía de eventos", "Sesiones de retratos", "Edición fotográfica"],
+      "services": [
+        "Fotografía de eventos",
+        "Sesiones de retratos",
+        "Edición fotográfica"
+      ],
       "availability": true,
-      "portfolio_gallery": ["https://example.com/eduardo1.jpg", "https://example.com/eduardo2.jpg"],
+      "portfolio_gallery": [
+        "https://example.com/eduardo1.jpg",
+        "https://example.com/eduardo2.jpg"
+      ],
       "experience": 13,
       "contact": {
         "phone": "+51-555-2425",
@@ -212,12 +340,21 @@
     {
       "id": 12,
       "name": "Sofía Ramírez",
-      "profession": ["Entrenador"],
+      "profession": [
+        "Entrenador"
+      ],
       "location": "Pueblo Libre",
       "rating": 4.7,
-      "services": ["Clases de matemáticas", "Clases de ciencias", "Preparación para exámenes"],
+      "services": [
+        "Clases de matemáticas",
+        "Clases de ciencias",
+        "Preparación para exámenes"
+      ],
       "availability": true,
-      "portfolio_gallery": ["https://example.com/sofia1.jpg", "https://example.com/sofia2.jpg"],
+      "portfolio_gallery": [
+        "https://example.com/sofia1.jpg",
+        "https://example.com/sofia2.jpg"
+      ],
       "experience": 10,
       "contact": {
         "phone": "+51-555-2627",
@@ -376,7 +513,9 @@
       "location": "San Miguel",
       "requested_date": "2024-06-25",
       "priority": "media",
-      "job_photos": ["https://example.com/job241_1.jpg"],
+      "job_photos": [
+        "https://example.com/job241_1.jpg"
+      ],
       "status": "completado"
     },
     {
@@ -388,7 +527,9 @@
       "location": "Pueblo Libre",
       "requested_date": "2024-06-28",
       "priority": "baja",
-      "job_photos": ["https://example.com/job242_1.jpg"],
+      "job_photos": [
+        "https://example.com/job242_1.jpg"
+      ],
       "status": "pendiente"
     },
     {
@@ -400,7 +541,10 @@
       "location": "Barranco",
       "requested_date": "2024-07-01",
       "priority": "media",
-      "job_photos": ["https://example.com/job243_1.jpg", "https://example.com/job243_2.jpg"],
+      "job_photos": [
+        "https://example.com/job243_1.jpg",
+        "https://example.com/job243_2.jpg"
+      ],
       "status": "completado"
     },
     {
@@ -412,7 +556,9 @@
       "location": "Chorrillos",
       "requested_date": "2024-07-03",
       "priority": "alta",
-      "job_photos": ["https://example.com/job244_1.jpg"],
+      "job_photos": [
+        "https://example.com/job244_1.jpg"
+      ],
       "status": "en progreso"
     },
     {
@@ -424,7 +570,10 @@
       "location": "La Victoria",
       "requested_date": "2024-07-05",
       "priority": "media",
-      "job_photos": ["https://example.com/job245_1.jpg", "https://example.com/job245_2.jpg"],
+      "job_photos": [
+        "https://example.com/job245_1.jpg",
+        "https://example.com/job245_2.jpg"
+      ],
       "status": "completado"
     },
     {
@@ -472,7 +621,9 @@
       "location": "San Borja",
       "requested_date": "2024-07-15",
       "priority": "alta",
-      "job_photos": ["https://example.com/job249_1.jpg"],
+      "job_photos": [
+        "https://example.com/job249_1.jpg"
+      ],
       "status": "completado"
     },
     {
@@ -484,7 +635,9 @@
       "location": "Magdalena",
       "requested_date": "2024-07-18",
       "priority": "media",
-      "job_photos": ["https://example.com/job250_1.jpg"],
+      "job_photos": [
+        "https://example.com/job250_1.jpg"
+      ],
       "status": "pendiente"
     },
     {
@@ -496,7 +649,9 @@
       "location": "San Isidro",
       "requested_date": "2024-07-20",
       "priority": "media",
-      "job_photos": ["https://example.com/job251_1.jpg"],
+      "job_photos": [
+        "https://example.com/job251_1.jpg"
+      ],
       "status": "completado"
     },
     {
@@ -508,7 +663,9 @@
       "location": "Miraflores",
       "requested_date": "2024-07-22",
       "priority": "alta",
-      "job_photos": ["https://example.com/job252_1.jpg"],
+      "job_photos": [
+        "https://example.com/job252_1.jpg"
+      ],
       "status": "en progreso"
     },
     {
@@ -520,7 +677,10 @@
       "location": "San Miguel",
       "requested_date": "2024-07-25",
       "priority": "media",
-      "job_photos": ["https://example.com/job253_1.jpg", "https://example.com/job253_2.jpg"],
+      "job_photos": [
+        "https://example.com/job253_1.jpg",
+        "https://example.com/job253_2.jpg"
+      ],
       "status": "completado"
     },
     {
@@ -568,7 +728,9 @@
       "location": "San Isidro",
       "requested_date": "2024-08-05",
       "priority": "alta",
-      "job_photos": ["https://example.com/job257_1.jpg"],
+      "job_photos": [
+        "https://example.com/job257_1.jpg"
+      ],
       "status": "completado"
     },
     {
@@ -580,7 +742,9 @@
       "location": "Lince",
       "requested_date": "2024-08-08",
       "priority": "baja",
-      "job_photos": ["https://example.com/job258_1.jpg"],
+      "job_photos": [
+        "https://example.com/job258_1.jpg"
+      ],
       "status": "pendiente"
     },
     {
@@ -592,7 +756,10 @@
       "location": "Jesús María",
       "requested_date": "2024-08-10",
       "priority": "media",
-      "job_photos": ["https://example.com/job259_1.jpg", "https://example.com/job259_2.jpg"],
+      "job_photos": [
+        "https://example.com/job259_1.jpg",
+        "https://example.com/job259_2.jpg"
+      ],
       "status": "completado"
     },
     {
@@ -604,7 +771,9 @@
       "location": "San Borja",
       "requested_date": "2024-08-12",
       "priority": "alta",
-      "job_photos": ["https://example.com/job260_1.jpg"],
+      "job_photos": [
+        "https://example.com/job260_1.jpg"
+      ],
       "status": "en progreso"
     },
     {
@@ -616,7 +785,9 @@
       "location": "San Isidro",
       "requested_date": "2024-08-15",
       "priority": "media",
-      "job_photos": ["https://example.com/job261_1.jpg"],
+      "job_photos": [
+        "https://example.com/job261_1.jpg"
+      ],
       "status": "completado"
     },
     {
@@ -664,7 +835,9 @@
       "location": "Chorrillos",
       "requested_date": "2024-08-25",
       "priority": "media",
-      "job_photos": ["https://example.com/job265_1.jpg"],
+      "job_photos": [
+        "https://example.com/job265_1.jpg"
+      ],
       "status": "completado"
     },
     {
@@ -676,7 +849,9 @@
       "location": "La Victoria",
       "requested_date": "2024-08-28",
       "priority": "media",
-      "job_photos": ["https://example.com/job266_1.jpg"],
+      "job_photos": [
+        "https://example.com/job266_1.jpg"
+      ],
       "status": "pendiente"
     },
     {
@@ -688,7 +863,9 @@
       "location": "San Isidro",
       "requested_date": "2024-08-30",
       "priority": "baja",
-      "job_photos": ["https://example.com/job267_1.jpg"],
+      "job_photos": [
+        "https://example.com/job267_1.jpg"
+      ],
       "status": "completado"
     },
     {
@@ -700,7 +877,9 @@
       "location": "Lince",
       "requested_date": "2024-09-02",
       "priority": "alta",
-      "job_photos": ["https://example.com/job268_1.jpg"],
+      "job_photos": [
+        "https://example.com/job268_1.jpg"
+      ],
       "status": "en progreso"
     },
     {
@@ -712,7 +891,10 @@
       "location": "Jesús María",
       "requested_date": "2024-09-05",
       "priority": "media",
-      "job_photos": ["https://example.com/job269_1.jpg", "https://example.com/job269_2.jpg"],
+      "job_photos": [
+        "https://example.com/job269_1.jpg",
+        "https://example.com/job269_2.jpg"
+      ],
       "status": "completado"
     },
     {
@@ -760,7 +942,9 @@
       "location": "San Miguel",
       "requested_date": "2024-09-15",
       "priority": "alta",
-      "job_photos": ["https://example.com/job273_1.jpg"],
+      "job_photos": [
+        "https://example.com/job273_1.jpg"
+      ],
       "status": "completado"
     },
     {
@@ -772,7 +956,9 @@
       "location": "Barranco",
       "requested_date": "2024-09-18",
       "priority": "media",
-      "job_photos": ["https://example.com/job274_1.jpg"],
+      "job_photos": [
+        "https://example.com/job274_1.jpg"
+      ],
       "status": "pendiente"
     },
     {
@@ -784,7 +970,10 @@
       "location": "Chorrillos",
       "requested_date": "2024-09-20",
       "priority": "media",
-      "job_photos": ["https://example.com/job275_1.jpg", "https://example.com/job275_2.jpg"],
+      "job_photos": [
+        "https://example.com/job275_1.jpg",
+        "https://example.com/job275_2.jpg"
+      ],
       "status": "completado"
     },
     {
@@ -796,7 +985,9 @@
       "location": "La Victoria",
       "requested_date": "2024-09-22",
       "priority": "alta",
-      "job_photos": ["https://example.com/job276_1.jpg"],
+      "job_photos": [
+        "https://example.com/job276_1.jpg"
+      ],
       "status": "en progreso"
     },
     {
@@ -808,7 +999,10 @@
       "location": "San Isidro",
       "requested_date": "2024-09-25",
       "priority": "media",
-      "job_photos": ["https://example.com/job277_1.jpg", "https://example.com/job277_2.jpg"],
+      "job_photos": [
+        "https://example.com/job277_1.jpg",
+        "https://example.com/job277_2.jpg"
+      ],
       "status": "completado"
     },
     {
