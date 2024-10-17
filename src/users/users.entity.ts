@@ -9,10 +9,7 @@ export class Users {
   email: string;
 
   @Column({ type: 'varchar', length: 50, nullable: false })
-  givenName: string;
-
-  @Column({ type: 'varchar', length: 50, nullable: false })
-  familyName: string;
+  fullname: string;
 
   //Needs to be nullable for google authenticaction
   @Column({ type: 'varchar', length: 100, nullable: true })
@@ -31,7 +28,7 @@ export class Users {
   profileImg: string;
 
   //User can be 'professional', 'client' or 'admin'
-  @Column({ type: 'varchar', nullable: true, default: 'client' })
+  @Column({ type: 'varchar', nullable: true })
   role: string;
 
   //another entity? many to many?
@@ -54,7 +51,7 @@ export class Users {
   @Column({ type: 'boolean', default: false })
   availability: boolean;
 
-  @Column({ type: 'varchar', length: 1000 })
+  @Column({ type: 'varchar', length: 1000, nullable: true })
   bio: string;
 
   //Photos can be added by the worker

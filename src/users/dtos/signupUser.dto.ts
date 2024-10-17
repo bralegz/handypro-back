@@ -7,11 +7,7 @@ export class SignupUserDto {
 
   @IsString()
   @Length(1, 50)
-  givenName: string;
-
-  @IsString()
-  @Length(1, 50)
-  familyName: string;
+  fullname: string;
 
   @IsStrongPassword()
   @IsString()
