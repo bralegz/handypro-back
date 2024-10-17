@@ -31,7 +31,7 @@ export class Users {
   profileImg: string;
 
   //User can be 'professional', 'client' or 'admin'
-  @Column({ type: 'varchar', nullable: true })
+  @Column({ type: 'varchar', nullable: true, default: 'client' })
   role: string;
 
   //another entity? many to many?
@@ -53,6 +53,9 @@ export class Users {
   //professional can switch his availability
   @Column({ type: 'boolean', default: false })
   availability: boolean;
+
+  @Column({ type: 'varchar', length: 1000 })
+  bio: string;
 
   //Photos can be added by the worker
   @Column({ type: 'simple-array', nullable: true })
