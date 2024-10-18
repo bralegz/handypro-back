@@ -4,7 +4,7 @@ import { UpdatePostDto } from './dto/update-post.dto';
 import * as Data from '../utils/data.json';
 
 @Injectable()
-export class PostsService {
+export class PostedJobsService {
     create(createPostDto: CreatePostDto) {
         return 'This action adds a new post';
     }
@@ -17,7 +17,7 @@ export class PostsService {
         return `This action returns a #${id} post`;
     }
 
-    findOneByProfession(profession: string) {
+    findByProfession(profession: string) {
         const categories = Data.categories;
 
         const isValid = categories.findIndex((category) => {
