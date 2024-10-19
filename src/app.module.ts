@@ -5,6 +5,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import typeOrmConfig from './config/typeorm.config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PostsModule } from './postedJobs/postedJobs.module';
+import { LocationsModule } from './locations/locations.module';
 
 @Module({
     imports: [
@@ -17,6 +18,7 @@ import { PostsModule } from './postedJobs/postedJobs.module';
             useFactory: (configService: ConfigService) =>
                 configService.get('typeorm'),
         }),
+        LocationsModule,
     ],
     controllers: [],
     providers: [],
