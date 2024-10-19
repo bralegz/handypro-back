@@ -1,9 +1,9 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('postedJobs')
-export class PostedJobs {
+@Entity('posted_jobs')
+export class PostedJobsEntity {
     @PrimaryGeneratedColumn('uuid')
-    posted_jobs_id: string;
+    posted_job_id: string;
 
     @Column('uuid', { default: null })
     client_id: string; // FK
@@ -17,26 +17,23 @@ export class PostedJobs {
     @Column('uuid', { default: null })
     category_id: string; // FK
 
+    @Column('varchar', { length: 800, nullable: false })
+    posted_job_description: string;
+
     @Column('uuid', { default: null })
     location_id: string; // FK
 
-    @Column('varchar', { length: 30, nullable: false })
-    requested_professional: string;
-
-    @Column('varchar', { length: 50, nullable: false })
-    posted_jobs_description: string;
-
     @Column('date', { nullable: false })
-    posted_jobs_date: string;
+    posted_job_date: string;
 
     @Column('varchar', { length: 20, nullable: false })
-    posted_jobs_priority: string;
+    posted_job_priority: string;
 
-    @Column('array', { array: true, nullable: false })
-    posted_jobs_job_photos: string[];
+    @Column('simple-array', { array: true, nullable: false })
+    posted_job_photos: string[];
 
     @Column('varchar', { length: 15, default: 'pendiente' })
-    posted_jobs_status: string;
+    posted_job_status: string;
 
     // Faltan las relaciones
 }
