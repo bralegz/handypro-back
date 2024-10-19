@@ -17,14 +17,14 @@ export class PostedJobs {
     @Column('uuid', { default: null })
     category_id: string; // FK
 
+    @Column('uuid', { default: null })
+    location_id: string; // FK
+
     @Column('varchar', { length: 30, nullable: false })
     requested_professional: string;
 
     @Column('varchar', { length: 50, nullable: false })
     posted_jobs_description: string;
-
-    @Column('varchar', { length: 50, nullable: false })
-    posted_jobs_location: string;
 
     @Column('date', { nullable: false })
     posted_jobs_date: string;
