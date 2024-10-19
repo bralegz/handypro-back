@@ -1,0 +1,18 @@
+export enum LocationEnum {
+    SanIsidro = 'San Isidro',
+    Lince = 'Lince',
+    Comas = 'Comas',
+    Miraflores = 'Miraflores',
+    Surco = 'Surco',
+    LaMolina = 'La Molina',
+    JesusMaria = 'Jesus Maria',
+    SanBorja = 'San Borja',
+    Magdalena = 'Magdalena',
+    SanMiguel = 'San Miguel',
+    Barranco = 'Barranco',
+    PuebloLibre = 'Pueblo Libre',
+    LosOlivos = 'Los Olivos',
+    SantaAnita = 'Santa Anita',
+    LaVictoria = 'La Victoria',
+    Chorrillos = 'Chorrillos',
+}
