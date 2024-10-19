@@ -1,5 +1,6 @@
+import { PostedJob } from 'src/postedJob/postedJob.entity';
 import { User } from '../user/user.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Location {
@@ -9,7 +10,9 @@ export class Location {
     @Column({ type: 'varchar', length: 50 })
     name: string;
 
-    //It generates a column called userId
-    @ManyToOne(() => User, (user) => user.locations)
-    user: User;
+    @OneToMany(() => User, (user) => user.location)
+    users: User[];
+
+    @OneToMany(() => PostedJob, (postedJob) => postedJob.location)
+    postedJobs: PostedJob[];
 }

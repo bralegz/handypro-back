@@ -1,5 +1,12 @@
+import { PostedJob } from 'src/postedJob/postedJob.entity';
 import { Location } from '../location/location.entity';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+    Column,
+    Entity,
+    ManyToOne,
+    OneToMany,
+    PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class User {
@@ -16,49 +23,43 @@ export class User {
     @Column({ type: 'varchar', length: 100, nullable: true })
     password: string;
 
-    //Needs to be nullable for google authenticaction
-    @Column({ type: 'varchar', length: 100, nullable: true })
-    confirmationPassword: string;
-
-    //User will need a phone number
     @Column({ type: 'varchar', length: 20, nullable: true })
     phone: string;
 
-    //User can edit profile picture
     @Column({ type: 'varchar', nullable: true })
     profileImg: string;
 
-    //User can be 'professional', 'client' or 'admin'
+    //'professional', 'client' or 'admin'
     @Column({ type: 'varchar', nullable: true })
     role: string;
 
-    //another entity? many to many?
     @Column({ type: 'simple-array', nullable: true })
-    profession: string[];
+    profession: string[]; //FK MANY TO MANY WITH CATEGORY
 
-    @OneToMany(() => Location, (location) => location.user)
-    locations: User[];
-
-    //calculated from all the reviews linked to this user
     @Column({ type: 'float4', nullable: true })
     rating: number;
 
-    //defined by the user
     @Column({ type: 'simple-array', nullable: true })
     services: string[];
 
-    //professional can switch his availability
     @Column({ type: 'boolean', default: false })
     availability: boolean;
 
     @Column({ type: 'varchar', length: 1000, nullable: true })
     bio: string;
 
-    //Photos can be added by the worker
     @Column({ type: 'simple-array', nullable: true })
     portfolio_gallery: string[];
 
-    //Years of experience can be added by the worker
     @Column({ type: 'int2', nullable: true })
     years_experience: number;
+
+    @ManyToOne(() => Location, (location) => location.users)
+    location: Location;
+
+    @OneToMany(() => PostedJob, (postedJob) => postedJob.client)
+    postedJobs: PostedJob[];
+
+    @OneToMany(() => PostedJob, (acceptedJob) => acceptedJob.professional)
+    acceptedJobs: PostedJob[];
 }

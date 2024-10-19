@@ -1,27 +1,41 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Location } from 'src/location/location.entity';
+import { Review } from 'src/review/review.entity';
+import { User } from 'src/user/user.entity';
+import {
+    Column,
+    Entity,
+    JoinColumn,
+    ManyToOne,
+    OneToOne,
+    PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class PostedJob {
     @PrimaryGeneratedColumn('uuid')
     posted_job_id: string;
 
-    @Column('uuid', { default: null })
-    client_id: string; // FK
+    @ManyToOne(() => User, (user) => user.postedJobs)
+    @JoinColumn({ name: 'clientId' })
+    client: User;
+
+    @ManyToOne(() => User, (user) => user.acceptedJobs)
+    @JoinColumn({ name: 'professionalId' })
+    professional: User;
+
+    @OneToOne(() => Review)
+    @JoinColumn({ name: 'reviewId' })
+    review: Review;
 
     @Column('uuid', { default: null })
-    professional_id: string; // FK
-
-    @Column('uuid', { default: null })
-    review_id: string; // FK
-
-    @Column('uuid', { default: null })
-    category_id: string; // FK
+    category_id: string; // FK MANY TO MANY WITH CATEGORY
 
     @Column('varchar', { length: 800, nullable: false })
     posted_job_description: string;
 
-    @Column('uuid', { default: null })
-    location_id: string; // FK
+    @ManyToOne(() => Location, (location) => location.postedJobs)
+    @JoinColumn({ name: 'locationId' })
+    location: Location;
 
     @Column('date', { nullable: false })
     posted_job_date: string;
@@ -35,5 +49,4 @@ export class PostedJob {
     @Column('varchar', { length: 15, default: 'pendiente' })
     posted_job_status: string;
 
-    // Faltan las relaciones
 }
