@@ -1,6 +1,12 @@
 import { PostedJob } from 'src/postedJob/postedJob.entity';
 import { Location } from '../location/location.entity';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+    Column,
+    Entity,
+    ManyToOne,
+    OneToMany,
+    PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class User {
@@ -48,8 +54,8 @@ export class User {
     @Column({ type: 'int2', nullable: true })
     years_experience: number;
 
-    @OneToMany(() => Location, (location) => location.user)
-    locations: Location[];
+    @ManyToOne(() => Location, (location) => location.users)
+    location: Location;
 
     @OneToMany(() => PostedJob, (postedJob) => postedJob.client)
     postedJobs: PostedJob[];
