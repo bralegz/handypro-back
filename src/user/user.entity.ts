@@ -1,3 +1,4 @@
+import { PostedJob } from 'src/postedJob/postedJob.entity';
 import { Location } from '../location/location.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
@@ -36,9 +37,6 @@ export class User {
     @Column({ type: 'simple-array', nullable: true })
     profession: string[];
 
-    @OneToMany(() => Location, (location) => location.user)
-    locations: User[];
-
     //calculated from all the reviews linked to this user
     @Column({ type: 'float4', nullable: true })
     rating: number;
@@ -54,11 +52,20 @@ export class User {
     @Column({ type: 'varchar', length: 1000, nullable: true })
     bio: string;
 
-    //Photos can be added by the worker
+  
     @Column({ type: 'simple-array', nullable: true })
     portfolio_gallery: string[];
 
-    //Years of experience can be added by the worker
+
     @Column({ type: 'int2', nullable: true })
     years_experience: number;
+
+    @OneToMany(() => Location, (location) => location.user)
+    locations: Location[];
+
+    @OneToMany(() => PostedJob, (postedJob) => postedJob.client)
+    postedJobs: PostedJob[];
+
+    @OneToMany(() => PostedJob, (acceptedJob) => acceptedJob.professional)
+    acceptedJobs: PostedJob[];
 }

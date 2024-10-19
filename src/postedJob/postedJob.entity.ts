@@ -1,15 +1,24 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { User } from 'src/user/user.entity';
+import {
+    Column,
+    Entity,
+    JoinColumn,
+    ManyToOne,
+    PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class PostedJob {
     @PrimaryGeneratedColumn('uuid')
     posted_job_id: string;
 
-    @Column('uuid', { default: null })
-    client_id: string; // FK
+    @ManyToOne(() => User, (user) => user.postedJobs)
+    @JoinColumn({ name: 'clientId' })
+    client: User;
 
-    @Column('uuid', { default: null })
-    professional_id: string; // FK
+    @ManyToOne(() => User, (user) => user.acceptedJobs)
+    @JoinColumn({ name: 'professionalId' })
+    professional: User;
 
     @Column('uuid', { default: null })
     review_id: string; // FK
