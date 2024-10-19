@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { UsersModule } from './users/users.module';
+import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import typeOrmConfig from './config/typeorm.config';
@@ -9,7 +9,7 @@ import { LocationsModule } from './locations/locations.module';
 
 @Module({
     imports: [
-        UsersModule,
+        UserModule,
         AuthModule,
         PostsModule,
         ConfigModule.forRoot({ isGlobal: true, load: [typeOrmConfig] }),

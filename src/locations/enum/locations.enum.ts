@@ -1,4 +1,4 @@
-export enum Locations {
+export enum LocationEnum {
     SanIsidro = 'San Isidro',
     Lince = 'Lince',
     Comas = 'Comas',

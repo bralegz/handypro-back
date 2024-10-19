@@ -2,7 +2,7 @@ import { Locations } from 'src/locations/locations.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'users' })
-export class Users {
+export class User {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
@@ -36,9 +36,8 @@ export class Users {
     @Column({ type: 'simple-array', nullable: true })
     profession: string[];
 
-    
     @OneToMany(() => Locations, (location) => location.user)
-    locations: Users[];
+    locations: User[];
 
     //calculated from all the reviews linked to this user
     @Column({ type: 'float4', nullable: true })

@@ -1,4 +1,4 @@
-import { Users } from '../users/users.entity';
+import { User } from '../user/user.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'locations' })
@@ -10,6 +10,6 @@ export class Locations {
     name: string;
 
     //It generates a column called userId
-    @ManyToOne(() => Users, (user) => user.locations)
-    user: Users;
+    @ManyToOne(() => User, (user) => user.locations)
+    user: User;
 }
