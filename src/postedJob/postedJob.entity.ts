@@ -1,9 +1,11 @@
+import { Review } from 'src/review/review.entity';
 import { User } from 'src/user/user.entity';
 import {
     Column,
     Entity,
     JoinColumn,
     ManyToOne,
+    OneToOne,
     PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -20,8 +22,9 @@ export class PostedJob {
     @JoinColumn({ name: 'professionalId' })
     professional: User;
 
-    @Column('uuid', { default: null })
-    review_id: string; // FK
+    @OneToOne(() => Review)
+    @JoinColumn({name: 'reviewId'})
+    review: Review;
 
     @Column('uuid', { default: null })
     category_id: string; // FK
