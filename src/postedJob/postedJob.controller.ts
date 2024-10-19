@@ -7,12 +7,12 @@ import {
     Param,
     Delete,
 } from '@nestjs/common';
-import { PostedJobsService } from './postedJobs.service';
+import { PostedJobsService } from './postedJob.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 
 @Controller('posted-jobs')
-export class PostedJobsController {
+export class PostedJobController {
     constructor(private readonly postsService: PostedJobsService) {}
 
     @Post()

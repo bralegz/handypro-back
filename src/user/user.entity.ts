@@ -1,4 +1,4 @@
-import { Locations } from 'src/locations/locations.entity';
+import { Location } from '../location/location.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'users' })
@@ -36,7 +36,7 @@ export class User {
     @Column({ type: 'simple-array', nullable: true })
     profession: string[];
 
-    @OneToMany(() => Locations, (location) => location.user)
+    @OneToMany(() => Location, (location) => location.user)
     locations: User[];
 
     //calculated from all the reviews linked to this user
