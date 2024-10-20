@@ -1,3 +1,4 @@
+import { Category } from 'src/category/category.entity';
 import { Location } from 'src/location/location.entity';
 import { Review } from 'src/review/review.entity';
 import { User } from 'src/user/user.entity';
@@ -5,6 +6,7 @@ import {
     Column,
     Entity,
     JoinColumn,
+    ManyToMany,
     ManyToOne,
     OneToOne,
     PrimaryGeneratedColumn,
@@ -27,9 +29,6 @@ export class PostedJob {
     @JoinColumn({ name: 'reviewId' })
     review: Review;
 
-    @Column('uuid', { default: null })
-    category_id: string; // FK MANY TO MANY WITH CATEGORY
-
     @Column('varchar', { length: 800, nullable: false })
     posted_job_description: string;
 
@@ -49,4 +48,6 @@ export class PostedJob {
     @Column('varchar', { length: 15, default: 'pendiente' })
     posted_job_status: string;
 
+    @ManyToMany(() => Category, (category) => category.postedJobs)
+    categories: Category[];
 }

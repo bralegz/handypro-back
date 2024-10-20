@@ -6,6 +6,7 @@ import typeOrmConfig from './config/typeorm.config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PostedJobModule } from './postedJob/postedJob.module';
 import { LocationModule } from './location/location.module';
+import { CategoryModule } from './category/category.module';
 
 @Module({
     imports: [
@@ -19,6 +20,7 @@ import { LocationModule } from './location/location.module';
                 configService.get('typeorm'),
         }),
         LocationModule,
+        CategoryModule,
     ],
     controllers: [],
     providers: [],

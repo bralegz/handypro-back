@@ -3,10 +3,13 @@ import { Location } from '../location/location.entity';
 import {
     Column,
     Entity,
+    JoinTable,
+    ManyToMany,
     ManyToOne,
     OneToMany,
     PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Category } from 'src/category/category.entity';
 
 @Entity()
 export class User {
@@ -32,9 +35,6 @@ export class User {
     //'professional', 'client' or 'admin'
     @Column({ type: 'varchar', nullable: true })
     role: string;
-
-    @Column({ type: 'simple-array', nullable: true })
-    profession: string[]; //FK MANY TO MANY WITH CATEGORY
 
     @Column({ type: 'float4', nullable: true })
     rating: number;
@@ -62,4 +62,8 @@ export class User {
 
     @OneToMany(() => PostedJob, (acceptedJob) => acceptedJob.professional)
     acceptedJobs: PostedJob[];
+
+    @ManyToMany(() => Category, (category) => category.users)
+    @JoinTable()
+    categories: Category[];
 }
