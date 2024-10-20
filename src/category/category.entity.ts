@@ -1,12 +1,6 @@
 import { User } from 'src/user/user.entity';
 import { PostedJob } from 'src/postedJob/postedJob.entity';
-import {
-    Column,
-    Entity,
-    JoinTable,
-    ManyToMany,
-    PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Category {
@@ -16,13 +10,11 @@ export class Category {
     @Column({ type: 'varchar', length: 100 })
     name: string;
 
-    @ManyToMany(() => User, (user) => user.profession, { cascade: true })
-    @JoinTable()
+    @ManyToMany(() => User, (user) => user.categories, { cascade: true })
     users: User[];
 
     @ManyToMany(() => PostedJob, (postedJob) => postedJob.categories, {
         cascade: true,
     })
-    @JoinTable()
     postedJobs: PostedJob[];
 }

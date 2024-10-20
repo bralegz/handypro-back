@@ -3,6 +3,7 @@ import { Location } from '../location/location.entity';
 import {
     Column,
     Entity,
+    JoinTable,
     ManyToMany,
     ManyToOne,
     OneToMany,
@@ -35,9 +36,6 @@ export class User {
     @Column({ type: 'varchar', nullable: true })
     role: string;
 
-    @Column({ type: 'simple-array', nullable: true })
-    profession: string[]; //FK MANY TO MANY WITH CATEGORY
-
     @Column({ type: 'float4', nullable: true })
     rating: number;
 
@@ -66,5 +64,6 @@ export class User {
     acceptedJobs: PostedJob[];
 
     @ManyToMany(() => Category, (category) => category.users)
+    @JoinTable()
     categories: Category[];
 }

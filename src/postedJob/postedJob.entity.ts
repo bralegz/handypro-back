@@ -50,5 +50,4 @@ export class PostedJob {
 
     @ManyToMany(() => Category, (category) => category.postedJobs)
     categories: Category[];
-
 }
