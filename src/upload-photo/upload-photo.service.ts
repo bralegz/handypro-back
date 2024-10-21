@@ -1,5 +1,5 @@
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { lookup } from 'mime-types';
 
@@ -11,27 +11,29 @@ export class UploadPhotoService {
         region: this.configService.getOrThrow('AWS_S3_REGION'),
     });
 
-    async uploadPhoto(fileName: string, file: Buffer) {
+    async uploadPhoto(fileName: string, file: Buffer): Promise<string> {
         const bucketName = this.configService.getOrThrow('AWS_BUCKET_NAME');
         const region = this.configService.getOrThrow('AWS_S3_REGION');
         const contentType = lookup(fileName) || 'application/octet-stream';
 
-        await this.s3Client.send(
-            new PutObjectCommand({
-                Bucket: bucketName,
-                Key: fileName,
-                Body: file,
-                ContentType: contentType,
-                ContentDisposition: 'inline',
-            }),
-        );
+        try {
+            await this.s3Client.send(
+                new PutObjectCommand({
+                    Bucket: bucketName,
+                    Key: fileName,
+                    Body: file,
+                    ContentType: contentType,
+                    ContentDisposition: 'inline',
+                }),
+            );
 
-        const encodedFileName = encodeURIComponent(fileName);
+            const encodedFileName = encodeURIComponent(fileName);
+            const fileUrl = `https://${bucketName}.s3.${region}.amazonaws.com/${encodedFileName}`;
 
-        console.log(encodedFileName);
-
-        const fileUrl = `https://${bucketName}.s3.${region}.amazonaws.com/${encodedFileName}`;
-
-        return fileUrl;
+            return fileUrl;
+        } catch (error) {
+            console.error('Error uploading photo:', error.message);
+            throw new InternalServerErrorException(error.message);
+        }
     }
 }
