@@ -7,6 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { PostedJobModule } from './postedJob/postedJob.module';
 import { LocationModule } from './location/location.module';
 import { CategoryModule } from './category/category.module';
+import { UploadPhotoModule } from './upload-photo/upload-photo.module';
 
 @Module({
     imports: [
@@ -21,6 +22,7 @@ import { CategoryModule } from './category/category.module';
         }),
         LocationModule,
         CategoryModule,
+        UploadPhotoModule,
     ],
     controllers: [],
     providers: [],
