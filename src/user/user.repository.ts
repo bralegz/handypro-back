@@ -6,6 +6,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class UserRepository {
+   
     constructor(
         @InjectRepository(User)
         private readonly userRepository: Repository<User>,
@@ -22,5 +23,11 @@ export class UserRepository {
         const user = this.userRepository.findOne({ where: { email } });
 
         return user;
+    }
+
+    async getProfessionals(professions: string, page: number, limit: number) {
+        const users = await this.userRepository.find();
+
+        return users;
     }
 }

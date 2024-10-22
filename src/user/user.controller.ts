@@ -6,11 +6,11 @@ export class UserController {
     constructor(private readonly usersService: UserService) {}
 
     @Get()
-    getProfessionals(
+    async getProfessionals(
         @Query('professions') professions?: string,
         @Query('page') page?: number,
         @Query('limit') limit?: number,
     ) {
-        return this.usersService.getProfessionals(professions, page, limit);
+        return await this.usersService.getProfessionals(professions, page, limit);
     }
 }

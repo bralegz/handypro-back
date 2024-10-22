@@ -1,0 +1,157 @@
+{
+    "posted_jobs": [
+        {
+            "posted_job_id": 241,
+            "client": 101,
+            "professional": 1,
+            "review": {
+                "review_id": 337
+            },
+            "posted_job_description": "Reparación de enchufe en la sala",
+            "location": {
+                "locationId": 1,
+                "name": "San Miguel"
+            },
+            "posted_job_date": "2024-06-25",
+            "posted_job_priority": "media",
+            "posted_job_photos": [
+                "https://example.com/job241_1.jpg",
+                "https://example.com/job241_2.jpg"
+            ],
+            "posted_job_status": "completado",
+            "categories": [
+                {
+                    "id": 1,
+                    "name": "Electricista"
+                }
+            ]
+        },
+        {
+            "posted_job_id": 242,
+            "client": 102,
+            "professional": 2,
+            "review": {
+                "review_id": 338
+            },
+            "posted_job_description": "Mantenimiento de jardín trasero",
+            "location": {
+                "locationId": 3,
+                "name": "Pueblo Libre"
+            },
+            "posted_job_date": "2024-06-28",
+            "posted_job_priority": "baja",
+            "posted_job_photos": [
+                "https://example.com/job242_1.jpg",
+                "https://example.com/job242_2.jpg"
+            ],
+            "posted_job_status": "pendiente",
+            "categories": [
+                {
+                    "id": 3,
+                    "name": "Jardinero"
+                }
+            ]
+        },
+        {
+            "posted_job_id": 243,
+            "client": 103,
+            "professional": 2,
+            "review": {
+                "review_id": 345
+            },
+            "posted_job_description": "Construcción de estantería a medida",
+            "location": {
+                "locationId": 3,
+                "name": "Barranco"
+            },
+            "posted_job_date": "2024-07-01",
+            "posted_job_priority": "media",
+            "posted_job_photos": [
+                "https://example.com/job243_1.jpg",
+                "https://example.com/job243_2.jpg"
+            ],
+            "posted_job_status": "completado",
+            "categories": [
+                {
+                    "id": 9,
+                    "name": "Carpintero"
+                }
+            ]
+        },
+        {
+            "posted_job_id": 244,
+            "client": 104,
+            "professional": 4,
+            "review": {
+                "review_id": 356
+            },
+            "posted_job_description": "Desatascar tubería de cocina",
+            "location": {
+                "locationId": 4,
+                "name": "Chorrillos"
+            },
+            "posted_job_date": "2024-07-03",
+            "posted_job_priority": "alta",
+            "posted_job_photos": [
+                "https://example.com/job244_1.jpg",
+                "https://example.com/job244_2.jpg"
+            ],
+            "posted_job_status": "en progreso",
+            "categories": [
+                {
+                    "id": 4,
+                    "name": "Plomero"
+                }
+            ]
+        },
+        {
+            "posted_job_id": 245,
+            "client": 105,
+            "professional": 5,
+            "review": {
+                "review_id": 333
+            },
+            "posted_job_description": "Pintura de techo en dormitorio",
+            "location": {
+                "locationId": 5,
+                "name": "La Victoria"
+            },
+            "posted_job_date": "2024-07-05",
+            "posted_job_priority": "media",
+            "posted_job_photos": [
+                "https://example.com/job245_1.jpg",
+                "https://example.com/job245_2.jpg"
+            ],
+            "posted_job_status": "completado",
+            "categories": [
+                {
+                    "id": 8,
+                    "name": "Pintor"
+                }
+            ]
+        },
+        {
+            "posted_job_id": 246,
+            "client": 106,
+            "professional": 6,
+            "review": {
+                "review_id": 348
+            },
+            "posted_job_description": "Fotografía de boda",
+            "location": {
+                "locationId": 6,
+                "name": "San Isidro"
+            },
+            "posted_job_date": "2024-07-08",
+            "posted_job_priority": "alta",
+            "posted_job_photos": [],
+            "posted_job_status": "completado",
+            "categories": [
+                {
+                    "id": 5,
+                    "name": "Fotógrafo"
+                }
+            ]
+        }
+  ]
+}

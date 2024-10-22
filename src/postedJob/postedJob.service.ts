@@ -1,20 +1,28 @@
-import { Injectable } from '@nestjs/common';
-import { CreatePostDto } from './dto/create-post.dto';
-import { UpdatePostDto } from './dto/update-post.dto';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import * as Data from '../utils/data.json';
+import { PostedJobRepository } from './postedJob.repository';
 
 @Injectable()
-export class PostedJobsService {
-    create(createPostDto: CreatePostDto) {
-        return 'This action adds a new post';
-    }
+export class PostedJobService {
+    constructor(private readonly postedJobRepository: PostedJobRepository) {}
 
     findAll() {
         return Data.requested_jobs;
     }
 
-    findOne(id: number) {
-        return `This action returns a #${id} post`;
+    async findJob(id: string) {
+        try {
+            const postedJob = await this.postedJobRepository.findJob(id);
+            
+            if(!postedJob) {
+                throw new Error('Este trabajo no ha sido posteado')
+            }
+
+            return postedJob;
+        } catch (error) {
+            throw new BadRequestException(error.message)
+        }        
+        
     }
 
     findByProfession(profession: string) {
@@ -34,13 +42,5 @@ export class PostedJobsService {
                 profession.toLowerCase()
             );
         });
-    }
-
-    update(id: number, updatePostDto: UpdatePostDto) {
-        return `This action updates a #${id} post`;
-    }
-
-    remove(id: number) {
-        return `This action removes a #${id} post`;
     }
 }

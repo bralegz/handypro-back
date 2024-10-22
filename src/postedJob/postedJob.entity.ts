@@ -6,6 +6,7 @@ import {
     Column,
     Entity,
     JoinColumn,
+    JoinTable,
     ManyToMany,
     ManyToOne,
     OneToOne,
@@ -15,7 +16,7 @@ import {
 @Entity()
 export class PostedJob {
     @PrimaryGeneratedColumn('uuid')
-    posted_job_id: string;
+    id: string;
 
     @ManyToOne(() => User, (user) => user.postedJobs)
     @JoinColumn({ name: 'clientId' })
@@ -42,12 +43,13 @@ export class PostedJob {
     @Column('varchar', { length: 20, nullable: false })
     posted_job_priority: string;
 
-    @Column('simple-array', { array: true, nullable: false })
+    @Column('text', { array: true, nullable: false })
     posted_job_photos: string[];
 
     @Column('varchar', { length: 15, default: 'pendiente' })
     posted_job_status: string;
 
     @ManyToMany(() => Category, (category) => category.postedJobs)
+    @JoinTable()
     categories: Category[];
 }
