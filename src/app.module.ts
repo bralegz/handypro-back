@@ -8,7 +8,6 @@ import { PostedJobModule } from './postedJob/postedJob.module';
 import { CategoryModule } from './category/category.module';
 import { PreloadService } from './preload.service'; // Asegúrate de que la ruta sea correcta
 import { LocationModule } from './location/location.module';
-import { UserRepository } from './user/user.repository';
 import { ReviewsModule } from './review/review.module';
 import { UploadPhotoModule } from './upload-photo/upload-photo.module';
 
@@ -25,7 +24,7 @@ import { UploadPhotoModule } from './upload-photo/upload-photo.module';
         }),
         CategoryModule,
         LocationModule,
-        ReviewsModule
+        ReviewsModule,
         UploadPhotoModule,
     ],
     controllers: [],

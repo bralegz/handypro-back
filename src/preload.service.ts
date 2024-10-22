@@ -65,9 +65,13 @@ export class PreloadService {
                         const category = await this.categoryRepository.findOne({
                             where: { name: categoryName },
                         });
-                        return category; 
+                        return category;
                     }),
                 );
+                const location = await this.locationRepository.findOne({
+                    where: { name: user.location },
+                });
+
                 return {
                     email: user.contact.email,
                     fullname: user.name,
@@ -81,7 +85,8 @@ export class PreloadService {
                     bio: user.bio,
                     portfolio_gallery: user.portfolio_gallery,
                     years_experience: user.experience,
-                    categories: categories.filter((category) => category), // Filtra las categorías válidas
+                    categories: categories.filter((category) => category),
+                    location: location || null,
                 };
             }),
         );
