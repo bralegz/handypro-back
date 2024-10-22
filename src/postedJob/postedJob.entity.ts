@@ -16,7 +16,7 @@ import {
 @Entity()
 export class PostedJob {
     @PrimaryGeneratedColumn('uuid')
-    posted_job_id: string;
+    id: string;
 
     @ManyToOne(() => User, (user) => user.postedJobs)
     @JoinColumn({ name: 'clientId' })
