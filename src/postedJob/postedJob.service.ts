@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import * as Data from '../utils/data.json';
 import { PostedJobRepository } from './postedJob.repository';
 
@@ -11,8 +11,18 @@ export class PostedJobService {
     }
 
     async findJob(id: string) {
-        const postedJob = await this.postedJobRepository.findJob(id);
-        return postedJob;
+        try {
+            const postedJob = await this.postedJobRepository.findJob(id);
+            
+            if(!postedJob) {
+                throw new Error('Este trabajo no ha sido posteado')
+            }
+
+            return postedJob;
+        } catch (error) {
+            throw new BadRequestException(error.message)
+        }        
+        
     }
 
     findByProfession(profession: string) {
