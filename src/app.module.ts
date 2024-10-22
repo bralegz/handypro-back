@@ -10,6 +10,7 @@ import { PreloadService } from './preload.service'; // Asegúrate de que la ruta
 import { LocationModule } from './location/location.module';
 import { UserRepository } from './user/user.repository';
 import { ReviewsModule } from './review/review.module';
+import { UploadPhotoModule } from './upload-photo/upload-photo.module';
 
 @Module({
     imports: [
@@ -25,7 +26,7 @@ import { ReviewsModule } from './review/review.module';
         CategoryModule,
         LocationModule,
         ReviewsModule
- 
+        UploadPhotoModule,
     ],
     controllers: [],
     providers: [PreloadService], 
