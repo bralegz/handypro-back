@@ -1,0 +1,529 @@
+{
+    "users": [
+      {
+        "id": 1,
+        "name": "Carlos Martínez",
+        "profession": ["Electricista", "Mecánico"],
+        "info": "San Isidro",
+        "rating": 1.8,
+        "services": [
+          "Reparaciones eléctricas",
+          "Instalación de cableado",
+          "Configuración de iluminación",
+          "Reparación de motores"
+        ],
+        "availability": true,
+        "portfolio_gallery": [
+          "https://picsum.photos/600/400?random=1",
+          "https://picsum.photos/600/400?random=2",
+          "https://picsum.photos/600/400?random=3"
+        ],
+        "experience": 10,
+        "contact": {
+          "phone": "+51-555-0123",
+          "email": "carlos.martinez@example.com"
+        },
+        "profile_picture": "https://i.pravatar.cc/150?u=a042581f4e29026024d",
+        "role": "professional",
+        "password": "password",
+        "bio": "Soy especialista en reparaciones eléctricas y de motores. Con más de 10 años de experiencia, ofrezco servicios de instalación de cableado y configuración de iluminación en San Isidro."
+      },
+      {
+        "id": 2,
+        "name": "Ana López",
+        "profession": ["Jardinero"],
+        "info": "Lince",
+        "rating": 3,
+        "services": ["Cuidado del césped", "Poda de árboles", "Diseño de jardines"],
+        "availability": true,
+        "portfolio_gallery": [
+          "https://picsum.photos/600/400?random=4",
+          "https://picsum.photos/600/400?random=5",
+          "https://picsum.photos/600/400?random=6"
+        ],
+        "experience": 7,
+        "contact": {
+          "phone": "+51-555-0456",
+          "email": "ana.lopez@example.com"
+        },
+        "profile_picture": "https://i.pravatar.cc/150?u=a04258a2462d826712d",
+        "role": "professional",
+        "password": "password",
+        "bio": "Me especializo en el cuidado del césped y poda de árboles, brindando servicios de diseño de jardines. Disfruto transformando espacios verdes en hermosos jardines que embellecen cualquier hogar."
+      },
+      {
+        "id": 3,
+        "name": "Roberto García",
+        "profession": ["Carpintero"],
+        "info": "Comas",
+        "rating": 4.9,
+        "services": [
+          "Muebles personalizados",
+          "Reparaciones del hogar",
+          "Restauración de trabajos en madera"
+        ],
+        "availability": false,
+        "portfolio_gallery": [
+          "https://picsum.photos/600/400?random=7",
+          "https://picsum.photos/600/400?random=8",
+          "https://picsum.photos/600/400?random=9"
+        ],
+        "experience": 15,
+        "contact": {
+          "phone": "+51-555-0789",
+          "email": "roberto.garcia@example.com"
+        },
+        "profile_picture": "https://i.pravatar.cc/150?u=a042581f4e29026704d",
+        "role": "professional",
+        "password": "password",
+        "bio": "Con más de 15 años de experiencia, me dedico a crear muebles personalizados y reparar estructuras del hogar. Además, restauro piezas de madera, devolviéndoles su encanto original."
+      },
+      {
+        "id": 4,
+        "name": "Laura Fernández",
+        "profession": ["Plomero", "Gasfitero"],
+        "info": "Miraflores",
+        "rating": 4.7,
+        "services": ["Reparación de tuberías", "Instalación de sanitarios", "Detección de fugas"],
+        "availability": true,
+        "portfolio_gallery": [
+          "https://picsum.photos/600/400?random=10",
+          "https://picsum.photos/600/400?random=11",
+          "https://picsum.photos/600/400?random=12"
+        ],
+        "experience": 8,
+        "contact": {
+          "phone": "+51-555-1011",
+          "email": "laura.fernandez@example.com"
+        },
+        "profile_picture": "https://i.pravatar.cc/150?u=a04258114e29026302d",
+        "role": "professional",
+        "password": "password",
+        "bio": "Experta en la reparación de tuberías y detección de fugas, brindo servicios de instalación de sanitarios en la zona de Miraflores. Tengo 8 años de experiencia en el sector."
+      },
+      {
+        "id": 5,
+        "name": "Diego Sánchez",
+        "profession": ["Pintor"],
+        "info": "Surco",
+        "rating": 4.6,
+        "services": ["Pintura de interiores", "Pintura de exteriores", "Decoración mural"],
+        "availability": true,
+        "portfolio_gallery": [
+          "https://picsum.photos/600/400?random=13",
+          "https://picsum.photos/600/400?random=14",
+          "https://picsum.photos/600/400?random=15"
+        ],
+        "experience": 12,
+        "contact": {
+          "phone": "+51-555-1213",
+          "email": "diego.sanchez@example.com"
+        },
+        "profile_picture": "https://i.pravatar.cc/150?u=a04258114e29026708c",
+        "role": "professional",
+        "password": "password",
+        "bio": "Soy pintor profesional con 12 años de experiencia. Ofrezco servicios de pintura de interiores y exteriores, además de decoración mural para personalizar y embellecer los espacios."
+      },
+      {
+        "id": 6,
+        "name": "Carmen Rojas",
+        "profession": ["Diseñador"],
+        "info": "La Molina",
+        "rating": 4.8,
+        "services": ["Diseño de interiores", "Diseño gráfico", "Diseño web"],
+        "availability": true,
+        "portfolio_gallery": [
+          "https://picsum.photos/600/400?random=16",
+          "https://picsum.photos/600/400?random=17",
+          "https://picsum.photos/600/400?random=18"
+        ],
+        "experience": 9,
+        "contact": {
+          "phone": "+51-555-1415",
+          "email": "carmen.rojas@example.com"
+        },
+        "profile_picture": "https://i.pravatar.cc/150?u=a04258a2462d826712d",
+        "role": "professional",
+        "password": "password",
+        "bio": "Soy diseñadora de interiores con experiencia en diseño gráfico y web. Me apasiona transformar espacios y proyectos visuales en soluciones creativas, aportando elegancia y funcionalidad."
+      },
+      {
+        "id": 7,
+        "name": "Javier Mendoza",
+        "profession": ["Electricista"],
+        "info": "Jesús María",
+        "rating": 4.9,
+        "services": [
+          "Instalación de sistemas eléctricos",
+          "Reparación de circuitos",
+          "Mantenimiento eléctrico"
+        ],
+        "availability": true,
+        "portfolio_gallery": [
+          "https://picsum.photos/600/400?random=19",
+          "https://picsum.photos/600/400?random=20",
+          "https://picsum.photos/600/400?random=21"
+        ],
+        "experience": 14,
+        "contact": {
+          "phone": "+51-555-1617",
+          "email": "javier.mendoza@example.com"
+        },
+        "profile_picture": "https://i.pravatar.cc/150?u=a04258114e29026708c",
+        "role": "professional",
+        "password": "password",
+        "bio": "Ofrezco instalación y reparación de sistemas eléctricos con 14 años de experiencia. Trabajo en Jesús María y mi objetivo es garantizar el correcto funcionamiento de cada instalación."
+      },
+      {
+        "id": 8,
+        "name": "Patricia Vargas",
+        "profession": ["Diseñador"],
+        "info": "San Borja",
+        "rating": 4.7,
+        "services": ["Diseño de espacios", "Asesoría de decoración", "Remodelaciones"],
+        "availability": true,
+        "portfolio_gallery": [
+          "https://picsum.photos/600/400?random=22",
+          "https://picsum.photos/600/400?random=23",
+          "https://picsum.photos/600/400?random=24"
+        ],
+        "experience": 11,
+        "contact": {
+          "phone": "+51-555-1819",
+          "email": "patricia.vargas@example.com"
+        },
+        "profile_picture": "https://i.pravatar.cc/150?u=a042581f4e29026704d",
+        "role": "professional",
+        "password": "password",
+        "bio": "Diseño espacios funcionales y estéticamente agradables. Tengo 11 años de experiencia en asesoría de decoración y remodelaciones, transformando hogares y oficinas en San Borja."
+      },
+      {
+        "id": 9,
+        "name": "Andrés Quiroga",
+        "profession": ["Electricista"],
+        "info": "Magdalena",
+        "rating": 4.6,
+        "services": [
+          "Instalación de aire acondicionado",
+          "Mantenimiento de sistemas de climatización",
+          "Reparación de equipos"
+        ],
+        "availability": true,
+        "portfolio_gallery": [
+          "https://picsum.photos/600/400?random=25",
+          "https://picsum.photos/600/400?random=26",
+          "https://picsum.photos/600/400?random=27"
+        ],
+        "experience": 13,
+        "contact": {
+          "phone": "+51-555-2021",
+          "email": "andres.quiroga@example.com"
+        },
+        "profile_picture": "https://i.pravatar.cc/150?u=a042581f4e29026704d",
+        "role": "professional",
+        "password": "password",
+        "bio": "Soy especialista en la instalación y mantenimiento de sistemas de climatización, con 13 años de experiencia. Trabajo en Magdalena y mi objetivo es optimizar la eficiencia de los equipos."
+      },
+      {
+        "id": 10,
+        "name": "Sofía Romero",
+        "profession": ["Gasfitero"],
+        "info": "Pueblo Libre",
+        "rating": 4.7,
+        "services": [
+          "Instalación de tuberías",
+          "Reparación de fugas",
+          "Mantenimiento de gas"
+        ],
+        "availability": true,
+        "portfolio_gallery": [
+          "https://picsum.photos/600/400?random=28",
+          "https://picsum.photos/600/400?random=29",
+          "https://picsum.photos/600/400?random=30"
+        ],
+        "experience": 6,
+        "contact": {
+          "phone": "+51-555-2122",
+          "email": "sofia.romero@example.com"
+        },
+        "profile_picture": "https://i.pravatar.cc/150?u=a04258a2462d826713d",
+        "role": "professional",
+        "password": "password",
+        "bio": "Experta en instalación y mantenimiento de sistemas de gas. Con 6 años de experiencia en el sector, me dedico a garantizar la seguridad en el uso de gas en hogares y empresas."
+      },
+      {
+        "id": 11,
+        "name": "Fernando López",
+        "profession": ["Carpintero"],
+        "info": "San Juan de Lurigancho",
+        "rating": 4.8,
+        "services": [
+          "Fabricación de muebles a medida",
+          "Reparación de estructuras",
+          "Restauración de muebles"
+        ],
+        "availability": true,
+        "portfolio_gallery": [
+          "https://picsum.photos/600/400?random=31",
+          "https://picsum.photos/600/400?random=32",
+          "https://picsum.photos/600/400?random=33"
+        ],
+        "experience": 9,
+        "contact": {
+          "phone": "+51-555-2324",
+          "email": "fernando.lopez@example.com"
+        },
+        "profile_picture": "https://i.pravatar.cc/150?u=a04258a2462d826713d",
+        "role": "professional",
+        "password": "password",
+        "bio": "Con más de 9 años de experiencia, me especializo en la fabricación de muebles a medida y en la reparación de estructuras de madera. Mi objetivo es brindar soluciones personalizadas a cada cliente."
+      },
+      {
+        "id": 12,
+        "name": "Lucía Torres",
+        "profession": ["Diseñador"],
+        "info": "San Martín de Porres",
+        "rating": 4.5,
+        "services": [
+          "Diseño gráfico",
+          "Branding",
+          "Diseño web"
+        ],
+        "availability": true,
+        "portfolio_gallery": [
+          "https://picsum.photos/600/400?random=34",
+          "https://picsum.photos/600/400?random=35",
+          "https://picsum.photos/600/400?random=36"
+        ],
+        "experience": 5,
+        "contact": {
+          "phone": "+51-555-2425",
+          "email": "lucia.torres@example.com"
+        },
+        "profile_picture": "https://i.pravatar.cc/150?u=a04258a2462d826713d",
+        "role": "professional",
+        "password": "password",
+        "bio": "Soy diseñadora gráfica con experiencia en branding y diseño web. Me apasiona crear identidades visuales que resalten y representen a cada marca de manera única."
+      },
+      {
+        "id": 13,
+        "name": "Ricardo Salas",
+        "profession": ["Pintor"],
+        "info": "Callao",
+        "rating": 4.6,
+        "services": [
+          "Pintura de interiores",
+          "Acabados decorativos",
+          "Restauración de fachadas"
+        ],
+        "availability": true,
+        "portfolio_gallery": [
+          "https://picsum.photos/600/400?random=37",
+          "https://picsum.photos/600/400?random=38",
+          "https://picsum.photos/600/400?random=39"
+        ],
+        "experience": 8,
+        "contact": {
+          "phone": "+51-555-2627",
+          "email": "ricardo.salas@example.com"
+        },
+        "profile_picture": "https://i.pravatar.cc/150?u=a04258a2462d826713d",
+        "role": "professional",
+        "password": "password",
+        "bio": "Pintor con 8 años de experiencia en el sector. Me especializo en acabados decorativos y restauración de fachadas, ayudando a revitalizar los espacios de mis clientes."
+      },
+      {
+        "id": 14,
+        "name": "Natalia Benítez",
+        "profession": ["Jardinero", "Paisajista"],
+        "info": "Rimac",
+        "rating": 0,
+        "services": [
+          "Diseño de jardines",
+          "Mantenimiento de espacios verdes",
+          "Poda de plantas"
+        ],
+        "availability": true,
+        "portfolio_gallery": [
+          "https://picsum.photos/600/400?random=40",
+          "https://picsum.photos/600/400?random=41",
+          "https://picsum.photos/600/400?random=42"
+        ],
+        "experience": 7,
+        "contact": {
+          "phone": "+51-555-2829",
+          "email": "natalia.benitez@example.com"
+        },
+        "profile_picture": "https://i.pravatar.cc/150?u=a04258a2462d826713d",
+        "role": "professional",
+        "password": "password",
+        "bio": "Con 7 años de experiencia como jardinera y paisajista, diseño y mantengo espacios verdes que embellecen cada hogar. Me encanta transformar cualquier área en un lugar acogedor y lleno de vida."
+      },
+      {
+        "id": 101,
+        "name": "Juan Pérez",
+        "location": "La Molina",
+        "contact": {
+          "email": "juan.perez@example.com",
+          "phone": "+51-555-1234"
+        },
+        "profile_picture": "https://example.com/juan.jpg",
+        "role": "client",
+        "dark-theme": true
+      },
+      {
+        "id": 102,
+        "name": "María Rodríguez",
+        "location": "Los Olivos",
+        "contact": {
+          "email": "maria.rodriguez@example.com",
+          "phone": "+51-555-5678"
+        },
+        "role": "client",
+        "dark-theme": false
+      },
+      {
+        "id": 103,
+        "name": "Miguel González",
+        "location": "Santa Anita",
+        "contact": {
+          "email": "miguel.gonzalez@example.com",
+          "phone": "+51-555-9101"
+        },
+        "role": "client",
+        "dark-theme": true
+      },
+      {
+        "id": 104,
+        "name": "Luisa Fernández",
+        "location": "San Isidro",
+        "contact": {
+          "email": "luisa.fernandez@example.com",
+          "phone": "+51-555-1112"
+        },
+        "role": "client",
+        "dark-theme": false
+      },
+      {
+        "id": 105,
+        "name": "Pedro Álvarez",
+        "location": "Miraflores",
+        "contact": {
+          "email": "pedro.alvarez@example.com",
+          "phone": "+51-555-1314"
+        },
+        "role": "client",
+        "dark-theme": true
+      },
+      {
+        "id": 106,
+        "name": "Carla Vega",
+        "location": "Surco",
+        "contact": {
+          "email": "carla.vega@example.com",
+          "phone": "+51-555-1516"
+        },
+        "role": "client",
+        "dark-theme": false
+      },
+      {
+        "id": 107,
+        "name": "Ricardo Díaz",
+        "location": "Lince",
+        "contact": {
+          "email": "ricardo.diaz@example.com",
+          "phone": "+51-555-1718"
+        },
+        "role": "client",
+        "dark-theme": true
+      },
+      {
+        "id": 108,
+        "name": "Valeria Castro",
+        "location": "Jesús María",
+        "contact": {
+          "email": "valeria.castro@example.com",
+          "phone": "+51-555-1920"
+        },
+        "role": "client",
+        "dark-theme": false
+      },
+      {
+        "id": 109,
+        "name": "Gabriel Ortiz",
+        "location": "San Borja",
+        "contact": {
+          "email": "gabriel.ortiz@example.com",
+          "phone": "+51-555-2122"
+        },
+        "role": "client",
+        "dark-theme": true
+      },
+      {
+        "id": 110,
+        "name": "Camila Torres",
+        "location": "Magdalena",
+        "contact": {
+          "email": "camila.torres@example.com",
+          "phone": "+51-555-2324"
+        },
+        "role": "client",
+        "dark-theme": false
+      },
+      {
+        "id": 111,
+        "name": "Fernando Ramos",
+        "location": "San Miguel",
+        "contact": {
+          "email": "fernando.ramos@example.com",
+          "phone": "+51-555-2526"
+        },
+        "role": "client",
+        "dark-theme": true
+      },
+      {
+        "id": 112,
+        "name": "Isabel Mendoza",
+        "location": "Pueblo Libre",
+        "contact": {
+          "email": "isabel.mendoza@example.com",
+          "phone": "+51-555-2728"
+        },
+        "role": "client",
+        "dark-theme": false
+      },
+      {
+        "id": 113,
+        "name": "Andrés Silva",
+        "location": "Barranco",
+        "contact": {
+          "email": "andres.silva@example.com",
+          "phone": "+51-555-2930"
+        },
+        "role": "client",
+        "dark-theme": true
+      },
+      {
+        "id": 114,
+        "name": "Lucía Herrera",
+        "location": "Chorrillos",
+        "contact": {
+          "email": "lucia.herrera@example.com",
+          "phone": "+51-555-3132"
+        },
+        "role": "client",
+        "dark-theme": false
+      },
+      {
+        "id": 115,
+        "name": "Javier Morales",
+        "location": "La Victoria",
+        "contact": {
+          "email": "javier.morales@example.com",
+          "phone": "+51-555-3334"
+        },
+        "role": "client",
+        "dark-theme": true
+      }
+    ]    
+}

@@ -8,6 +8,6 @@ export class Review {
     @Column('decimal', { precision: 10, scale: 2, nullable: false })
     rating: number;
 
-    @Column('varchar', { length: 50, nullable: false })
+    @Column('varchar', { length: 255, nullable: false })
     comment: string;
 }
