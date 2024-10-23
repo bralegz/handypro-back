@@ -12,14 +12,14 @@ import { PostedJobService } from './postedJob.service';
 export class PostedJobController {
     constructor(private readonly postedJobService: PostedJobService) {}
 
+    @Get('byCategory')
+    findByCategory(@Query('category') category?: string) {
+        return this.postedJobService.findByCategory(category);
+    }
+
     @Get()
     findAll() {
         return this.postedJobService.findAll();
-    }
-
-    @Get('professions')
-    findByProfession(@Query('professions') professions?: string) {
-        return this.postedJobService.findByProfession(professions);
     }
 
     @Get('professionals/:professionalId')

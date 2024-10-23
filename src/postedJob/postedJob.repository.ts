@@ -105,11 +105,11 @@ export class PostedJobRepository {
         return postedJob;
     }
 
-    async findByProfession(professions: string): Promise<PostedJob[]> {
+    async findByCategory(category: string): Promise<PostedJob[]> {
         //Se divide el string y formamos un array de strings
-        const professionArray = professions
+        const professionArray = category
             .split(',')
-            .map((profession) => profession.trim());
+            .map((category) => category.trim());
 
         // Busca las categorías basadas en el array de profesiones
         const categories = await this.categoriesRepository.find({

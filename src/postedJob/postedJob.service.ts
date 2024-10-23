@@ -59,10 +59,10 @@ export class PostedJobService {
         }
     }
 
-    async findByProfession(professions: string): Promise<PostedJob[]> {
+    async findByCategory(category: string): Promise<PostedJob[]> {
         try {
             const postedJobs =
-                await this.postedJobRepository.findByProfession(professions);
+                await this.postedJobRepository.findByCategory(category);
 
             if (postedJobs.length === 0) {
                 throw new Error('No se encuentran posteos con esta profesión');
