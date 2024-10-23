@@ -20,7 +20,7 @@ export class UserRepository {
     }
 
     async findUserByEmail(email: string) {
-        const user = this.userRepository.findOne({ where: { email } });
+        const user = await this.userRepository.findOne({ where: { email } });
 
         return user;
     }

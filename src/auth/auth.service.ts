@@ -1,6 +1,11 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+    BadRequestException,
+    Injectable,
+    UnauthorizedException,
+} from '@nestjs/common';
 import { UserRepository } from '../user/user.repository';
 import { SignupUserDto } from '../user/dtos/signupUser.dto';
+import { compare } from 'bcrypt';
 
 @Injectable()
 export class AuthService {
@@ -23,5 +28,18 @@ export class AuthService {
         } catch (error) {
             throw new BadRequestException(error.message);
         }
+    }
+
+    async login(email: string, password: string) {
+        const user = await this.userRepository.findUserByEmail(email);
+
+        if (!user) throw new UnauthorizedException('Usuario no existe');
+
+        const isPasswordMatch = await compare(password, user.password);
+
+        if (!isPasswordMatch)
+            throw new UnauthorizedException('Credenciales inválidas');
+
+        return { id: user.id };
     }
 }
