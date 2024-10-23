@@ -72,7 +72,7 @@ export class PreloadService {
                     where: { name: user.location },
                 });
 
-                return {
+                const createdUser = this.userRepository.create({
                     email: user.contact.email,
                     fullname: user.name,
                     password: user.password,
@@ -87,12 +87,17 @@ export class PreloadService {
                     years_experience: user.experience,
                     categories: categories.filter((category) => category),
                     location: location || null,
-                };
+                });
+
+                return createdUser;
             }),
         );
         const existingUsers = await this.userRepository.find();
         if (existingUsers.length === 0) {
-            await this.userRepository.save(usersData);
+            usersData.forEach(async (user) => {
+                await this.userRepository.save(user);
+            });
+
             this.logger.log('Se han cargado los usuarios a la base de datos');
         } else {
             this.logger.log('Ya la base de datos tiene los usuarios');
