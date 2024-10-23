@@ -25,10 +25,27 @@ export class UserRepository {
         return user;
     }
 
-    async getProfessionals(professions: string, page: number, limit: number) {
+    async getProfessionals(
+        professions: string,
+        page: number,
+        limit: number,
+    ): Promise<User[]> {
         const users = await this.userRepository.find({
             where: { role: 'professional' },
             relations: { acceptedJobs: { review: true }, categories: true },
+        });
+
+        return users;
+    }
+
+    async getClients(
+        clients: string,
+        limit: number,
+        page: number,
+    ): Promise<User[]> {
+        const users = await this.userRepository.find({
+            where: { role: 'client' },
+            relations: { postedJobs: { review: true } },
         });
 
         return users;

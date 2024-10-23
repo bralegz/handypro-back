@@ -11,6 +11,19 @@ export class UserController {
         @Query('page') page?: number,
         @Query('limit') limit?: number,
     ) {
-        return await this.usersService.getProfessionals(professions, page, limit);
+        return await this.usersService.getProfessionals(
+            professions,
+            page,
+            limit,
+        );
+    }
+
+    @Get('clients')
+    async getClients(
+        @Query('clients') clients?: string,
+        @Query('page') page?: number,
+        @Query('limit') limit?: number,
+    ) {
+        return await this.usersService.getClients(clients, page, limit);
     }
 }
