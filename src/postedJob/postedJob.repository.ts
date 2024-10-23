@@ -105,7 +105,7 @@ export class PostedJobRepository {
         return postedJob;
     }
 
-    async findByProfession(professions: string): Promise<any> {
+    async findByProfession(professions: string): Promise<PostedJob[]> {
         //Se divide el string y formamos un array de strings
         const professionArray = professions
             .split(',')

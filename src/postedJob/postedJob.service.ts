@@ -59,7 +59,18 @@ export class PostedJobService {
         }
     }
 
-    async findByProfession(professions: string): Promise<any> {
-        return await this.postedJobRepository.findByProfession(professions);
+    async findByProfession(professions: string): Promise<PostedJob[]> {
+        try {
+            const postedJobs =
+                await this.postedJobRepository.findByProfession(professions);
+
+            if (postedJobs.length === 0) {
+                throw new Error('No se encuentran posteos con esta profesión');
+            }
+
+            return postedJobs;
+        } catch (error) {
+            throw new BadRequestException(error.message);
+        }
     }
 }
