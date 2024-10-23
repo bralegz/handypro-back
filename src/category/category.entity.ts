@@ -1,6 +1,6 @@
 import { User } from 'src/user/user.entity';
 import { PostedJob } from 'src/postedJob/postedJob.entity';
-import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Category {

@@ -33,7 +33,6 @@ export class UserRepository {
         const users = await this.userRepository.find({
             where: { role: 'professional' },
             relations: { acceptedJobs: { review: true }, categories: true },
-            select: { categories: { name: true } },
         });
 
         return users;
