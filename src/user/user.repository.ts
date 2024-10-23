@@ -28,7 +28,7 @@ export class UserRepository {
     async getProfessionals(professions: string, page: number, limit: number) {
         const users = await this.userRepository.find({
             where: { role: 'professional' },
-            relations: { acceptedJobs: { review: true } },
+            relations: { acceptedJobs: { review: true }, categories: true },
         });
 
         return users;

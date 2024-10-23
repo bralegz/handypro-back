@@ -64,6 +64,6 @@ export class User {
     acceptedJobs: PostedJob[];
 
     @ManyToMany(() => Category, (category) => category.users)
-    @JoinTable()
+    @JoinTable({name: 'user_categories'})
     categories: Category[];
 }
