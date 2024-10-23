@@ -9,7 +9,9 @@ import {
 } from '@nestjs/common';
 import { UploadPhotoService } from './upload-photo.service';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('upload-photo')
 @Controller('upload-photo')
 export class UploadPhotoController {
     constructor(private readonly uploadService: UploadPhotoService) {}
