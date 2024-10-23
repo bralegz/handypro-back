@@ -3,10 +3,10 @@ import { SignupUserDto } from './dtos/signupUser.dto';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
+import { PostedJob } from 'src/postedJob/postedJob.entity';
 
 @Injectable()
 export class UserRepository {
-   
     constructor(
         @InjectRepository(User)
         private readonly userRepository: Repository<User>,
@@ -26,7 +26,10 @@ export class UserRepository {
     }
 
     async getProfessionals(professions: string, page: number, limit: number) {
-        const users = await this.userRepository.find();
+        const users = await this.userRepository.find({
+            where: { role: 'professional' },
+            relations: { acceptedJobs: { review: true } },
+        });
 
         return users;
     }
