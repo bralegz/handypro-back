@@ -7,7 +7,9 @@ import {
     Query,
 } from '@nestjs/common';
 import { PostedJobService } from './postedJob.service';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('posted-jobs')
 @Controller('posted-jobs')
 export class PostedJobController {
     constructor(private readonly postedJobService: PostedJobService) {}

@@ -18,11 +18,7 @@ export class UserService {
         );
     }
 
-    async getClients(
-        clients: string,
-        page: number,
-        limit: number,
-    ): Promise<User[]> {
-        return await this.userRepository.getClients(clients, limit, page);
+    async getClients(page: number, limit: number): Promise<User[]> {
+        return await this.userRepository.getClients(limit, page);
     }
 }
