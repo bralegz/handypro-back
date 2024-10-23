@@ -1,4 +1,11 @@
-import { Controller, Get, Body, Param, ParseUUIDPipe } from '@nestjs/common';
+import {
+    Controller,
+    Get,
+    Body,
+    Param,
+    ParseUUIDPipe,
+    Query,
+} from '@nestjs/common';
 import { PostedJobService } from './postedJob.service';
 
 @Controller('posted-jobs')
@@ -10,12 +17,12 @@ export class PostedJobController {
         return this.postedJobService.findAll();
     }
 
-    @Get('profession')
-    findByProfession(@Body('profession') profession: string) {
-        return this.postedJobService.findByProfession(profession);
+    @Get('professions')
+    findByProfession(@Query('professions') professions?: string) {
+        return this.postedJobService.findByProfession(professions);
     }
 
-    @Get('profesionals/:professionalId')
+    @Get('professionals/:professionalId')
     async acceptedJobsByProfessional(
         @Param('professionalId', ParseUUIDPipe) professionalId: string,
     ) {

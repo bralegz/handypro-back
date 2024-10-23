@@ -59,22 +59,7 @@ export class PostedJobService {
         }
     }
 
-    findByProfession(profession: string) {
-        const categories = Data.categories;
-
-        const isValid = categories.findIndex((category) => {
-            return category.name.toLowerCase() === profession.toLowerCase();
-        });
-
-        if (isValid === -1) {
-            return 'No se encontro la profesion';
-        }
-
-        return Data.requested_jobs.filter((post) => {
-            return (
-                post.requested_professional.toLowerCase() ===
-                profession.toLowerCase()
-            );
-        });
+    async findByProfession(professions: string): Promise<any> {
+        return await this.postedJobRepository.findByProfession(professions);
     }
 }

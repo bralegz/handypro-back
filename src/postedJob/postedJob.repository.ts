@@ -1,8 +1,9 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { PostedJob } from './postedJob.entity';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/user/user.entity';
+import { Category } from 'src/category/category.entity';
 
 @Injectable()
 export class PostedJobRepository {
@@ -11,6 +12,8 @@ export class PostedJobRepository {
         private postedJobRepository: Repository<PostedJob>,
         @InjectRepository(User)
         private usersRepository: Repository<User>,
+        @InjectRepository(Category)
+        private categoriesRepository: Repository<Category>,
     ) {}
 
     async findAll(): Promise<PostedJob[]> {
@@ -100,5 +103,43 @@ export class PostedJobRepository {
         });
 
         return postedJob;
+    }
+
+    async findByProfession(professions: string): Promise<any> {
+        //Se divide el string y formamos un array de strings
+        const professionArray = professions
+            .split(',')
+            .map((profession) => profession.trim());
+
+        // Busca las categorías basadas en el array de profesiones
+        const categories = await this.categoriesRepository.find({
+            where: { name: In(professionArray) },
+        });
+
+        // Obtiene los ids de las categorias
+        const categoryIds = categories.map((category) => category.id);
+
+        // Busca los postedJobs que tienen las categorías encontradas
+        const postedJobs = await this.postedJobRepository.find({
+            where: {
+                categories: {
+                    id: In(categoryIds),
+                },
+            },
+            relations: {
+                client: true,
+                professional: true,
+                review: true,
+                location: true,
+                categories: true,
+            },
+            select: {
+                categories: { name: true },
+                location: { name: true },
+                review: { rating: true, comment: true },
+            },
+        });
+
+        return postedJobs;
     }
 }
