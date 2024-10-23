@@ -33,19 +33,22 @@ export class UserRepository {
         const users = await this.userRepository.find({
             where: { role: 'professional' },
             relations: { acceptedJobs: { review: true }, categories: true },
+            skip: (page - 1) * limit,
+            take: limit,
         });
 
         return users;
     }
 
     async getClients(
-        clients: string,
-        limit: number,
         page: number,
+        limit: number,
     ): Promise<User[]> {
         const users = await this.userRepository.find({
             where: { role: 'client' },
             relations: { postedJobs: { review: true } },
+            skip: (page - 1) * limit,
+            take: limit,
         });
 
         return users;
