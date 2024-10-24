@@ -9,8 +9,9 @@ import {
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { SignupUserDto } from '../user/dtos/signupUser.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiTags } from '@nestjs/swagger';
 import { LocalAuthGuard } from './guards/local-auth/local-auth.guard';
+import { LoginDto } from '../user/dtos/loginUser.dto';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -28,8 +29,9 @@ export class AuthController {
     }
 
     @HttpCode(HttpStatus.OK) //set status code 200
-    @UseGuards(LocalAuthGuard) 
+    @UseGuards(LocalAuthGuard)
     @Post('login')
+    @ApiBody({type: LoginDto})
     async login(@Request() req) {
         //Upon a successful login with local strategy we need to generate a jwt token and return it back with the user id.
 
