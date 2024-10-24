@@ -3,13 +3,13 @@ import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import jwtConfig from '../config/jwt.config';
 import { AuthJwtPayload } from '../types/auth.jwtPayload';
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 
 //This strategy is responsible for extracting the JWT from the incoming requests headers and check if the jwt is valid
 //If that is the case, it will let the user to access the endpoints
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-    constructor(private jwtConfiguration: ConfigType<typeof jwtConfig>) {
+    constructor(@Inject(jwtConfig.KEY) private jwtConfiguration: ConfigType<typeof jwtConfig>) {
         super({
             jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(), // it will expect the jwt inside the headers as a bearer token
             secretOrKey: jwtConfiguration.secret, // provide the secret key for decoding the jwt

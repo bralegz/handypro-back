@@ -86,4 +86,11 @@ export class UserRepository {
             categories: categoryNames,
         };
     }
+
+    async getProfile(userId: string) {
+        const user = await this.userRepository.findOne({
+            where: { id: userId },
+        });
+        return user;
+    }
 }
