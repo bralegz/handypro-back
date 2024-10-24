@@ -11,6 +11,7 @@ import {
     PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Category } from 'src/category/category.entity';
+import { Application } from '../application/application.entity';
 import * as bcrypt from 'bcrypt';
 
 @Entity()
@@ -68,6 +69,9 @@ export class User {
     @ManyToMany(() => Category, (category) => category.users)
     @JoinTable({ name: 'user_categories' })
     categories: Category[];
+
+    @OneToMany(() => Application, (application) => application.professional)
+    applications: Application;
 
     @BeforeInsert()
     async hashPassword() {

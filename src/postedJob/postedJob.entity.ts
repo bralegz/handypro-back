@@ -1,3 +1,4 @@
+import { Application } from 'src/application/application.entity';
 import { Category } from 'src/category/category.entity';
 import { Location } from 'src/location/location.entity';
 import { Review } from 'src/review/review.entity';
@@ -9,6 +10,7 @@ import {
     JoinTable,
     ManyToMany,
     ManyToOne,
+    OneToMany,
     OneToOne,
     PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -17,6 +19,9 @@ import {
 export class PostedJob {
     @PrimaryGeneratedColumn('uuid')
     id: string;
+
+    @Column('varchar', { length: 100, nullable: false })
+    title: string;
 
     @ManyToOne(() => User, (user) => user.postedJobs)
     @JoinColumn({ name: 'clientId' })
@@ -31,25 +36,28 @@ export class PostedJob {
     review: Review;
 
     @Column('varchar', { length: 800, nullable: false })
-    posted_job_description: string;
+    description: string;
 
     @ManyToOne(() => Location, (location) => location.postedJobs)
     @JoinColumn({ name: 'locationId' })
     location: Location;
 
     @Column('date', { nullable: false })
-    posted_job_date: string;
+    date: string;
 
     @Column('varchar', { length: 20, nullable: false })
-    posted_job_priority: string;
+    priority: string;
 
     @Column('text', { array: true, nullable: false })
-    posted_job_photos: string[];
+    photos: string[];
 
     @Column('varchar', { length: 15, default: 'pendiente' })
-    posted_job_status: string;
+    status: string;
 
     @ManyToMany(() => Category, (category) => category.postedJobs)
     @JoinTable()
     categories: Category[];
+
+    @OneToMany(() => Application, (application) => application.postedJob)
+    applications: Application[];
 }

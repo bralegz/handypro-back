@@ -200,17 +200,18 @@ export class PreloadService {
             postedJob.categories = categoriesToAssign;
 
             // Asignar otros campos
-            postedJob.posted_job_description = job.posted_job_description;
-            postedJob.posted_job_date = job.posted_job_date;
-            postedJob.posted_job_priority = job.posted_job_priority;
+            postedJob.description = job.posted_job_description;
+            postedJob.date = job.posted_job_date;
+            postedJob.priority = job.posted_job_priority;
+            postedJob.title = job.title
 
             // Asegúrate de que posted_job_photos sea un arreglo
             if (Array.isArray(job.posted_job_photos)) {
-                postedJob.posted_job_photos = job.posted_job_photos; // Asigna directamente el arreglo
+                postedJob.photos = job.posted_job_photos; // Asigna directamente el arreglo
             } else {
-                postedJob.posted_job_photos = []; // Si no es un arreglo, asigna un arreglo vacío
+                postedJob.photos = []; // Si no es un arreglo, asigna un arreglo vacío
             }
-            postedJob.posted_job_status = job.posted_job_status;
+            postedJob.status = job.posted_job_status;
 
             // Guardar el trabajo publicado en la base de datos
             await this.postedJobRepository.save(postedJob);
