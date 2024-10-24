@@ -6,11 +6,7 @@ import { User } from './user.entity';
 export class UserService {
     constructor(private readonly userRepository: UserRepository) {}
 
-    async getProfessionals(
-        professions: string,
-        page: number,
-        limit: number,
-    ): Promise<User[]> {
+    async getProfessionals(professions: string, page: number, limit: number) {
         return await this.userRepository.getProfessionals(
             professions,
             page,
@@ -18,7 +14,7 @@ export class UserService {
         );
     }
 
-    async getClients(page: number, limit: number): Promise<User[]> {
+    async getClients(page: number, limit: number) {
         return await this.userRepository.getClients(limit, page);
     }
 }
