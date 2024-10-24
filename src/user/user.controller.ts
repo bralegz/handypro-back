@@ -28,7 +28,7 @@ export class UserController {
         return await this.usersService.getClients(Number(page), Number(limit));
     }
 
-    @Get(':id')
+    @Get('professional/:id')
     async getProfessionalById(@Param('id', ParseUUIDPipe) id: string) {
         const user = await this.usersService.getProfessionalById(id);
 
