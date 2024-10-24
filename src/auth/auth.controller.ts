@@ -1,8 +1,16 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import {
+    Body,
+    Controller,
+    HttpCode,
+    HttpStatus,
+    Post,
+    Request,
+    UseGuards,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { SignupUserDto } from '../user/dtos/signupUser.dto';
 import { ApiTags } from '@nestjs/swagger';
-import { LoginUserDto } from '../user/dtos/loginUser.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -19,8 +27,10 @@ export class AuthController {
         };
     }
 
+    @HttpCode(HttpStatus.OK)
+    @UseGuards(AuthGuard('local')) //The AuthGuard comes from the @nestjs/passport package
     @Post('login')
-    async login(@Body() user: LoginUserDto) {
-        return await this.authService.login(user.email, user.password);
+    async login(@Request() req) {
+        return req.user;
     }
 }
