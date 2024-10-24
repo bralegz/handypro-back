@@ -10,7 +10,7 @@ import {
 import { AuthService } from './auth.service';
 import { SignupUserDto } from '../user/dtos/signupUser.dto';
 import { ApiTags } from '@nestjs/swagger';
-import { AuthGuard } from '@nestjs/passport';
+import { LocalAuthGuard } from './guards/local-auth/local-auth.guard';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -28,7 +28,7 @@ export class AuthController {
     }
 
     @HttpCode(HttpStatus.OK)
-    @UseGuards(AuthGuard('local')) //The AuthGuard comes from the @nestjs/passport package
+    @UseGuards(LocalAuthGuard) //The AuthGuard comes from the @nestjs/passport package
     @Post('login')
     async login(@Request() req) {
         return req.user;
