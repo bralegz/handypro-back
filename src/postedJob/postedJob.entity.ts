@@ -1,3 +1,4 @@
+import { Application } from 'src/application/application.entity';
 import { Category } from 'src/category/category.entity';
 import { Location } from 'src/location/location.entity';
 import { Review } from 'src/review/review.entity';
@@ -9,6 +10,7 @@ import {
     JoinTable,
     ManyToMany,
     ManyToOne,
+    OneToMany,
     OneToOne,
     PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -55,4 +57,7 @@ export class PostedJob {
     @ManyToMany(() => Category, (category) => category.postedJobs)
     @JoinTable()
     categories: Category[];
+
+    @OneToMany(() => Application, (application) => application.postedJob)
+    applications: Application[];
 }
