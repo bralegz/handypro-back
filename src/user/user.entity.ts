@@ -10,6 +10,7 @@ import {
     PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Category } from 'src/category/category.entity';
+import { Application } from '../application/application.entity';
 
 @Entity()
 export class User {
@@ -64,6 +65,9 @@ export class User {
     acceptedJobs: PostedJob[];
 
     @ManyToMany(() => Category, (category) => category.users)
-    @JoinTable({name: 'user_categories'})
+    @JoinTable({ name: 'user_categories' })
     categories: Category[];
+
+    @OneToMany(() => Application, (application) => application.professional)
+    applications: Application;
 }
