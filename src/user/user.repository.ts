@@ -66,10 +66,24 @@ export class UserRepository {
             return { ...user, location: user.location.name };
         });
         return usersMapped;
+    }
 
-        // const users = await this.userRepository.find({
-        //     where: { role: 'client' },
-        // });
-        // return users;
+    async getProfessionalById(id: string) {
+        const user = await this.userRepository.findOne({
+            where: { id },
+            relations: {
+                acceptedJobs: { review: true },
+                categories: true,
+                location: true,
+            },
+        });
+
+        const categoryNames = user?.categories.map((category) => category.name);
+
+        return {
+            ...user,
+            location: user.location.name,
+            categories: categoryNames,
+        };
     }
 }
