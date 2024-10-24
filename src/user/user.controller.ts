@@ -1,6 +1,15 @@
-import { Controller, Get, Param, ParseUUIDPipe, Query } from '@nestjs/common';
+import {
+    Controller,
+    Get,
+    Param,
+    ParseUUIDPipe,
+    Query,
+    Req,
+    UseGuards,
+} from '@nestjs/common';
 import { UserService } from './user.service';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth/jwt-auth.guard';
 
 @ApiTags('user')
 @Controller('user')
@@ -33,5 +42,13 @@ export class UserController {
         const user = await this.usersService.getProfessionalById(id);
 
         return user;
+    }
+
+    /* When this endpoint is called the JwtAuthGuard and it activates the JwtStrategy and it looks for the jwt token inside the header of the request and validates it. If its valid, then it will be decoded and the payload will pass through the validate function in the jwt strategy and then appended to Request.user*/
+    @ApiBearerAuth()
+    @UseGuards(JwtAuthGuard)
+    @Get('profile')
+    async getProfile(@Req() req) {
+        return await this.usersService.getProfile(req.user.id);
     }
 }
