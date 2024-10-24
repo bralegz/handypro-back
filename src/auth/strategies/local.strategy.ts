@@ -14,6 +14,6 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
 
     validate(email: string, password: string) {
         // The returned object will be appended to the Request object under the name user. (Request.user)
-        return this.authService.login(email, password);
+        return this.authService.validateUser(email, password);
     }
 }

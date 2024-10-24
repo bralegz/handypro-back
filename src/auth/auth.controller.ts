@@ -27,10 +27,19 @@ export class AuthController {
         };
     }
 
-    @HttpCode(HttpStatus.OK)
-    @UseGuards(LocalAuthGuard) //The AuthGuard comes from the @nestjs/passport package
+    @HttpCode(HttpStatus.OK) //set status code 200
+    @UseGuards(LocalAuthGuard) 
     @Post('login')
     async login(@Request() req) {
-        return req.user;
+        //Upon a successful login with local strategy we need to generate a jwt token and return it back with the user id.
+
+        const token = this.authService.login(
+            req.user.id,
+            req.user.role,
+            req.user.email,
+            req.user.fullname,
+        );
+
+        return { id: req.user.id, token };
     }
 }
