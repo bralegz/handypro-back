@@ -15,6 +15,6 @@ export class UserService {
     }
 
     async getClients(page: number, limit: number) {
-        return await this.userRepository.getClients(limit, page);
+        return await this.userRepository.getClients(page, limit);
     }
 }

@@ -66,5 +66,11 @@ export class UserRepository {
             return { ...user, location: user.location.name };
         });
         return usersMapped;
+
+        // const users = await this.userRepository.find({
+        //     where: { role: 'client' },
+        // });
+        // return users;
     }
+
 }
