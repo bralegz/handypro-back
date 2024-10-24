@@ -18,6 +18,9 @@ export class PostedJob {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
+    @Column('varchar', { length: 100, nullable: false })
+    title: string;
+
     @ManyToOne(() => User, (user) => user.postedJobs)
     @JoinColumn({ name: 'clientId' })
     client: User;

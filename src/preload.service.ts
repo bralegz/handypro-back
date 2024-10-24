@@ -198,6 +198,7 @@ export class PreloadService {
             postedJob.description = job.posted_job_description;
             postedJob.date = job.posted_job_date;
             postedJob.priority = job.posted_job_priority;
+            postedJob.title = job.title
 
             // Asegúrate de que posted_job_photos sea un arreglo
             if (Array.isArray(job.posted_job_photos)) {

@@ -2,6 +2,7 @@
     "posted_jobs": [
         {
             "posted_job_id": 241,
+            "title": "Enchufe no sirve",
             "client": 101,
             "professional": 1,
             "review": {
@@ -28,6 +29,7 @@
         },
         {
             "posted_job_id": 242,
+            "title": "Jardín necesita amor",
             "client": 102,
             "professional": 2,
             "review": {
@@ -54,6 +56,7 @@
         },
         {
             "posted_job_id": 243,
+            "title": "Necesito estantería",
             "client": 103,
             "professional": 2,
             "review": {
@@ -80,6 +83,7 @@
         },
         {
             "posted_job_id": 244,
+            "title": "Tuberia no sirve",
             "client": 104,
             "professional": 4,
             "review": {
@@ -106,6 +110,7 @@
         },
         {
             "posted_job_id": 245,
+            "title": "Dormitorio necesita pintarse",
             "client": 105,
             "professional": 5,
             "review": {
@@ -132,6 +137,7 @@
         },
         {
             "posted_job_id": 246,
+            "title": "Necesito fotos para mi boda",
             "client": 106,
             "professional": 6,
             "review": {
