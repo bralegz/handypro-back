@@ -1,7 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import * as Data from '../utils/data.json';
 import { PostedJobRepository } from './postedJob.repository';
-import { PostedJob } from './postedJob.entity';
 
 @Injectable()
 export class PostedJobService {
@@ -9,23 +7,6 @@ export class PostedJobService {
 
     async findAll() {
         return this.postedJobRepository.findAll();
-    }
-
-    async acceptedJobsByProfessional(professionalId: string) {
-        try {
-            const acceptedJobs =
-                await this.postedJobRepository.acceptedJobsByProfessional(
-                    professionalId,
-                );
-
-            // if (acceptedJobs.length === 0) {
-            //     throw new Error('Este profesional no tiene trabajos aceptados');
-            // }
-
-            return acceptedJobs;
-        } catch (error) {
-            throw new BadRequestException(error.message);
-        }
     }
 
     async postedJobsByClient(clientId: string) {

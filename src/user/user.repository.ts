@@ -75,25 +75,48 @@ export class UserRepository {
             }
         }
 
-        const usersMapped = filteredUsers.map((user) => {
-            const categoriesMapped = user.categories.map((category) => {
-                return category.name;
-            });
+        const usersMapped = filteredUsers.map(
+            ({
+                applications,
+                phone,
+                portfolio_gallery,
+                email,
+                role,
+                ...user
+            }) => {
+                const categoriesMapped = user.categories.map((category) => {
+                    return category.name;
+                });
 
-            return {
-                ...user,
-                location: user.location.name,
-                categories: categoriesMapped,
-            };
-        });
+                const acceptedJobs = Array.isArray(applications)
+                    ? applications
+                          .filter((app) => app.status === 'accepted')
+                          .map((app) => app.postedJob)
+                    : [];
+
+                return {
+                    ...user,
+                    location: user.location.name,
+                    categories: categoriesMapped,
+                    completedJobs: acceptedJobs.length,
+                };
+            },
+        );
 
         return usersMapped;
     }
 
     async getClients(page: number, limit: number) {
         const users = await this.userRepository.find({
-            where: { role: 'client' },
-            relations: { postedJobs: { review: true }, location: true },
+            where: {
+                role: 'client',
+            },
+            relations: {
+                postedJobs: {
+                    review: true,
+                },
+                location: true,
+            },
             skip: (page - 1) * limit,
             take: limit,
         });

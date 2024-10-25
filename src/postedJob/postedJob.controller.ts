@@ -24,17 +24,6 @@ export class PostedJobController {
         return this.postedJobService.findByCategory(category);
     }
 
-    @Get('professionals/:professionalId')
-    async acceptedJobsByProfessional(
-        @Param('professionalId', ParseUUIDPipe) professionalId: string,
-    ) {
-        const acceptedJobs =
-            await this.postedJobService.acceptedJobsByProfessional(
-                professionalId,
-            );
-        return acceptedJobs;
-    }
-
     @Get('clients/:clientId')
     async postedJobsByClient(
         @Param('clientId', ParseUUIDPipe) clientId: string,

@@ -54,44 +54,6 @@ export class PostedJobRepository {
         return postedJobsArray;
     }
 
-    async acceptedJobsByProfessional(professionalId: string) {
-        const user = await this.usersRepository.findOneBy({
-            id: professionalId,
-        });
-
-        if (!user) throw new BadRequestException('El usuario no existe');
-
-        const applicationsArray = await this.applicationsRepository.find({
-            where: {
-                professional: {
-                    id: professionalId,
-                },
-            },
-            relations: {
-                postedJob: {
-                    location: true,
-                    categories: true,
-                    review: true,
-                    client: true,
-                },
-            },
-            order: {
-                postedJob: {
-                    review: {
-                        rating: 'DESC',
-                    },
-                },
-            },
-        });
-
-        // Todas las postulacion del profesional que no fueron rechazadas por el cliente
-        // const postedJobs = applicationsArray.filter(
-        //     (app) => app.status !== 'rejected',
-        // );
-
-        return applicationsArray;
-    }
-
     async postedJobsByClient(clientId: string) {
         const user = await this.usersRepository.findOneBy({
             id: clientId,
@@ -105,26 +67,36 @@ export class PostedJobRepository {
                     id: clientId,
                 },
             },
-            relations: {
-                review: true,
-                location: true,
-                categories: true,
-                applications: {
-                    professional: true,
-                },
-            },
+            relations: [
+                'review',
+                'location',
+                'categories',
+                'applications',
+                'applications.professional',
+            ],
             select: {
                 review: { rating: true, comment: true },
             },
         });
 
-        const postedJobsArray = postedJobs.map((job) => {
+        const postedJobsArray = postedJobs.map(({ applications, ...job }) => {
             const categoryNames = job.categories.map(
                 (category) => category.name,
             );
 
             return {
                 ...job,
+                applications: applications.map((app) => ({
+                    status: app.status,
+                    professional: {
+                        id: app.professional.id,
+                        fullname: app.professional.fullname,
+                        profileImg: app.professional.profileImg,
+                        rating: app.professional.rating,
+                        years_experience: app.professional.years_experience,
+                        availability: app.professional.availability,
+                    },
+                })),
                 location: job.location.name,
                 categories: categoryNames,
             };
@@ -182,16 +154,31 @@ export class PostedJobRepository {
             },
             select: {
                 review: { rating: true, comment: true },
+                client: {
+                    id: true,
+                    fullname: true,
+                },
             },
         });
 
-        const postedJobsArray = postedJobs.map((job) => {
+        const postedJobsArray = postedJobs.map(({ applications, ...job }) => {
             const categoryNames = job.categories.map(
                 (category) => category.name,
             );
 
             return {
                 ...job,
+                applications: applications.map((app) => ({
+                    status: app.status,
+                    professional: {
+                        id: app.professional.id,
+                        fullname: app.professional.fullname,
+                        profileImg: app.professional.profileImg,
+                        rating: app.professional.rating,
+                        years_experience: app.professional.years_experience,
+                        availability: app.professional.availability,
+                    },
+                })),
                 location: job.location.name,
                 categories: categoryNames,
             };
