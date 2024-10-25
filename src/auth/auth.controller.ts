@@ -31,17 +31,16 @@ export class AuthController {
     @HttpCode(HttpStatus.OK) //set status code 200
     @UseGuards(LocalAuthGuard)
     @Post('login')
-    @ApiBody({type: LoginDto})
+    @ApiBody({ type: LoginDto })
     async login(@Request() req) {
         //Upon a successful login with local strategy we need to generate a jwt token and return it back with the user id.
 
-        const token = this.authService.login(
+        //We send the information to the login function so the token can be signed and returned
+        return this.authService.login(
             req.user.id,
             req.user.role,
             req.user.email,
             req.user.fullname,
         );
-
-        return { id: req.user.id, token };
     }
 }

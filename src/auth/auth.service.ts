@@ -1,5 +1,6 @@
 import {
     BadRequestException,
+    Inject,
     Injectable,
     UnauthorizedException,
 } from '@nestjs/common';
@@ -8,12 +9,16 @@ import { SignupUserDto } from '../user/dtos/signupUser.dto';
 import { compare } from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { AuthJwtPayload } from './types/auth.jwtPayload';
+import refreshJwtConfig from './config/refresh-jwt.config';
+import { ConfigType } from '@nestjs/config';
 
 @Injectable()
 export class AuthService {
     constructor(
         private readonly userRepository: UserRepository,
         private jwtService: JwtService,
+        @Inject(refreshJwtConfig.KEY) //this key represents the name specified in register as
+        private refreshTokenConfig: ConfigType<typeof refreshJwtConfig>,
     ) {}
 
     async signUp(newUser: SignupUserDto) {
@@ -68,6 +73,18 @@ export class AuthService {
             userEmail,
         };
 
-        return this.jwtService.sign(payload);
+        const accessToken = this.jwtService.sign(payload);
+
+        //This time we'll pass the refresh token configuration to sign it.
+        const refreshToken = this.jwtService.sign(
+            payload,
+            this.refreshTokenConfig,
+        );
+
+        return {
+            id: userId,
+            token: accessToken,
+            refreshToken: refreshToken,
+        };
     }
 }
