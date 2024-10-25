@@ -63,8 +63,8 @@ export class User {
     @OneToMany(() => PostedJob, (postedJob) => postedJob.client)
     postedJobs: PostedJob[];
 
-    @OneToMany(() => PostedJob, (acceptedJob) => acceptedJob.professional)
-    acceptedJobs: PostedJob[];
+    // @OneToMany(() => PostedJob, (acceptedJob) => acceptedJob.professional)
+    // acceptedJobs: PostedJob[];
 
     @ManyToMany(() => Category, (category) => category.users)
     @JoinTable({ name: 'user_categories' })

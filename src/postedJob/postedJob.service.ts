@@ -11,24 +11,24 @@ export class PostedJobService {
         return this.postedJobRepository.findAll();
     }
 
-    async acceptedJobsByProfessional(
-        professionalId: string,
-    ): Promise<PostedJob[]> {
-        try {
-            const acceptedJobs =
-                await this.postedJobRepository.acceptedJobsByProfessional(
-                    professionalId,
-                );
+    // async acceptedJobsByProfessional(
+    //     professionalId: string,
+    // ): Promise<PostedJob[]> {
+    //     try {
+    //         const acceptedJobs =
+    //             await this.postedJobRepository.acceptedJobsByProfessional(
+    //                 professionalId,
+    //             );
 
-            if (acceptedJobs.length === 0) {
-                throw new Error('Este profesional no tiene trabajos aceptados');
-            }
+    //         if (acceptedJobs.length === 0) {
+    //             throw new Error('Este profesional no tiene trabajos aceptados');
+    //         }
 
-            return acceptedJobs;
-        } catch (error) {
-            throw new BadRequestException(error.message);
-        }
-    }
+    //         return acceptedJobs;
+    //     } catch (error) {
+    //         throw new BadRequestException(error.message);
+    //     }
+    // }
 
     async postedJobsByClient(clientId: string): Promise<PostedJob[]> {
         try {
