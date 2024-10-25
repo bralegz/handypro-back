@@ -7,30 +7,28 @@ import { PostedJob } from './postedJob.entity';
 export class PostedJobService {
     constructor(private readonly postedJobRepository: PostedJobRepository) {}
 
-    async findAll(): Promise<PostedJob[]> {
+    async findAll() {
         return this.postedJobRepository.findAll();
     }
 
-    // async acceptedJobsByProfessional(
-    //     professionalId: string,
-    // ): Promise<PostedJob[]> {
-    //     try {
-    //         const acceptedJobs =
-    //             await this.postedJobRepository.acceptedJobsByProfessional(
-    //                 professionalId,
-    //             );
+    async acceptedJobsByProfessional(professionalId: string) {
+        try {
+            const acceptedJobs =
+                await this.postedJobRepository.acceptedJobsByProfessional(
+                    professionalId,
+                );
 
-    //         if (acceptedJobs.length === 0) {
-    //             throw new Error('Este profesional no tiene trabajos aceptados');
-    //         }
+            // if (acceptedJobs.length === 0) {
+            //     throw new Error('Este profesional no tiene trabajos aceptados');
+            // }
 
-    //         return acceptedJobs;
-    //     } catch (error) {
-    //         throw new BadRequestException(error.message);
-    //     }
-    // }
+            return acceptedJobs;
+        } catch (error) {
+            throw new BadRequestException(error.message);
+        }
+    }
 
-    async postedJobsByClient(clientId: string): Promise<PostedJob[]> {
+    async postedJobsByClient(clientId: string) {
         try {
             const postedJobs =
                 await this.postedJobRepository.postedJobsByClient(clientId);
@@ -59,7 +57,7 @@ export class PostedJobService {
         }
     }
 
-    async findByCategory(category: string): Promise<PostedJob[]> {
+    async findByCategory(category: string) {
         try {
             const postedJobs =
                 await this.postedJobRepository.findByCategory(category);

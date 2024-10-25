@@ -31,27 +31,21 @@ export class UserRepository {
         page: number,
         limit: number,
         name: string,
-        rating: number,
     ) {
-        // Ordernar por Rating
-        const order: any = {};
-
-        if (rating !== 0) {
-            order.rating = 'DESC'; // MAY a MEN
-        } else {
-            order.rating = 'ASC'; // MEN a MAY
-        }
-
         const users = await this.userRepository.find({
             where: { role: 'professional' },
             relations: {
-                // acceptedJobs: { review: true },
+                applications: {
+                    postedJob: true,
+                },
                 categories: true,
                 location: true,
             },
             skip: (page - 1) * limit,
             take: limit,
-            order: order,
+            order: {
+                rating: 'DESC',
+            },
         });
 
         let filteredUsers = users;
@@ -112,9 +106,11 @@ export class UserRepository {
 
     async getProfessionalById(id: string) {
         const user = await this.userRepository.findOne({
-            where: { id },
+            where: { id, role: 'professional' },
             relations: {
-                // acceptedJobs: { review: true },
+                applications: {
+                    postedJob: true,
+                },
                 categories: true,
                 location: true,
             },
@@ -126,6 +122,18 @@ export class UserRepository {
             ...user,
             location: user.location.name,
             categories: categoryNames,
+        };
+    }
+
+    async getClientById(id: string) {
+        const user = await this.userRepository.findOne({
+            where: { id, role: 'client' },
+            relations: { postedJobs: { review: true }, location: true },
+        });
+
+        return {
+            ...user,
+            location: user.location.name,
         };
     }
 
@@ -145,8 +153,8 @@ export class UserRepository {
             return user;
         }
 
-        if(role === user.role) {
-            throw new Error('El usuario ya tiene este rol')
+        if (role === user.role) {
+            throw new Error('El usuario ya tiene este rol');
         }
 
         user.role = role;

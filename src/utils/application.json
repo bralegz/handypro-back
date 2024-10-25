@@ -114,8 +114,7 @@
             "professional_id": 4,
             "status": "pending"
         },
-
-       {
+        {
             "id": 20,
             "posted_job_id": 245,
             "professional_id": 5,
@@ -169,23 +168,101 @@
             "professional_id": 31,
             "status": "pending"
         },
-        { "id": 29, "posted_job_id": 247, "professional_id": 6, "status": "accepted" },
-        { "id": 30, "posted_job_id": 247, "professional_id": 10, "status": "rejected" },
-        { "id": 31, "posted_job_id": 247, "professional_id": 11, "status": "rejected" },
-        { "id": 32, "posted_job_id": 247, "professional_id": 13, "status": "rejected" },
-        { "id": 33, "posted_job_id": 248, "professional_id": 5, "status": "pending" },
-        { "id": 34, "posted_job_id": 248, "professional_id": 12, "status": "pending" },
-        { "id": 35, "posted_job_id": 248, "professional_id": 13, "status": "pending" },
-        { "id": 36, "posted_job_id": 248, "professional_id": 11, "status": "pending" },
-        { "id": 37, "posted_job_id": 249, "professional_id": 3, "status": "accepted" },
-    { "id": 38, "posted_job_id": 249, "professional_id": 10, "status": "rejected" },
-    { "id": 39, "posted_job_id": 249, "professional_id": 12, "status": "rejected" },
-    { "id": 40, "posted_job_id": 249, "professional_id": 11, "status": "rejected" },
-    { "id": 41, "posted_job_id": 250, "professional_id": 6, "status": "pending" },
-    { "id": 42, "posted_job_id": 250, "professional_id": 9, "status": "pending" },
-    { "id": 43, "posted_job_id": 250, "professional_id": 11, "status": "pending" },
-    { "id": 44, "posted_job_id": 250, "professional_id": 13, "status": "pending" }
-
-
+        {
+            "id": 29,
+            "posted_job_id": 247,
+            "professional_id": 6,
+            "status": "accepted"
+        },
+        {
+            "id": 30,
+            "posted_job_id": 247,
+            "professional_id": 10,
+            "status": "rejected"
+        },
+        {
+            "id": 31,
+            "posted_job_id": 247,
+            "professional_id": 11,
+            "status": "rejected"
+        },
+        {
+            "id": 32,
+            "posted_job_id": 247,
+            "professional_id": 13,
+            "status": "rejected"
+        },
+        {
+            "id": 33,
+            "posted_job_id": 248,
+            "professional_id": 5,
+            "status": "pending"
+        },
+        {
+            "id": 34,
+            "posted_job_id": 248,
+            "professional_id": 12,
+            "status": "pending"
+        },
+        {
+            "id": 35,
+            "posted_job_id": 248,
+            "professional_id": 13,
+            "status": "pending"
+        },
+        {
+            "id": 36,
+            "posted_job_id": 248,
+            "professional_id": 11,
+            "status": "pending"
+        },
+        {
+            "id": 37,
+            "posted_job_id": 249,
+            "professional_id": 3,
+            "status": "accepted"
+        },
+        {
+            "id": 38,
+            "posted_job_id": 249,
+            "professional_id": 10,
+            "status": "rejected"
+        },
+        {
+            "id": 39,
+            "posted_job_id": 249,
+            "professional_id": 12,
+            "status": "rejected"
+        },
+        {
+            "id": 40,
+            "posted_job_id": 249,
+            "professional_id": 11,
+            "status": "rejected"
+        },
+        {
+            "id": 41,
+            "posted_job_id": 250,
+            "professional_id": 6,
+            "status": "pending"
+        },
+        {
+            "id": 42,
+            "posted_job_id": 250,
+            "professional_id": 9,
+            "status": "pending"
+        },
+        {
+            "id": 43,
+            "posted_job_id": 250,
+            "professional_id": 11,
+            "status": "pending"
+        },
+        {
+            "id": 44,
+            "posted_job_id": 250,
+            "professional_id": 13,
+            "status": "pending"
+        }
     ]
 }

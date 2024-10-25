@@ -43,27 +43,18 @@ export class UserController {
             'Solo se puede buscar por un nombre a la vez, es indiferente a las MAYUSC',
         example: 'JUAN',
     })
-    @ApiQuery({
-        name: 'rating',
-        required: false,
-        description:
-            'Tiene valor por default = 1, lo que significa que ordernara por defecto de MAY a MEN. Si desea ordenar de MEN a MAY se debera cambiar su valor a 0 (cero)',
-        example: '1',
-    })
     @Get('professionals')
     async getProfessionals(
         @Query('categories') categories?: string,
         @Query('page') page: number = 1,
         @Query('limit') limit: number = 5,
         @Query('name') name?: string,
-        @Query('rating') rating: number = 1,
     ) {
         return await this.usersService.getProfessionals(
             categories,
             Number(page),
             Number(limit),
             name,
-            Number(rating),
         );
     }
 
@@ -78,6 +69,13 @@ export class UserController {
     @Get('professional/:id')
     async getProfessionalById(@Param('id', ParseUUIDPipe) id: string) {
         const user = await this.usersService.getProfessionalById(id);
+
+        return user;
+    }
+
+    @Get('client/:id')
+    async getClientById(@Param('id', ParseUUIDPipe) id: string) {
+        const user = await this.usersService.getClientById(id);
 
         return user;
     }

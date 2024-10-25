@@ -14,26 +14,26 @@ import { ApiTags } from '@nestjs/swagger';
 export class PostedJobController {
     constructor(private readonly postedJobService: PostedJobService) {}
 
-    @Get('byCategory')
-    findByCategory(@Query('category') category?: string) {
-        return this.postedJobService.findByCategory(category);
-    }
-
     @Get()
     findAll() {
         return this.postedJobService.findAll();
     }
 
-    // @Get('professionals/:professionalId')
-    // async acceptedJobsByProfessional(
-    //     @Param('professionalId', ParseUUIDPipe) professionalId: string,
-    // ) {
-    //     const acceptedJobs =
-    //         await this.postedJobService.acceptedJobsByProfessional(
-    //             professionalId,
-    //         );
-    //     return acceptedJobs;
-    // }
+    @Get('byCategory')
+    findByCategory(@Query('category') category?: string) {
+        return this.postedJobService.findByCategory(category);
+    }
+
+    @Get('professionals/:professionalId')
+    async acceptedJobsByProfessional(
+        @Param('professionalId', ParseUUIDPipe) professionalId: string,
+    ) {
+        const acceptedJobs =
+            await this.postedJobService.acceptedJobsByProfessional(
+                professionalId,
+            );
+        return acceptedJobs;
+    }
 
     @Get('clients/:clientId')
     async postedJobsByClient(

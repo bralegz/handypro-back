@@ -6,9 +6,12 @@ import { PostedJob } from './postedJob.entity';
 import { PostedJobRepository } from './postedJob.repository';
 import { User } from 'src/user/user.entity';
 import { Category } from 'src/category/category.entity';
+import { Application } from 'src/application/application.entity';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([PostedJob, User, Category])],
+    imports: [
+        TypeOrmModule.forFeature([PostedJob, User, Category, Application]),
+    ],
     controllers: [PostedJobController],
     providers: [PostedJobService, PostedJobRepository],
     exports: [TypeOrmModule],

@@ -121,7 +121,6 @@ export class PreloadService {
         }
 
         // Cargar postedJobs
-
         const existingJobs = await this.postedJobRepository.find();
         if (existingJobs.length > 0) {
             this.logger.warn(
@@ -197,9 +196,9 @@ export class PreloadService {
             postedJob.title = job.title;
 
             if (Array.isArray(job.posted_job_photos)) {
-                postedJob.photos = job.posted_job_photos; 
+                postedJob.photos = job.posted_job_photos;
             } else {
-                postedJob.photos = []; 
+                postedJob.photos = [];
             }
             postedJob.status = job.posted_job_status;
             await this.postedJobRepository.save(postedJob);
@@ -208,7 +207,6 @@ export class PreloadService {
         this.logger.log(
             'Se han cargado los trabajos publicados a la base de datos',
         );
-
 
         // Cargar application a la base de datos
         const existingApps = await this.applicationRepository.find();

@@ -14,14 +14,12 @@ export class UserService {
         page: number,
         limit: number,
         name: string,
-        rating: number,
     ) {
         return await this.userRepository.getProfessionals(
             categories,
             page,
             limit,
             name,
-            rating,
         );
     }
 
@@ -32,6 +30,20 @@ export class UserService {
     async getProfessionalById(id: string) {
         try {
             const user = await this.userRepository.getProfessionalById(id);
+
+            if (!user) {
+                throw new Error('El usuario no se encuentra registrado');
+            }
+
+            return user;
+        } catch (error) {
+            throw new BadRequestException(error.message);
+        }
+    }
+
+    async getClientById(id: string) {
+        try {
+            const user = await this.userRepository.getClientById(id);
 
             if (!user) {
                 throw new Error('El usuario no se encuentra registrado');
@@ -67,5 +79,4 @@ export class UserService {
             throw new BadRequestException(error.message);
         }
     }
-
 }
