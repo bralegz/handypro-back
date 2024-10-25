@@ -2,7 +2,7 @@ import { ConfigType } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { AuthJwtPayload } from '../types/auth.jwtPayload';
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import refreshJwtConfig from '../config/refresh-jwt.config';
 import { Request } from 'express';
 import { AuthService } from '../auth.service';
@@ -29,7 +29,6 @@ export class RefreshJwtStrategy extends PassportStrategy(
     //if the refresh token is in the headers and is valid, not expired. This strategy it will call the validate function and pass the decoded payload coming from the decoded refresh. This will be attached to Request.user.
     async validate(req: Request, payload: AuthJwtPayload) {
         //This strategy validates the refresh token
-
         //Extract the refresh token
         const refreshToken = req
             .get('authorization')
@@ -38,9 +37,7 @@ export class RefreshJwtStrategy extends PassportStrategy(
 
         const userId = payload.userId;
 
-        this.authService.validateRefreshToken(userId, refreshToken);
-
-        //The return value will be appended to the Req.user
+        //The returned value will be appended to the Req.user
         return await this.authService.validateRefreshToken(
             userId,
             refreshToken,

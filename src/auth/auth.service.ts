@@ -2,6 +2,7 @@ import {
     BadRequestException,
     Inject,
     Injectable,
+    InternalServerErrorException,
     UnauthorizedException,
 } from '@nestjs/common';
 import { UserRepository } from '../user/user.repository';
@@ -163,7 +164,7 @@ export class AuthService {
         const user = await this.userRepository.findUserById(userId);
 
         if (!user || !user.hashedRefreshToken) {
-            console.log('user not found or token in database not found');
+            console.log('token does not exist or token not stored in database');
             throw new UnauthorizedException('Refresh token inválido');
         }
 
@@ -183,5 +184,9 @@ export class AuthService {
             email: user.email,
             fullname: user.fullname,
         };
+    }
+
+    async signOut(userId: string) {
+        await this.userRepository.updateHashedRefreshToken(userId, null);
     }
 }
