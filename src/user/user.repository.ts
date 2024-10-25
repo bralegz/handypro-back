@@ -21,7 +21,7 @@ export class UserRepository {
     }
 
     async findUserByEmail(email: string) {
-        const user = this.userRepository.findOne({ where: { email } });
+        const user = await this.userRepository.findOne({ where: { email } });
 
         return user;
     }
@@ -85,5 +85,12 @@ export class UserRepository {
             location: user.location.name,
             categories: categoryNames,
         };
+    }
+
+    async getProfile(userId: string) {
+        const user = await this.userRepository.findOne({
+            where: { id: userId },
+        });
+        return user;
     }
 }
