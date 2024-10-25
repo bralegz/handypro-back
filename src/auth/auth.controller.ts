@@ -51,18 +51,21 @@ export class AuthController {
     @UseGuards(RefreshAuthGuard) //activates the refresh token strategy
     @Post('refresh')
     refreshToken(@Request() req) {
-            return this.authService.refreshToken(
-                req.user.id,
-                req.user.role,
-                req.user.email,
-                req.user.fullname,
-            );
+        return this.authService.refreshToken(
+            req.user.id,
+            req.user.role,
+            req.user.email,
+            req.user.fullname,
+        );
     }
 
     @ApiBearerAuth()
     @UseGuards(JwtAuthGuard) //looks for access token, decode that token, extract the user id from that decoded access token and appends the user id to the request object.
+    @HttpCode(HttpStatus.OK)
     @Post('signout')
     signOut(@Request() req) {
         this.authService.signOut(req.user.id);
+
+        return 'Logged out';
     }
 }
