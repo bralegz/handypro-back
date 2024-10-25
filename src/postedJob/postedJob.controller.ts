@@ -24,16 +24,16 @@ export class PostedJobController {
         return this.postedJobService.findAll();
     }
 
-    @Get('professionals/:professionalId')
-    async acceptedJobsByProfessional(
-        @Param('professionalId', ParseUUIDPipe) professionalId: string,
-    ) {
-        const acceptedJobs =
-            await this.postedJobService.acceptedJobsByProfessional(
-                professionalId,
-            );
-        return acceptedJobs;
-    }
+    // @Get('professionals/:professionalId')
+    // async acceptedJobsByProfessional(
+    //     @Param('professionalId', ParseUUIDPipe) professionalId: string,
+    // ) {
+    //     const acceptedJobs =
+    //         await this.postedJobService.acceptedJobsByProfessional(
+    //             professionalId,
+    //         );
+    //     return acceptedJobs;
+    // }
 
     @Get('clients/:clientId')
     async postedJobsByClient(

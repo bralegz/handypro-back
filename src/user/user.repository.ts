@@ -30,7 +30,7 @@ export class UserRepository {
         const users = await this.userRepository.find({
             where: { role: 'professional' },
             relations: {
-                acceptedJobs: { review: true },
+                // acceptedJobs: { review: true },
                 categories: true,
                 location: true,
             },
@@ -72,7 +72,7 @@ export class UserRepository {
         const user = await this.userRepository.findOne({
             where: { id },
             relations: {
-                acceptedJobs: { review: true },
+                // acceptedJobs: { review: true },
                 categories: true,
                 location: true,
             },
