@@ -57,6 +57,9 @@ export class User {
     @Column({ type: 'int2', nullable: true })
     years_experience: number;
 
+    @Column({ nullable: true })
+    hashedRefreshToken: string;
+
     @ManyToOne(() => Location, (location) => location.users)
     location: Location;
 

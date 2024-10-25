@@ -5,6 +5,7 @@ import {
     HttpStatus,
     Post,
     Request,
+    UnauthorizedException,
     UseGuards,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
@@ -13,6 +14,7 @@ import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
 import { LocalAuthGuard } from './guards/local-auth/local-auth.guard';
 import { LoginDto } from '../user/dtos/loginUser.dto';
 import { RefreshAuthGuard } from './guards/refresh-auth/refresh-auth.guard';
+import { JwtAuthGuard } from './guards/jwt-auth/jwt-auth.guard';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -46,14 +48,20 @@ export class AuthController {
     }
 
     @ApiBearerAuth()
-    @UseGuards(RefreshAuthGuard)
+    @UseGuards(RefreshAuthGuard) //activates the refresh token strategy
     @Post('refresh')
     refreshToken(@Request() req) {
-        return this.authService.refreshToken(
-            req.user.id,
-            req.user.role,
-            req.user.email,
-            req.user.fullname,
-        );
+            return this.authService.refreshToken(
+                req.user.id,
+                req.user.role,
+                req.user.email,
+                req.user.fullname,
+            );
+    }
+
+    @UseGuards(JwtAuthGuard) //looks for access token, decode that token, extract the user id from that decoded access token and appends the user id to the request object.
+    @Post('signout')
+    signOut(@Request() req) {
+        this.authService.signOut(req.user.id);
     }
 }

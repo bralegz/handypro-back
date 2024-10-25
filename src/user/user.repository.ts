@@ -103,13 +103,26 @@ export class UserRepository {
             return user;
         }
 
-        if(role === user.role) {
-            throw new Error('El usuario ya tiene este rol')
+        if (role === user.role) {
+            throw new Error('El usuario ya tiene este rol');
         }
 
         user.role = role;
         await this.userRepository.save(user);
 
         return { id: user.id, name: user.fullname, newRole: user.role };
+    }
+
+    async updateHashedRefreshToken(userId: string, hashedRefreshToken: string) {
+        return await this.userRepository.update(
+            { id: userId },
+            { hashedRefreshToken },
+        );
+    }
+
+    async findUserById(id: string) {
+        const user = await this.userRepository.findOne({ where: { id } });
+
+        return user;
     }
 }
