@@ -163,6 +163,7 @@ export class AuthService {
         const user = await this.userRepository.findUserById(userId);
 
         if (!user || !user.hashedRefreshToken) {
+            console.log('user not found or token in database not found');
             throw new UnauthorizedException('Refresh token inválido');
         }
 
@@ -172,7 +173,7 @@ export class AuthService {
             refreshToken,
         );
 
-        if (refreshTokenMatches) {
+        if (!refreshTokenMatches) {
             throw new UnauthorizedException('Refresh token inválido');
         }
 
