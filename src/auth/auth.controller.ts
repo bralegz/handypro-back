@@ -16,6 +16,7 @@ import { LocalAuthGuard } from './guards/local-auth/local-auth.guard';
 import { LoginDto } from '../user/dtos/loginUser.dto';
 import { RefreshAuthGuard } from './guards/refresh-auth/refresh-auth.guard';
 import { JwtAuthGuard } from './guards/jwt-auth/jwt-auth.guard';
+import { GoogleAuthGuard } from './guards/google-auth/google-auth.guard';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -70,6 +71,11 @@ export class AuthController {
         return 'Logged out';
     }
 
+    @UseGuards(GoogleAuthGuard)
     @Get('google/login')
     googleLogin() {}
+
+    @UseGuards(GoogleAuthGuard)
+    @Get('google/callback')
+    googleCallback() {}
 }
