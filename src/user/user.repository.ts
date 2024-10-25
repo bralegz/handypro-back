@@ -93,4 +93,23 @@ export class UserRepository {
         });
         return user;
     }
+
+    async changeRole(userId: string, role: string) {
+        const user = await this.userRepository.findOne({
+            where: { id: userId },
+        });
+
+        if (!user) {
+            return user;
+        }
+
+        if(role === user.role) {
+            throw new Error('El usuario ya tiene este rol')
+        }
+
+        user.role = role;
+        await this.userRepository.save(user);
+
+        return { id: user.id, name: user.fullname, newRole: user.role };
+    }
 }

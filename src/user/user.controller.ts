@@ -3,6 +3,7 @@ import {
     Get,
     Param,
     ParseUUIDPipe,
+    Post,
     Query,
     Req,
     UseGuards,
@@ -50,5 +51,13 @@ export class UserController {
     @Get('profile')
     async getProfile(@Req() req) {
         return await this.usersService.getProfile(req.user.id);
+    }
+
+    @Post('changeRole/:id')
+    async changerole(
+        @Param('id', ParseUUIDPipe) id: string,
+        @Query('role') role: string,
+    ) {
+        return this.usersService.changeRole(id, role);
     }
 }

@@ -45,4 +45,19 @@ export class UserService {
             throw new NotFoundException(error.message);
         }
     }
+
+    async changeRole(userId: string, role: string) {
+        try {
+            const user = await this.userRepository.changeRole(userId, role);
+
+            if (!user) {
+                throw new Error('Usuario no existe');
+            }
+
+            return user;
+        } catch (error) {
+            throw new BadRequestException(error.message);
+        }
+    }
+
 }
