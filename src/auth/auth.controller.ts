@@ -59,6 +59,7 @@ export class AuthController {
             );
     }
 
+    @ApiBearerAuth()
     @UseGuards(JwtAuthGuard) //looks for access token, decode that token, extract the user id from that decoded access token and appends the user id to the request object.
     @Post('signout')
     signOut(@Request() req) {
