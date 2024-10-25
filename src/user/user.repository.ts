@@ -119,4 +119,10 @@ export class UserRepository {
             { hashedRefreshToken },
         );
     }
+
+    async findUserById(id: string) {
+        const user = await this.userRepository.findOne({ where: { id } });
+
+        return user;
+    }
 }

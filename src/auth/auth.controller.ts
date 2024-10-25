@@ -46,7 +46,7 @@ export class AuthController {
     }
 
     @ApiBearerAuth()
-    @UseGuards(RefreshAuthGuard)
+    @UseGuards(RefreshAuthGuard)//activates the refresh token strategy
     @Post('refresh')
     refreshToken(@Request() req) {
         return this.authService.refreshToken(
