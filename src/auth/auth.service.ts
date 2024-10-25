@@ -11,6 +11,7 @@ import { JwtService } from '@nestjs/jwt';
 import { AuthJwtPayload } from './types/auth.jwtPayload';
 import refreshJwtConfig from './config/refresh-jwt.config';
 import { ConfigType } from '@nestjs/config';
+import * as argon2 from 'argon2';
 
 @Injectable()
 export class AuthService {
@@ -61,7 +62,50 @@ export class AuthService {
         };
     }
 
-    login(
+    async login(
+        userId: string,
+        userRole: string,
+        userEmail: string,
+        userName: string,
+    ) {
+        // const payload: AuthJwtPayload = {
+        //     userId,
+        //     userRole,
+        //     userName,
+        //     userEmail,
+        // };
+
+        // const accessToken = this.jwtService.sign(payload);
+
+        // //This time we'll pass the refresh token configuration to sign it.
+        // const refreshToken = this.jwtService.sign(
+        //     payload,
+        //     this.refreshTokenConfig,
+        // );
+
+        const { accessToken, refreshToken } = await this.generateTokens(
+            userId,
+            userRole,
+            userEmail,
+            userName,
+        );
+
+        const hashedRefreshToken = await argon2.hash(refreshToken);
+
+        await this.userRepository.updateHashedRefreshToken(
+            userId,
+            hashedRefreshToken,
+        );
+        
+        return {
+            id: userId,
+            token: accessToken,
+            refreshToken: refreshToken,
+        };
+    }
+
+    //This function will generate access and refresh tokens
+    async generateTokens(
         userId: string,
         userRole: string,
         userEmail: string,
@@ -74,18 +118,14 @@ export class AuthService {
             userEmail,
         };
 
-        const accessToken = this.jwtService.sign(payload);
-
-        //This time we'll pass the refresh token configuration to sign it.
-        const refreshToken = this.jwtService.sign(
-            payload,
-            this.refreshTokenConfig,
-        );
+        const [accessToken, refreshToken] = await Promise.all([
+            this.jwtService.signAsync(payload),
+            this.jwtService.signAsync(payload, this.refreshTokenConfig),
+        ]);
 
         return {
-            id: userId,
-            token: accessToken,
-            refreshToken: refreshToken,
+            accessToken,
+            refreshToken,
         };
     }
 
