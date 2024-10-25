@@ -1,6 +1,7 @@
 import {
     Body,
     Controller,
+    Get,
     HttpCode,
     HttpStatus,
     Post,
@@ -68,4 +69,7 @@ export class AuthController {
 
         return 'Logged out';
     }
+
+    @Get('google/login')
+    googleLogin() {}
 }
