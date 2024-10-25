@@ -17,7 +17,7 @@ export class AuthService {
     constructor(
         private readonly userRepository: UserRepository,
         private jwtService: JwtService,
-        @Inject(refreshJwtConfig.KEY) //this key represents the name specified in register as
+        @Inject(refreshJwtConfig.KEY) //this key represents the name specified in register as of refresh token
         private refreshTokenConfig: ConfigType<typeof refreshJwtConfig>,
     ) {}
 
@@ -41,6 +41,7 @@ export class AuthService {
     }
 
     //here you add the info you need to return to the client
+    //The returned object of this function will be appended to Req.User through the local strategy.
     async validateUser(email: string, password: string) {
         const user = await this.userRepository.findUserByEmail(email);
 
@@ -85,6 +86,27 @@ export class AuthService {
             id: userId,
             token: accessToken,
             refreshToken: refreshToken,
+        };
+    }
+
+    refreshToken(
+        userId: string,
+        userRole: string,
+        userEmail: string,
+        userName: string,
+    ) {
+        const payload: AuthJwtPayload = {
+            userId,
+            userRole,
+            userName,
+            userEmail,
+        };
+
+        const accessToken = this.jwtService.sign(payload); //we'll use the default options of the jwt service to create a token because we're going to use the jwt secret and not the refresh jwt secret. This is because we are creating an Access Token and not a Refresh Token at this point.
+
+        return {
+            id: userId,
+            token: accessToken,
         };
     }
 }

@@ -9,10 +9,14 @@ import { Inject, Injectable } from '@nestjs/common';
 //If that is the case, it will let the user to access the endpoints
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-    constructor(@Inject(jwtConfig.KEY) private jwtConfiguration: ConfigType<typeof jwtConfig>) {
+    constructor(
+        @Inject(jwtConfig.KEY)
+        private jwtConfiguration: ConfigType<typeof jwtConfig>,
+    ) {
         super({
             jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(), // it will expect the jwt inside the headers as a bearer token
             secretOrKey: jwtConfiguration.secret, // provide the secret key for decoding the jwt
+            ignoreExpiration: false,
         });
     }
 

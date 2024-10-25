@@ -18,11 +18,18 @@ export class RefreshJwtStrategy extends PassportStrategy(
         super({
             jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
             secretOrKey: refreshJwtConfiguration.secret, //we are passing the refresh jwt secret
+            ignoreExpiration: false,
         });
     }
 
     //if the refresh token is in the headers and is valid, not expired. This strategy it will call the validate function and pass the decoded payload coming from the decoded refresh. This will be attached to Request.user.
     validate(payload: AuthJwtPayload) {
-        return { id: payload.userId };
+        //This will be appended to the Req.user
+        return {
+            id: payload.userId,
+            role: payload.userRole,
+            email: payload.userEmail,
+            fullname: payload.userName,
+        };
     }
 }
