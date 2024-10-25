@@ -21,7 +21,7 @@ export class UserRepository {
     }
 
     async findUserByEmail(email: string) {
-        const user = this.userRepository.findOne({ where: { email } });
+        const user = await this.userRepository.findOne({ where: { email } });
 
         return user;
     }
@@ -45,7 +45,7 @@ export class UserRepository {
         const users = await this.userRepository.find({
             where: { role: 'professional' },
             relations: {
-                acceptedJobs: { review: true },
+                // acceptedJobs: { review: true },
                 categories: true,
                 location: true,
             },
@@ -114,7 +114,7 @@ export class UserRepository {
         const user = await this.userRepository.findOne({
             where: { id },
             relations: {
-                acceptedJobs: { review: true },
+                // acceptedJobs: { review: true },
                 categories: true,
                 location: true,
             },
@@ -127,5 +127,31 @@ export class UserRepository {
             location: user.location.name,
             categories: categoryNames,
         };
+    }
+
+    async getProfile(userId: string) {
+        const user = await this.userRepository.findOne({
+            where: { id: userId },
+        });
+        return user;
+    }
+
+    async changeRole(userId: string, role: string) {
+        const user = await this.userRepository.findOne({
+            where: { id: userId },
+        });
+
+        if (!user) {
+            return user;
+        }
+
+        if(role === user.role) {
+            throw new Error('El usuario ya tiene este rol')
+        }
+
+        user.role = role;
+        await this.userRepository.save(user);
+
+        return { id: user.id, name: user.fullname, newRole: user.role };
     }
 }

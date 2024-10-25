@@ -150,7 +150,10 @@
             },
             "posted_job_date": "2024-07-08",
             "posted_job_priority": "alta",
-            "posted_job_photos": [],
+            "posted_job_photos": [
+                 "https://example.com/job246_1.jpg",
+                "https://example.com/job246_2.jpg"
+            ],
             "posted_job_status": "completado",
             "categories": [
                 {
@@ -158,6 +161,103 @@
                     "name": "Fotógrafo"
                 }
             ]
+        },
+        {
+            "posted_job_id": 247,
+            "title": "Reemplazo de grifo en la cocina",
+            "client": 107,
+            "professional": 9,
+            "posted_job_description": "Sustitución de grifo defectuoso",
+            "location": {
+                "locationId": 7,
+                "name": "Miraflores"
+            },
+            "posted_job_date": "2024-07-10",
+            "posted_job_priority": "alta",
+            "posted_job_photos": [
+                 "https://example.com/job247_1.jpg",
+                "https://example.com/job247_2.jpg"
+            ],
+            "posted_job_status": "completado",
+            "categories": [
+                {
+                    "id": 4,
+                    "name": "Plomero"
+                }
+            ]
+        },
+        {
+            "posted_job_id": 248,
+            "title": "Pintura exterior de casa",
+            "client": 108,
+            "posted_job_description": "Pintura de paredes exteriores",
+            "location": {
+                "locationId": 8,
+                "name": "San Borja"
+            },
+            "posted_job_date": "2024-07-12",
+            "posted_job_priority": "media",
+            "posted_job_photos": [
+                 "https://example.com/job248_1.jpg",
+                "https://example.com/job248_2.jpg"
+            ],
+            "posted_job_status": "pendiente",
+            "categories": [
+                {
+                    "id": 8,
+                    "name": "Pintor"
+                }
+            ]
+        },
+        {
+            "posted_job_id": 249,
+            "title": "Instalación de estanterías en la sala",
+            "client": 109,
+            "posted_job_description": "Montaje de estanterías en pared",
+            "location": {
+                "locationId": 9,
+                "name": "La Molina"
+            },
+            "posted_job_date": "2024-07-14",
+            "posted_job_priority": "media",
+            "posted_job_photos": [
+                 "https://example.com/job249_1.jpg",
+                "https://example.com/job249_2.jpg"
+            ],
+            "posted_job_status": "completado",
+            "categories": [
+                {
+                    "id": 9,
+                    "name": "Carpintero"
+                }
+            ]
+        },
+        {
+            "posted_job_id": 250,
+            "title": "Fotografía de evento corporativo",
+            "client": 110,
+            "posted_job_description": "Cobertura fotográfica de un evento",
+            "location": {
+                "locationId": 10,
+                "name": "Centro de Lima"
+            },
+            "posted_job_date": "2024-07-16",
+            "posted_job_priority": "alta",
+            "posted_job_photos": [
+                 "https://example.com/job250_1.jpg",
+                "https://example.com/job250_2.jpg"
+            ],
+            "posted_job_status": "pendiente",
+            "categories": [
+                {
+                    "id": 5,
+                    "name": "Fotógrafo"
+                }
+            ]
         }
+        
+        
+        
+        
   ]
 }

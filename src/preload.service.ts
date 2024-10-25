@@ -4,6 +4,7 @@ import * as location from './utils/location.json';
 import * as users from './utils/users.json';
 import * as reviews from './utils/reviews.json';
 import * as postedJobs from './utils/posted_job.json';
+import * as applications from './utils/application.json';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Category } from './category/category.entity';
@@ -11,6 +12,7 @@ import { Location } from './location/location.entity';
 import { User } from './user/user.entity';
 import { Review } from './review/review.entity';
 import { PostedJob } from './postedJob/postedJob.entity';
+import { Application } from './application/application.entity';
 
 @Injectable()
 export class PreloadService {
@@ -27,6 +29,8 @@ export class PreloadService {
         private readonly reviewRepository: Repository<Review>,
         @InjectRepository(PostedJob)
         private readonly postedJobRepository: Repository<PostedJob>,
+        @InjectRepository(Application)
+        private readonly applicationRepository: Repository<Application>,
     ) {}
 
     async preloadData() {
@@ -72,7 +76,7 @@ export class PreloadService {
                     where: { name: user.location },
                 });
 
-                return {
+                const createdUser = this.userRepository.create({
                     email: user.contact.email,
                     fullname: user.name,
                     password: user.password,
@@ -87,12 +91,17 @@ export class PreloadService {
                     years_experience: user.experience,
                     categories: categories.filter((category) => category),
                     location: location || null,
-                };
+                });
+
+                return createdUser;
             }),
         );
         const existingUsers = await this.userRepository.find();
         if (existingUsers.length === 0) {
-            await this.userRepository.save(usersData);
+            usersData.forEach(async (user) => {
+                await this.userRepository.save(user);
+            });
+
             this.logger.log('Se han cargado los usuarios a la base de datos');
         } else {
             this.logger.log('Ya la base de datos tiene los usuarios');
@@ -123,19 +132,6 @@ export class PreloadService {
 
         for (const job of postedJobs.posted_jobs) {
             let postedJob = new PostedJob();
-
-            // Asignar el profesional
-            const profEmail = users.users.find(
-                (user) => user.id === job.professional,
-            )?.contact.email;
-            if (profEmail) {
-                const professional = await this.userRepository.findOne({
-                    where: { email: profEmail },
-                });
-                if (professional) {
-                    postedJob.professional = professional;
-                }
-            }
 
             // Asignar el cliente
             const clientEmail = users.users.find(
@@ -198,23 +194,67 @@ export class PreloadService {
             postedJob.description = job.posted_job_description;
             postedJob.date = job.posted_job_date;
             postedJob.priority = job.posted_job_priority;
-            postedJob.title = job.title
+            postedJob.title = job.title;
 
-            // Asegúrate de que posted_job_photos sea un arreglo
             if (Array.isArray(job.posted_job_photos)) {
-                postedJob.photos = job.posted_job_photos; // Asigna directamente el arreglo
+                postedJob.photos = job.posted_job_photos; 
             } else {
-                postedJob.photos = []; // Si no es un arreglo, asigna un arreglo vacío
+                postedJob.photos = []; 
             }
             postedJob.status = job.posted_job_status;
-
-            // Guardar el trabajo publicado en la base de datos
             await this.postedJobRepository.save(postedJob);
         }
 
         this.logger.log(
             'Se han cargado los trabajos publicados a la base de datos',
         );
+
+
+        // Cargar application a la base de datos
+        const existingApps = await this.applicationRepository.find();
+        if (existingApps.length > 0) {
+            this.logger.log(
+                'Ya existen aplicaciones en la base de datos. No se cargarán nuevas aplicaciones.',
+            );
+            return 'Proceso de pre-carga cancelado debido a datos existentes.';
+        }
+
+        for (let application of applications.application) {
+            let app = new Application();
+
+            // Asignar el profesional
+            const profEmail = users.users.find(
+                (user) => user.id === application.professional_id,
+            )?.contact.email;
+            if (profEmail) {
+                const professional = await this.userRepository.findOne({
+                    where: { email: profEmail },
+                });
+                if (professional) {
+                    app.professional = professional;
+                }
+            }
+
+            // Asignar el trabajo publicado
+            const postedJobTitle = postedJobs.posted_jobs.find(
+                (job) => job.posted_job_id === application.posted_job_id,
+            )?.title;
+            if (postedJobTitle) {
+                const postedJob = await this.postedJobRepository.findOne({
+                    where: { title: postedJobTitle },
+                });
+                if (postedJob) {
+                    app.postedJob = postedJob;
+                }
+            }
+            app.status = application.status || 'pending';
+            await this.applicationRepository.save(app);
+        }
+
+        this.logger.log(
+            'Se han guardado todas las aplicaciones en la base de datos',
+        );
+
         return 'Proceso de pre-carga completado';
     }
 }

@@ -20,7 +20,6 @@ export class PostedJobRepository {
         return await this.postedJobRepository.find({
             relations: {
                 client: true,
-                professional: true,
                 review: true,
                 location: true,
                 categories: true,
@@ -28,37 +27,37 @@ export class PostedJobRepository {
         });
     }
 
-    async acceptedJobsByProfessional(
-        professionalId: string,
-    ): Promise<PostedJob[]> {
-        const user = await this.usersRepository.findOneBy({
-            id: professionalId,
-        });
+    // async acceptedJobsByProfessional(
+    //     professionalId: string,
+    // ): Promise<PostedJob[]> {
+    //     const user = await this.usersRepository.findOneBy({
+    //         id: professionalId,
+    //     });
 
-        if (!user) throw new BadRequestException('El usuario no existe');
+    //     if (!user) throw new BadRequestException('El usuario no existe');
 
-        const acceptedJobs = await this.postedJobRepository.find({
-            where: {
-                professional: {
-                    id: professionalId,
-                },
-            },
-            relations: {
-                client: true,
-                professional: true,
-                review: true,
-                location: true,
-                categories: true,
-            },
-            select: {
-                categories: { name: true },
-                location: { name: true },
-                review: { rating: true, comment: true },
-            },
-        });
+    //     const acceptedJobs = await this.postedJobRepository.find({
+    //         where: {
+    //             professional: {
+    //                 id: professionalId,
+    //             },
+    //         },
+    //         relations: {
+    //             client: true,
+    //             professional: true,
+    //             review: true,
+    //             location: true,
+    //             categories: true,
+    //         },
+    //         select: {
+    //             categories: { name: true },
+    //             location: { name: true },
+    //             review: { rating: true, comment: true },
+    //         },
+    //     });
 
-        return acceptedJobs;
-    }
+    //     return acceptedJobs;
+    // }
 
     async postedJobsByClient(clientId: string): Promise<PostedJob[]> {
         const user = await this.usersRepository.findOneBy({
@@ -75,7 +74,6 @@ export class PostedJobRepository {
             },
             relations: {
                 client: true,
-                professional: true,
                 review: true,
                 location: true,
                 categories: true,
@@ -95,7 +93,6 @@ export class PostedJobRepository {
             where: { id },
             relations: {
                 client: true,
-                professional: true,
                 review: true,
                 location: true,
                 categories: true,
@@ -128,7 +125,6 @@ export class PostedJobRepository {
             },
             relations: {
                 client: true,
-                professional: true,
                 review: true,
                 location: true,
                 categories: true,

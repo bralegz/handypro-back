@@ -1,6 +1,7 @@
 import { PostedJob } from 'src/postedJob/postedJob.entity';
 import { Location } from '../location/location.entity';
 import {
+    BeforeInsert,
     Column,
     Entity,
     JoinTable,
@@ -10,6 +11,8 @@ import {
     PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Category } from 'src/category/category.entity';
+import { Application } from '../application/application.entity';
+import * as bcrypt from 'bcrypt';
 
 @Entity()
 export class User {
@@ -60,10 +63,19 @@ export class User {
     @OneToMany(() => PostedJob, (postedJob) => postedJob.client)
     postedJobs: PostedJob[];
 
-    @OneToMany(() => PostedJob, (acceptedJob) => acceptedJob.professional)
-    acceptedJobs: PostedJob[];
+    // @OneToMany(() => PostedJob, (acceptedJob) => acceptedJob.professional)
+    // acceptedJobs: PostedJob[];
 
     @ManyToMany(() => Category, (category) => category.users)
-    @JoinTable({name: 'user_categories'})
+    @JoinTable({ name: 'user_categories' })
     categories: Category[];
+
+    @OneToMany(() => Application, (application) => application.professional)
+    applications: Application;
+
+    @BeforeInsert()
+    async hashPassword() {
+        //1st parameter: plain password -- 2nd parameter: salt rounds
+        this.password = await bcrypt.hash(this.password, 10);
+    }
 }
