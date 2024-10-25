@@ -37,7 +37,7 @@ export class RefreshJwtStrategy extends PassportStrategy(
 
         const userId = payload.userId;
 
-        //The returned value will be appended to the Req.user
+        //The returned value will be appended to the Req.user after the refresh token is validated against the database
         return await this.authService.validateRefreshToken(
             userId,
             refreshToken,
