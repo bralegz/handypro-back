@@ -5,11 +5,19 @@ import { UserRepository } from './user.repository';
 export class UserService {
     constructor(private readonly userRepository: UserRepository) {}
 
-    async getProfessionals(professions: string, page: number, limit: number) {
+    async getProfessionals(
+        categories: string,
+        page: number,
+        limit: number,
+        name: string,
+        rating: number,
+    ) {
         return await this.userRepository.getProfessionals(
-            professions,
+            categories,
             page,
             limit,
+            name,
+            rating,
         );
     }
 

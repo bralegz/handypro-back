@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { SignupUserDto } from './dtos/signupUser.dto';
-import { Repository } from 'typeorm';
+import { In, Like, Repository } from 'typeorm';
 import { User } from './user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PostedJob } from 'src/postedJob/postedJob.entity';
@@ -26,7 +26,22 @@ export class UserRepository {
         return user;
     }
 
-    async getProfessionals(professions: string, page: number, limit: number) {
+    async getProfessionals(
+        categories: string,
+        page: number,
+        limit: number,
+        name: string,
+        rating: number,
+    ) {
+        // Ordernar por Rating
+        const order: any = {};
+
+        if (rating !== 0) {
+            order.rating = 'DESC'; // MAY a MEN
+        } else {
+            order.rating = 'ASC'; // MEN a MAY
+        }
+
         const users = await this.userRepository.find({
             where: { role: 'professional' },
             relations: {
@@ -36,10 +51,37 @@ export class UserRepository {
             },
             skip: (page - 1) * limit,
             take: limit,
+            order: order,
         });
 
-        const usersMapped = users.map((user) => {
-            //return array with categories name
+        let filteredUsers = users;
+
+        // Filtrar por nombre
+        if (name) {
+            filteredUsers = filteredUsers.filter(
+                (user) =>
+                    user.fullname.toLowerCase().includes(name.toLowerCase()), // Filtro por nombre
+            );
+        }
+
+        // Filtrar por Categorias
+        if (categories) {
+            const professionArray = categories
+                .split(',')
+                .map((category) => category.trim().toLocaleLowerCase()); // Se divide el string y formamos un array de strings
+
+            if (professionArray.length > 0) {
+                filteredUsers = filteredUsers.filter((user) =>
+                    user.categories.some((category) =>
+                        professionArray.includes(
+                            category.name.toLocaleLowerCase(),
+                        ),
+                    ),
+                );
+            }
+        }
+
+        const usersMapped = filteredUsers.map((user) => {
             const categoriesMapped = user.categories.map((category) => {
                 return category.name;
             });
