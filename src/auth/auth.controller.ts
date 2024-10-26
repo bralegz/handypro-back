@@ -48,7 +48,10 @@ export class AuthController {
             },
         },
     })
-    @ApiResponse({ status: 201, description: 'Usuario registrado exitosamente.' })
+    @ApiResponse({
+        status: 201,
+        description: 'Usuario registrado exitosamente.',
+    })
     @ApiResponse({ status: 400, description: 'Solicitud inválida.' })
     async signUp(@Body() newUser: SignupUserDto) {
         const userRegistered = await this.authService.signUp(newUser);
@@ -77,7 +80,10 @@ export class AuthController {
     @HttpCode(HttpStatus.OK)
     @Post('refresh')
     @ApiResponse({ status: 200, description: 'Token refrescado exitosamente.' })
-    @ApiResponse({ status: 401, description: 'Token de refresco inválido o expirado.' })
+    @ApiResponse({
+        status: 401,
+        description: 'Token de refresco inválido o expirado.',
+    })
     @ApiResponse({ status: 403, description: 'No autorizado.' })
     @Post('refresh')
     refreshToken(@Request() req) {
@@ -112,6 +118,11 @@ export class AuthController {
             req.user.fullname,
         );
 
-        res.redirect(`http://localhost:3005/api?token=${response.token}`);
+        console.log(response.token);
+        console.log(response.refreshToken);
+
+        res.redirect(
+            `http://localhost:3005/api?token=${response.token}&refreshToken=${response.refreshToken}`,
+        );
     }
 }
