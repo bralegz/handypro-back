@@ -4,6 +4,9 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 import jwtConfig from '../config/jwt.config';
 import { AuthJwtPayload } from '../types/auth.jwtPayload';
 import { Inject, Injectable } from '@nestjs/common';
+import { config as dotenvConfig } from 'dotenv';
+
+dotenvConfig({ path: '.env' });
 
 //This strategy is responsible for extracting the JWT from the incoming requests headers and check if the jwt is valid
 //If that is the case, it will let the user to access the endpoints
