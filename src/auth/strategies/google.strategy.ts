@@ -30,6 +30,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy) {
         //Otherwise we will just retreive the data from the database and return it in this function and it will be appended to the Req.user.
 
         console.log({ profile });
+        //validate the user in the database with the info coming from google. It will return user info from database.
         const user = await this.authService.validateGoogleUser({
             email: profile.emails[0].value,
             fullname: profile.displayName,
@@ -40,6 +41,6 @@ export class GoogleStrategy extends PassportStrategy(Strategy) {
 
         //first argument error object - second argument user data
         //append user to request object
-        done(null, { ...user, role: '' });
+        done(null, user);
     }
 }
