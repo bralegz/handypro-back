@@ -112,6 +112,6 @@ export class AuthController {
             req.user.fullname,
         );
 
-        res.redirect(`http://localhost:3000/api?token=${response.token}`);
+        res.redirect(`http://localhost:3005/api?token=${response.token}`);
     }
 }
