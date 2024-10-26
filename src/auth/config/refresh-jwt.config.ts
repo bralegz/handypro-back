@@ -1,5 +1,8 @@
 import { registerAs } from '@nestjs/config';
 import {  JwtSignOptions } from '@nestjs/jwt';
+import { config as dotenvConfig } from 'dotenv';
+
+dotenvConfig({ path: '.env' });
 
 export default registerAs(
     'refresh-jwt',

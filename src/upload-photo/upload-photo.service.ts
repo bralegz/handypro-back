@@ -2,6 +2,10 @@ import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { lookup } from 'mime-types';
+import { config as dotenvConfig } from 'dotenv';
+
+dotenvConfig({ path: '.env' });
+
 
 @Injectable()
 export class UploadPhotoService {

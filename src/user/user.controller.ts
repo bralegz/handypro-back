@@ -9,7 +9,7 @@ import {
     UseGuards,
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { ApiBearerAuth, ApiTags, ApiQuery } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags, ApiQuery, ApiResponse, ApiParam } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth/jwt-auth.guard';
 
 @ApiTags('user')
@@ -89,6 +89,20 @@ export class UserController {
     }
 
     @Post('changeRole/:id')
+    @ApiParam({
+        name: 'id',
+        description: 'El ID del usuario al que se le cambiará el rol. Debe ser un UUID válido.',
+        example: '123e4567-e89b-12d3-a456-426614174000',
+    })
+    @ApiQuery({
+        name: 'role',
+        description: 'El nuevo rol para asignar al usuario. Puede ser "admin", "client" o "professional".',
+        required: true,
+        example: 'admin',
+    })
+    @ApiResponse({ status: 200, description: 'El rol del usuario ha sido cambiado exitosamente.' })
+    @ApiResponse({ status: 400, description: 'Solicitud inválida. El ID o el rol son incorrectos.' })
+    @ApiResponse({ status: 404, description: 'Usuario no encontrado.' })
     async changerole(
         @Param('id', ParseUUIDPipe) id: string,
         @Query('role') role: string,
