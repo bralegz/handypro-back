@@ -6,6 +6,7 @@ import {
     HttpStatus,
     Post,
     Request,
+    Res,
     UnauthorizedException,
     UseGuards,
 } from '@nestjs/common';
@@ -77,5 +78,15 @@ export class AuthController {
 
     @UseGuards(GoogleAuthGuard)
     @Get('google/callback')
-    googleCallback() {}
+    async googleCallback(@Request() req, @Res() res) {
+        const response = await this.authService.login(
+            req.user.id,
+            req.user.role,
+            req.user.email,
+            req.user.fullname,
+        );
+
+        console.log(response);
+        res.redirect('http://localhost:3000/api?token=${response.token}'); // redirect to frontend app endpoint
+    }
 }
