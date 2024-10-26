@@ -74,7 +74,7 @@ export class User {
     categories: Category[];
 
     @OneToMany(() => Application, (application) => application.professional)
-    applications: Application;
+    applications: Application[];
 
     @BeforeInsert()
     async hashPassword() {

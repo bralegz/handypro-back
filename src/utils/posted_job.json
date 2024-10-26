@@ -151,7 +151,7 @@
             "posted_job_date": "2024-07-08",
             "posted_job_priority": "alta",
             "posted_job_photos": [
-                 "https://example.com/job246_1.jpg",
+                "https://example.com/job246_1.jpg",
                 "https://example.com/job246_2.jpg"
             ],
             "posted_job_status": "completado",
@@ -175,7 +175,7 @@
             "posted_job_date": "2024-07-10",
             "posted_job_priority": "alta",
             "posted_job_photos": [
-                 "https://example.com/job247_1.jpg",
+                "https://example.com/job247_1.jpg",
                 "https://example.com/job247_2.jpg"
             ],
             "posted_job_status": "completado",
@@ -198,7 +198,7 @@
             "posted_job_date": "2024-07-12",
             "posted_job_priority": "media",
             "posted_job_photos": [
-                 "https://example.com/job248_1.jpg",
+                "https://example.com/job248_1.jpg",
                 "https://example.com/job248_2.jpg"
             ],
             "posted_job_status": "pendiente",
@@ -221,7 +221,7 @@
             "posted_job_date": "2024-07-14",
             "posted_job_priority": "media",
             "posted_job_photos": [
-                 "https://example.com/job249_1.jpg",
+                "https://example.com/job249_1.jpg",
                 "https://example.com/job249_2.jpg"
             ],
             "posted_job_status": "completado",
@@ -244,7 +244,7 @@
             "posted_job_date": "2024-07-16",
             "posted_job_priority": "alta",
             "posted_job_photos": [
-                 "https://example.com/job250_1.jpg",
+                "https://example.com/job250_1.jpg",
                 "https://example.com/job250_2.jpg"
             ],
             "posted_job_status": "pendiente",
@@ -255,9 +255,5 @@
                 }
             ]
         }
-        
-        
-        
-        
-  ]
+    ]
 }

@@ -132,7 +132,9 @@ export class UserRepository {
             where: { id, role: 'professional' },
             relations: {
                 applications: {
-                    postedJob: true,
+                    postedJob: {
+                        review: true,
+                    },
                 },
                 categories: true,
                 location: true,
@@ -140,11 +142,33 @@ export class UserRepository {
         });
 
         const categoryNames = user?.categories.map((category) => category.name);
+        const acceptedJobs = user.applications
+            .filter(
+                (application) => application.postedJob.status === 'completado',
+            )
+            .map((application) => {
+                const { review, ...applicationWithoutReview } =
+                    application.postedJob;
+                return applicationWithoutReview;
+            });
+
+        console.log(acceptedJobs);
+
+
+        const reviews = user.applications
+            .filter(
+                (application) => application.postedJob.status === 'completado',
+            )
+            .map((application) => {
+                return application.postedJob.review;
+            });
 
         return {
             ...user,
             location: user.location.name,
             categories: categoryNames,
+            applications: acceptedJobs,
+            reviews,
         };
     }
 
