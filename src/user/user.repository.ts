@@ -23,6 +23,7 @@ export class UserRepository {
     async findUserByEmail(email: string) {
         const user = await this.userRepository.findOne({ where: { email } });
 
+        console.log(user);
         return user;
     }
 
@@ -153,7 +154,6 @@ export class UserRepository {
             });
 
         console.log(acceptedJobs);
-
 
         const reviews = user.applications
             .filter(
