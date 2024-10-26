@@ -13,7 +13,7 @@ export class UserRepository {
         private readonly userRepository: Repository<User>,
     ) {}
 
-    async createUser(newUser: SignupUserDto) {
+    async createUser(newUser: SignupUserDto & { profileImg?: string }) {
         const createdUser = this.userRepository.create(newUser);
         await this.userRepository.save(createdUser);
 
