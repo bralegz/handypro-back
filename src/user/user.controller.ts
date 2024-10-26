@@ -9,7 +9,7 @@ import {
     UseGuards,
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags, ApiQuery } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth/jwt-auth.guard';
 
 @ApiTags('user')
@@ -17,16 +17,44 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth/jwt-auth.guard';
 export class UserController {
     constructor(private readonly usersService: UserService) {}
 
+    @ApiQuery({
+        name: 'page',
+        required: false,
+        description: 'Tiene valor por defecto = 1',
+        example: '1',
+    })
+    @ApiQuery({
+        name: 'limit',
+        required: false,
+        description: 'Tiene valor por defecto = 5',
+        example: '5',
+    })
+    @ApiQuery({
+        name: 'categories',
+        required: false,
+        description:
+            'Si se quiere buscar por mas de una categoria debe separarlo por cómas, es indiferente a las MAYUSC. ES SENSIBLE A LOS ACENTOS',
+        example: 'Mecanico, Jardinero',
+    })
+    @ApiQuery({
+        name: 'name',
+        required: false,
+        description:
+            'Solo se puede buscar por un nombre a la vez, es indiferente a las MAYUSC',
+        example: 'JUAN',
+    })
     @Get('professionals')
     async getProfessionals(
-        @Query('professions') professions?: string,
+        @Query('categories') categories?: string,
         @Query('page') page: number = 1,
         @Query('limit') limit: number = 5,
+        @Query('name') name?: string,
     ) {
         return await this.usersService.getProfessionals(
-            professions,
+            categories,
             Number(page),
             Number(limit),
+            name,
         );
     }
 
@@ -41,6 +69,13 @@ export class UserController {
     @Get('professional/:id')
     async getProfessionalById(@Param('id', ParseUUIDPipe) id: string) {
         const user = await this.usersService.getProfessionalById(id);
+
+        return user;
+    }
+
+    @Get('client/:id')
+    async getClientById(@Param('id', ParseUUIDPipe) id: string) {
+        const user = await this.usersService.getClientById(id);
 
         return user;
     }

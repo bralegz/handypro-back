@@ -4,6 +4,7 @@ import { In, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/user/user.entity';
 import { Category } from 'src/category/category.entity';
+import { Application } from 'src/application/application.entity';
 
 @Injectable()
 export class PostedJobRepository {
@@ -14,52 +15,46 @@ export class PostedJobRepository {
         private usersRepository: Repository<User>,
         @InjectRepository(Category)
         private categoriesRepository: Repository<Category>,
+        @InjectRepository(Application)
+        private applicationsRepository: Repository<Application>,
     ) {}
 
-    async findAll(): Promise<PostedJob[]> {
-        return await this.postedJobRepository.find({
+    async findAll() {
+        const postedJobs = await this.postedJobRepository.find({
             relations: {
                 client: true,
                 review: true,
                 location: true,
                 categories: true,
+                applications: {
+                    professional: true,
+                },
+            },
+            order: {
+                applications: {
+                    professional: {
+                        rating: 'DESC',
+                    },
+                },
             },
         });
+
+        const postedJobsArray = postedJobs.map((job) => {
+            const categoryNames = job.categories?.map(
+                (category) => category.name,
+            );
+
+            return {
+                ...job,
+                location: job.location?.name,
+                categories: categoryNames,
+            };
+        });
+
+        return postedJobsArray;
     }
 
-    // async acceptedJobsByProfessional(
-    //     professionalId: string,
-    // ): Promise<PostedJob[]> {
-    //     const user = await this.usersRepository.findOneBy({
-    //         id: professionalId,
-    //     });
-
-    //     if (!user) throw new BadRequestException('El usuario no existe');
-
-    //     const acceptedJobs = await this.postedJobRepository.find({
-    //         where: {
-    //             professional: {
-    //                 id: professionalId,
-    //             },
-    //         },
-    //         relations: {
-    //             client: true,
-    //             professional: true,
-    //             review: true,
-    //             location: true,
-    //             categories: true,
-    //         },
-    //         select: {
-    //             categories: { name: true },
-    //             location: { name: true },
-    //             review: { rating: true, comment: true },
-    //         },
-    //     });
-
-    //     return acceptedJobs;
-    // }
-
-    async postedJobsByClient(clientId: string): Promise<PostedJob[]> {
+    async postedJobsByClient(clientId: string) {
         const user = await this.usersRepository.findOneBy({
             id: clientId,
         });
@@ -72,20 +67,42 @@ export class PostedJobRepository {
                     id: clientId,
                 },
             },
-            relations: {
-                client: true,
-                review: true,
-                location: true,
-                categories: true,
-            },
+            relations: [
+                'review',
+                'location',
+                'categories',
+                'applications',
+                'applications.professional',
+            ],
             select: {
-                categories: { name: true },
-                location: { name: true },
                 review: { rating: true, comment: true },
             },
         });
 
-        return postedJobs;
+        const postedJobsArray = postedJobs.map(({ applications, ...job }) => {
+            const categoryNames = job.categories.map(
+                (category) => category.name,
+            );
+
+            return {
+                ...job,
+                applications: applications.map((app) => ({
+                    status: app.status,
+                    professional: {
+                        id: app.professional.id,
+                        fullname: app.professional.fullname,
+                        profileImg: app.professional.profileImg,
+                        rating: app.professional.rating,
+                        years_experience: app.professional.years_experience,
+                        availability: app.professional.availability,
+                    },
+                })),
+                location: job.location.name,
+                categories: categoryNames,
+            };
+        });
+
+        return postedJobsArray;
     }
 
     async findJob(id: string) {
@@ -96,13 +113,16 @@ export class PostedJobRepository {
                 review: true,
                 location: true,
                 categories: true,
+                applications: {
+                    professional: true,
+                },
             },
         });
 
         return postedJob;
     }
 
-    async findByCategory(category: string): Promise<PostedJob[]> {
+    async findByCategory(category: string) {
         //Se divide el string y formamos un array de strings
         const professionArray = category
             .split(',')
@@ -128,14 +148,42 @@ export class PostedJobRepository {
                 review: true,
                 location: true,
                 categories: true,
+                applications: {
+                    professional: true,
+                },
             },
             select: {
-                categories: { name: true },
-                location: { name: true },
                 review: { rating: true, comment: true },
+                client: {
+                    id: true,
+                    fullname: true,
+                },
             },
         });
 
-        return postedJobs;
+        const postedJobsArray = postedJobs.map(({ applications, ...job }) => {
+            const categoryNames = job.categories.map(
+                (category) => category.name,
+            );
+
+            return {
+                ...job,
+                applications: applications.map((app) => ({
+                    status: app.status,
+                    professional: {
+                        id: app.professional.id,
+                        fullname: app.professional.fullname,
+                        profileImg: app.professional.profileImg,
+                        rating: app.professional.rating,
+                        years_experience: app.professional.years_experience,
+                        availability: app.professional.availability,
+                    },
+                })),
+                location: job.location.name,
+                categories: categoryNames,
+            };
+        });
+
+        return postedJobsArray;
     }
 }

@@ -9,11 +9,17 @@ import { UserRepository } from './user.repository';
 export class UserService {
     constructor(private readonly userRepository: UserRepository) {}
 
-    async getProfessionals(professions: string, page: number, limit: number) {
+    async getProfessionals(
+        categories: string,
+        page: number,
+        limit: number,
+        name: string,
+    ) {
         return await this.userRepository.getProfessionals(
-            professions,
+            categories,
             page,
             limit,
+            name,
         );
     }
 
@@ -24,6 +30,20 @@ export class UserService {
     async getProfessionalById(id: string) {
         try {
             const user = await this.userRepository.getProfessionalById(id);
+
+            if (!user) {
+                throw new Error('El usuario no se encuentra registrado');
+            }
+
+            return user;
+        } catch (error) {
+            throw new BadRequestException(error.message);
+        }
+    }
+
+    async getClientById(id: string) {
+        try {
+            const user = await this.userRepository.getClientById(id);
 
             if (!user) {
                 throw new Error('El usuario no se encuentra registrado');
@@ -59,5 +79,4 @@ export class UserService {
             throw new BadRequestException(error.message);
         }
     }
-
 }

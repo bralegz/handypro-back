@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { SignupUserDto } from './dtos/signupUser.dto';
-import { Repository } from 'typeorm';
+import { In, Like, Repository } from 'typeorm';
 import { User } from './user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PostedJob } from 'src/postedJob/postedJob.entity';
@@ -26,38 +26,97 @@ export class UserRepository {
         return user;
     }
 
-    async getProfessionals(professions: string, page: number, limit: number) {
+    async getProfessionals(
+        categories: string,
+        page: number,
+        limit: number,
+        name: string,
+    ) {
         const users = await this.userRepository.find({
             where: { role: 'professional' },
             relations: {
-                // acceptedJobs: { review: true },
+                applications: {
+                    postedJob: true,
+                },
                 categories: true,
                 location: true,
             },
             skip: (page - 1) * limit,
             take: limit,
+            order: {
+                rating: 'DESC',
+            },
         });
 
-        const usersMapped = users.map((user) => {
-            //return array with categories name
-            const categoriesMapped = user.categories.map((category) => {
-                return category.name;
-            });
+        let filteredUsers = users;
 
-            return {
-                ...user,
-                location: user.location.name,
-                categories: categoriesMapped,
-            };
-        });
+        // Filtrar por nombre
+        if (name) {
+            filteredUsers = filteredUsers.filter(
+                (user) =>
+                    user.fullname.toLowerCase().includes(name.toLowerCase()), // Filtro por nombre
+            );
+        }
+
+        // Filtrar por Categorias
+        if (categories) {
+            const professionArray = categories
+                .split(',')
+                .map((category) => category.trim().toLocaleLowerCase()); // Se divide el string y formamos un array de strings
+
+            if (professionArray.length > 0) {
+                filteredUsers = filteredUsers.filter((user) =>
+                    user.categories.some((category) =>
+                        professionArray.includes(
+                            category.name.toLocaleLowerCase(),
+                        ),
+                    ),
+                );
+            }
+        }
+
+        const usersMapped = filteredUsers.map(
+            ({
+                applications,
+                phone,
+                portfolio_gallery,
+                email,
+                role,
+                ...user
+            }) => {
+                const categoriesMapped = user.categories.map((category) => {
+                    return category.name;
+                });
+
+                const acceptedJobs = Array.isArray(applications)
+                    ? applications
+                          .filter((app) => app.status === 'accepted')
+                          .map((app) => app.postedJob)
+                    : [];
+
+                return {
+                    ...user,
+                    location: user.location.name,
+                    categories: categoriesMapped,
+                    completedJobs: acceptedJobs.length,
+                };
+            },
+        );
 
         return usersMapped;
     }
 
     async getClients(page: number, limit: number) {
         const users = await this.userRepository.find({
-            where: { role: 'client' },
-            relations: { postedJobs: { review: true }, location: true },
+            where: {
+                role: 'client',
+            },
+            relations: {
+                postedJobs: {
+                    review: true,
+                },
+                location: true,
+            },
             skip: (page - 1) * limit,
             take: limit,
         });
@@ -70,9 +129,11 @@ export class UserRepository {
 
     async getProfessionalById(id: string) {
         const user = await this.userRepository.findOne({
-            where: { id },
+            where: { id, role: 'professional' },
             relations: {
-                // acceptedJobs: { review: true },
+                applications: {
+                    postedJob: true,
+                },
                 categories: true,
                 location: true,
             },
@@ -84,6 +145,18 @@ export class UserRepository {
             ...user,
             location: user.location.name,
             categories: categoryNames,
+        };
+    }
+
+    async getClientById(id: string) {
+        const user = await this.userRepository.findOne({
+            where: { id, role: 'client' },
+            relations: { postedJobs: { review: true }, location: true },
+        });
+
+        return {
+            ...user,
+            location: user.location.name,
         };
     }
 
