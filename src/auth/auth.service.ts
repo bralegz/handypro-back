@@ -189,4 +189,17 @@ export class AuthService {
     async signOut(userId: string) {
         await this.userRepository.updateHashedRefreshToken(userId, null);
     }
+
+    async validateGoogleUser(
+        googleUser: SignupUserDto & { profileImg?: string },
+    ) {
+        //check if the user exist in the database. If it doesn't exist then create the user and return it. If it exists return it from database.
+        const user = await this.userRepository.findUserByEmail(
+            googleUser.email,
+        );
+
+        if (user) return user;
+
+        return await this.userRepository.createUser(googleUser);
+    }
 }

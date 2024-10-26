@@ -1,10 +1,12 @@
 import {
     Body,
     Controller,
+    Get,
     HttpCode,
     HttpStatus,
     Post,
     Request,
+    Res,
     UnauthorizedException,
     UseGuards,
 } from '@nestjs/common';
@@ -15,6 +17,7 @@ import { LocalAuthGuard } from './guards/local-auth/local-auth.guard';
 import { LoginDto } from '../user/dtos/loginUser.dto';
 import { RefreshAuthGuard } from './guards/refresh-auth/refresh-auth.guard';
 import { JwtAuthGuard } from './guards/jwt-auth/jwt-auth.guard';
+import { GoogleAuthGuard } from './guards/google-auth/google-auth.guard';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -67,5 +70,23 @@ export class AuthController {
         this.authService.signOut(req.user.id);
 
         return 'Logged out';
+    }
+
+    @UseGuards(GoogleAuthGuard)
+    @Get('google/login')
+    googleLogin() {}
+
+    @UseGuards(GoogleAuthGuard)
+    @Get('google/callback')
+    async googleCallback(@Request() req, @Res() res) {
+        const response = await this.authService.login(
+            req.user.id,
+            req.user.role,
+            req.user.email,
+            req.user.fullname,
+        );
+
+        console.log(response);
+        res.redirect('http://localhost:3000/api?token=${response.token}'); // redirect to frontend app endpoint
     }
 }

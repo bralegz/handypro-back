@@ -11,6 +11,8 @@ import { ConfigModule } from '@nestjs/config';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import refreshJwtConfig from './config/refresh-jwt.config';
 import { RefreshJwtStrategy } from './strategies/refresh.strategy';
+import googleOauthConfig from './config/google-oauth.config';
+import { GoogleStrategy } from './strategies/google.strategy';
 
 @Module({
     imports: [
@@ -18,6 +20,7 @@ import { RefreshJwtStrategy } from './strategies/refresh.strategy';
         JwtModule.registerAsync(jwtConfig.asProvider()),
         ConfigModule.forFeature(jwtConfig), // access the jwt config on the services of this module
         ConfigModule.forFeature(refreshJwtConfig),
+        ConfigModule.forFeature(googleOauthConfig),
     ],
     controllers: [AuthController],
     providers: [
@@ -26,6 +29,7 @@ import { RefreshJwtStrategy } from './strategies/refresh.strategy';
         LocalStrategy,
         JwtStrategy,
         RefreshJwtStrategy,
+        GoogleStrategy,
     ],
 })
 export class AuthModule {}
