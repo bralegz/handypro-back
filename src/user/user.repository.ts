@@ -154,7 +154,6 @@ export class UserRepository {
 
         console.log(acceptedJobs);
 
-
         const reviews = user.applications
             .filter(
                 (application) => application.postedJob.status === 'completado',
