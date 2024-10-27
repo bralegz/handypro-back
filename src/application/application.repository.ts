@@ -81,12 +81,16 @@ export class ApplicationRepository {
     async createApplication(postedJobId: string, professionalId: string) {
         const postedJob = await this.postedJobsRepository.findOne({
             where: { id: postedJobId },
-            relations: {
-                categories: true,
-            },
+            relations: ['categories', 'applications', 'applications.professional'],
         });
 
+        const applicationExists = postedJob.applications.find((app) => {
+            return app.professional.id === professionalId;
+        })
+
         if (!postedJob) throw new Error('El trabajo posteado no existe');
+
+        if(applicationExists) throw new Error('Ya postulaste a este trabajo');
 
         if (postedJob.status === 'completado')
             throw new Error('El trabajo ya fue completado');
@@ -100,12 +104,10 @@ export class ApplicationRepository {
 
         if (!professional) throw new Error('El profesional no existe');
 
-        console.log(postedJob.categories);
         const postedJobCategories = postedJob.categories.map(
             (category) => category.name,
         );
 
-        console.log(professional.categories);
         const professionalCategories = professional.categories.map(
             (category) => category.name,
         );
