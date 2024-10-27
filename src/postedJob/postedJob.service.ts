@@ -52,4 +52,30 @@ export class PostedJobService {
             throw new BadRequestException(error.message);
         }
     }
+
+    async createPostedJob(
+        clientId: string,
+        title: string,
+        description: string,
+        location: string,
+        priority: string,
+        category: string,
+        photo: string,
+    ) {
+        try {
+            const newJob = await this.postedJobRepository.createPostedJob(
+                clientId,
+                title,
+                description,
+                location,
+                priority,
+                category,
+                photo,
+            );
+
+            return newJob;
+        } catch (error) {
+            throw new BadRequestException(error.message);
+        }
+    }
 }

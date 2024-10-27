@@ -2,9 +2,10 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { PostedJob } from './postedJob.entity';
 import { In, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from 'src/user/user.entity';
-import { Category } from 'src/category/category.entity';
-import { Application } from 'src/application/application.entity';
+import { User } from '../user/user.entity';
+import { Category } from '../category/category.entity';
+import { Application } from '../application/application.entity';
+import { Location } from '../location/location.entity';
 
 @Injectable()
 export class PostedJobRepository {
@@ -17,6 +18,8 @@ export class PostedJobRepository {
         private categoriesRepository: Repository<Category>,
         @InjectRepository(Application)
         private applicationsRepository: Repository<Application>,
+        @InjectRepository(Location)
+        private locationRepository: Repository<Location>,
     ) {}
 
     async findAll() {
@@ -185,5 +188,55 @@ export class PostedJobRepository {
         });
 
         return postedJobsArray;
+    }
+
+    async createPostedJob(
+        clientId: string,
+        title: string,
+        description: string,
+        location: string,
+        priority: string,
+        category: string,
+        photo: string,
+    ) {
+        //Get date
+        const currentDate = new Date();
+        const postedJobdate = currentDate.toISOString().split('T')[0];
+
+        //Get category entity
+        const postedJobCategory = await this.categoriesRepository.find({
+            where: { name: category },
+        });
+
+        if(!postedJobCategory.length) throw new Error('La categoría no existe');
+
+        //Get location entity
+        const postedJobLocation = await this.locationRepository.find({
+            where: { name: location },
+        });
+
+        if(!postedJobLocation.length) throw new Error('La ubicación no existe');
+
+        //Get client entity
+        const postedJobClient = await this.usersRepository.find({
+            where: { id: clientId },
+        });
+
+        if(!postedJobClient.length) throw new Error('El cliente no existe');
+
+        const postedJobCreated = this.postedJobRepository.create({
+            title,
+            client: postedJobClient[0],
+            description: description,
+            location: postedJobLocation[0],
+            date: postedJobdate,
+            priority,
+            photos: [photo],
+            categories: postedJobCategory,
+        });
+
+        await this.postedJobRepository.save(postedJobCreated);
+
+        return postedJobCreated;
     }
 }
