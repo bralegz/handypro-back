@@ -1,10 +1,12 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Application } from './application.entity';
-import { Repository } from 'typeorm';
+import { Not, Repository } from 'typeorm';
 import { User } from 'src/user/user.entity';
 import { PostedJob } from 'src/postedJob/postedJob.entity';
 import { Category } from 'src/category/category.entity';
+import { ApplicationStatusEnum } from './enums/applicationStatus.dto';
+import { PostedJobStatusEnum } from 'src/postedJob/enums/postedJobStatus.enum';
 
 @Injectable()
 export class ApplicationRepository {
@@ -81,16 +83,20 @@ export class ApplicationRepository {
     async createApplication(postedJobId: string, professionalId: string) {
         const postedJob = await this.postedJobsRepository.findOne({
             where: { id: postedJobId },
-            relations: ['categories', 'applications', 'applications.professional'],
+            relations: [
+                'categories',
+                'applications',
+                'applications.professional',
+            ],
         });
 
         const applicationExists = postedJob.applications.find((app) => {
             return app.professional.id === professionalId;
-        })
+        });
 
         if (!postedJob) throw new Error('El trabajo posteado no existe');
 
-        if(applicationExists) throw new Error('Ya postulaste a este trabajo');
+        if (applicationExists) throw new Error('Ya postulaste a este trabajo');
 
         if (postedJob.status === 'completado')
             throw new Error('El trabajo ya fue completado');
@@ -134,6 +140,70 @@ export class ApplicationRepository {
             ...application,
             professional: { id: workerId, fullname },
             postedJob: { id: jobId, title },
+        };
+    }
+
+    async acceptApplication(applicationId: string) {
+        const application = await this.applicationsRepository.findOne({
+            where: { id: applicationId },
+            relations: {
+                professional: true,
+                postedJob: {
+                    applications: true,
+                },
+            },
+        });
+
+        if (!application) throw new Error('La aplicación no existe');
+
+        if (application.status === ApplicationStatusEnum.ACCEPTED)
+            throw new Error('La aplicación ya fue aceptada');
+
+        // Cambiar el estado de la aplicación a aceptada
+        application.status = ApplicationStatusEnum.ACCEPTED;
+        await this.applicationsRepository.save(application);
+
+        // Cambiar el estado del trabajo posteado a 'en progreso'
+        const postedJob = await this.postedJobsRepository.findOne({
+            where: { id: application.postedJob.id },
+        });
+
+        if(postedJob.status !== PostedJobStatusEnum.PENDING) throw new Error('El trabajo debe estar pendiente para poder aceptar una aplicación nueva');
+
+        postedJob.status = PostedJobStatusEnum.PROGRESS;
+
+        await this.postedJobsRepository.save(postedJob);
+
+        const postedJobApplicationsId = application.postedJob.applications.map(
+            (app) => app.id,
+        );
+
+        // Rechazar todas las aplicaciones del trabajo posteado menos la aceptada
+        postedJobApplicationsId.forEach(async (app) => {
+            if (app !== application.id) {
+                const application = await this.applicationsRepository.findOne({
+                    where: { id: app },
+                });
+
+                application.status = ApplicationStatusEnum.REJECTED;
+
+                await this.applicationsRepository.save(application);
+            }
+        });
+
+        return {
+            id: application.id,
+            status: application.status,
+            professional: {
+                id: application.professional.id,
+                fullname: application.professional.fullname,
+                rating: application.professional.rating,
+                services: application.professional.services,
+            },
+            postedJob: {
+                id: application.postedJob.id,
+                title: application.postedJob.title,
+            },
         };
     }
 }
