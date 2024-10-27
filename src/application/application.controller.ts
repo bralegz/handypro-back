@@ -1,6 +1,8 @@
-import { Controller, Get, Param, ParseUUIDPipe } from '@nestjs/common';
+import { Controller, Get, Param, ParseUUIDPipe, Post } from '@nestjs/common';
 import { ApplicationService } from './application.service';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('application')
 @Controller('application')
 export class ApplicationController {
     constructor(private readonly applicationService: ApplicationService) {}
@@ -14,5 +16,19 @@ export class ApplicationController {
                 professionalId,
             );
         return applicationJobs;
+    }
+
+    //This route should be role protected and the professional id should be extracted from req.user
+    //The professional category should match the postedJob category
+    @Post('apply/:postedJobId/:professionalId')
+    async createApplication(
+        @Param('postedJobId', ParseUUIDPipe) postedJobId: string,
+        @Param('professionalId', ParseUUIDPipe) professionalId: string,
+    ) {
+        const application = await this.applicationService.createApplication(
+            postedJobId,
+            professionalId,
+        );
+        return application;
     }
 }

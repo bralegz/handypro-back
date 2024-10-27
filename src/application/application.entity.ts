@@ -13,7 +13,7 @@ export class Application {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column('varchar', { length: 20 })
+    @Column('varchar', { length: 20, default: 'pendiente' })
     status: string;
 
     @ManyToOne(() => User, (user) => user.applications)
