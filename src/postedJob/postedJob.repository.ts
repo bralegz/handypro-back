@@ -208,21 +208,23 @@ export class PostedJobRepository {
             where: { name: category },
         });
 
-        if(!postedJobCategory.length) throw new Error('La categoría no existe');
+        if (!postedJobCategory.length)
+            throw new Error('La categoría no existe');
 
         //Get location entity
         const postedJobLocation = await this.locationRepository.find({
             where: { name: location },
         });
 
-        if(!postedJobLocation.length) throw new Error('La ubicación no existe');
+        if (!postedJobLocation.length)
+            throw new Error('La ubicación no existe');
 
         //Get client entity
         const postedJobClient = await this.usersRepository.find({
             where: { id: clientId },
         });
 
-        if(!postedJobClient.length) throw new Error('El cliente no existe');
+        if (!postedJobClient.length) throw new Error('El cliente no existe');
 
         const postedJobCreated = this.postedJobRepository.create({
             title,
@@ -237,6 +239,14 @@ export class PostedJobRepository {
 
         await this.postedJobRepository.save(postedJobCreated);
 
-        return postedJobCreated;
+        const locationName = postedJobCreated.location.name;
+        const categoryName = postedJobCreated.categories[0].name;
+        const { id, email, fullname, profileImg } = postedJobCreated.client;
+        return {
+            ...postedJobCreated,
+            client: { id, email, fullname, profileImg },
+            location: locationName,
+            categories: categoryName,
+        };
     }
 }
