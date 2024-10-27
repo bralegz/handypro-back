@@ -1,4 +1,12 @@
-import { Controller, Get, Param, ParseUUIDPipe, Post } from '@nestjs/common';
+import {
+    Controller,
+    Get,
+    Param,
+    ParseUUIDPipe,
+    Post,
+    Put,
+    Query,
+} from '@nestjs/common';
 import { ApplicationService } from './application.service';
 import { ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 
@@ -18,7 +26,6 @@ export class ApplicationController {
         return applicationJobs;
     }
 
-    //This route should be role protected and the professional id should be extracted from req.user
     @ApiParam({
         name: 'postedJobId',
         type: 'string',
@@ -61,6 +68,45 @@ export class ApplicationController {
             postedJobId,
             professionalId,
         );
+        return application;
+    }
+
+    @ApiResponse({
+        status: 200,
+        description: 'La aplicación fue aceptada exitosamente',
+        schema: {
+            example: {
+                id: 'a2e201c0-b120-4169-8772-885d8324e616',
+                status: 'aceptada',
+                professional: {
+                    id: '65595a20-943f-463f-8c06-bfc27b5b26ff',
+                    fullname: 'Roberto García',
+                    rating: 4.9,
+                    services: [
+                        'Muebles personalizados',
+                        'Reparaciones del hogar',
+                        'Restauración de trabajos en madera',
+                    ],
+                },
+                postedJob: {
+                    id: '8d680d14-7471-4562-83ba-d117e70a190d',
+                    title: 'Mi mesa se rompio',
+                },
+            },
+        },
+    })
+    @ApiResponse({
+        status: 400,
+        description: 'La aplicación no existe, la aplicación ya fue aceptada, el trabajo debe estar pendiente para poder aceptar una aplicación nueva',
+    })
+    @ApiParam({description: 'UUID de la aplicación que se quiere aceptar', name: 'applicationId', type: 'string'})
+    @Put('accept/:applicationId')
+    async acceptApplication(
+        @Param('applicationId', ParseUUIDPipe) applicationId: string,
+    ) {
+        const application =
+            await this.applicationService.acceptApplication(applicationId);
+
         return application;
     }
 }
