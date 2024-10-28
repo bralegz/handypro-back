@@ -211,6 +211,30 @@ export class PostedJobController {
         return postedJob;
     }
 
+    @ApiResponse({
+        status: 200,
+        description: 'Trabajo completado exitosamente',
+        schema: {
+            example: {
+                id: 'b9c27298-0d10-464a-ae84-85c163892bdf',
+                title: 'Se rompio el closet',
+                description: 'Mi closet está destruido',
+                date: '2024-10-28',
+                priority: 'alta',
+                photos: ['https://www.google.com/img/1221212'],
+                status: 'completado',
+            },
+        },
+    })
+    @ApiResponse({
+        status: 400,
+        description:
+            'El trabajo debe existir y debe estar en progreso para poder completarse',
+    })
+    @ApiParam({
+        description: 'UUID del trabajo que se completará',
+        name: 'postedJobId',
+    })
     @Put('complete-job/:postedJobId')
     async completeJob(
         @Param('postedJobId', ParseUUIDPipe) postedJobId: string,
