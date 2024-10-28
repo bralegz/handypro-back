@@ -836,6 +836,34 @@
             "password": "password",
             "bio": "Con 9 años de experiencia, capturo momentos especiales en bodas y eventos."
         },
+        {
+            "id": 32,
+            "name": "Luis Gómez",
+            "profession": ["Jardinero"],
+            "info": "San Isidro",
+            "rating": 4.3,
+            "services": [
+                "Mantenimiento de jardines",
+                "Diseño de jardines",
+                "Poda de árboles"
+            ],
+            "availability": true,
+            "portfolio_gallery": [
+                "https://picsum.photos/600/400?random=61",
+                "https://picsum.photos/600/400?random=62",
+                "https://picsum.photos/600/400?random=63"
+            ],
+            "experience": 7,
+            "contact": {
+                "phone": "+51-555-0907",
+                "email": "luis.gomez@example.com"
+            },
+            "profile_picture": "https://i.pravatar.cc/150?u=a042581f4e29026705d",
+            "role": "professional",
+            "password": "password",
+            "bio": "Con 7 años de experiencia, me especializo en el mantenimiento y diseño de jardines en San Isidro."
+        },
+        
 
 
 
