@@ -329,19 +329,19 @@
         {
             "application_id": 45,
             "posted_job_id": 251,
-            "professional": 4,
+            "professional_id": 4,
             "status": "accepted"
         },
         {
             "application_id": 46,
             "posted_job_id": 251,
-            "professional": 17,
+            "professional_id": 17,
             "status": "rejected"
         },
         {
             "application_id": 47,
             "posted_job_id": 251,
-            "professional": 18,
+            "professional_id": 18,
             "status": "rejected"
         },
 
@@ -354,19 +354,19 @@
         {
             "application_id": 48,
             "posted_job_id": 252,
-            "professional": 4,
+            "professional_id": 4,
             "status": "accepted"
         },
         {
             "application_id": 49,
             "posted_job_id": 252,
-            "professional": 19,
+            "professional_id": 19,
             "status": "rejected"
         },
         {
             "application_id": 50,
             "posted_job_id": 252,
-            "professional": 20,
+            "professional_id": 20,
             "status": "rejected"
         },
 
@@ -379,19 +379,19 @@
         {
             "application_id": 51,
             "posted_job_id": 253,
-            "professional": 11,
+            "professional_id": 11,
             "status": "accepted"
         },
         {
             "application_id": 52,
             "posted_job_id": 253,
-            "professional": 15,
+            "professional_id": 15,
             "status": "rejected"
         },
         {
             "application_id": 53,
             "posted_job_id": 253,
-            "professional": 16,
+            "professional_id": 16,
             "status": "rejected"
         },
 
@@ -403,19 +403,19 @@
         {
             "application_id": 54,
             "posted_job_id": 254,
-            "professional": 28,
+            "professional_id": 28,
             "status": "pending"
         },
         {
             "application_id": 55,
             "posted_job_id": 254,
-            "professional": 29,
+            "professional_id": 29,
             "status": "pending"
         },
         {
             "application_id": 56,
             "posted_job_id": 254,
-            "professional": 30,
+            "professional_id": 30,
             "status": "pending"
         },
 
@@ -426,19 +426,19 @@
         {
             "application_id": 57,
             "posted_job_id": 255,
-            "professional": 7,
+            "professional_id": 7,
             "status": "pending"
         },
         {
             "application_id": 58,
             "posted_job_id": 255,
-            "professional": 9,
+            "professional_id": 9,
             "status": "pending"
         },
         {
             "application_id": 59,
             "posted_job_id": 255,
-            "professional": 1,
+            "professional_id": 1,
             "status": "pending"
         },
 
@@ -446,19 +446,19 @@
         {
             "application_id": 60,
             "posted_job_id": 256,
-            "professional": 1,
+            "professional_id": 1,
             "status": "rejected"
         },
         {
             "application_id": 61,
             "posted_job_id": 256,
-            "professional": 7,
+            "professional_id": 7,
             "status": "rejected"
         },
         {
             "application_id": 62,
             "posted_job_id": 256,
-            "professional": 9,
+            "professional_id": 9,
             "status": "accepted"
         },
 
@@ -470,7 +470,7 @@
         {
         "application_id": 63,
         "posted_job_id": 257,
-        "professional": 1,
+        "professional_id": 1,
         "status": "accepted"
         },
 
@@ -479,19 +479,19 @@
         {
             "application_id": 64,
             "posted_job_id": 258,
-            "professional": 2,
+            "professional_id": 2,
             "status": "accepted"
         },
         {
             "application_id": 65,
             "posted_job_id": 258,
-            "professional": 14,
+            "professional_id": 14,
             "status": "rejected"
         },
         {
             "application_id": 66,
             "posted_job_id": 258,
-            "professional": 32,
+            "professional_id": 32,
             "status": "rejected"
         },
 
@@ -503,19 +503,19 @@
         {
             "application_id": 67,
             "posted_job_id": 259,
-            "professional": 21,
+            "professional_id": 21,
             "status": "accepted"
         },
         {
             "application_id": 68,
             "posted_job_id": 259,
-            "professional": 22,
+            "professional_id": 22,
             "status": "rejected"
         },
         {
             "application_id": 69,
             "posted_job_id": 259,
-            "professional": 24,
+            "professional_id": 24,
             "status": "rejected"
         },
 
@@ -526,19 +526,19 @@
         {
             "application_id": 70,
             "posted_job_id": 260,
-            "professional": 13,
+            "professional_id": 13,
             "status": "accepted"
         },
         {
             "application_id": 71,
             "posted_job_id": 260,
-            "professional": 26,
+            "professional_id": 26,
             "status": "rejected"
         },
         {
             "application_id": 72,
             "posted_job_id": 260,
-            "professional": 27,
+            "professional_id": 27,
             "status": "rejected"
         },
 
@@ -550,19 +550,19 @@
         {
             "application_id": 73,
             "posted_job_id": 262,
-            "professional": 3,
+            "professional_id": 3,
             "status": "accepted"
         },
         {
             "application_id": 74,
             "posted_job_id": 262,
-            "professional": 15,
+            "professional_id": 15,
             "status": "rejected"
         },
         {
             "application_id": 75,
             "posted_job_id": 262,
-            "professional": 17,
+            "professional_id": 17,
             "status": "rejected"
         },
 
@@ -571,19 +571,19 @@
         {
             "application_id": 76,
             "posted_job_id": 263,
-            "professional": 24,
+            "professional_id": 24,
             "status": "accepted"
         },
         {
             "application_id": 77,
             "posted_job_id": 263,
-            "professional": 20,
+            "professional_id": 20,
             "status": "rejected"
         },
         {
             "application_id": 78,
             "posted_job_id": 263,
-            "professional": 22,
+            "professional_id": 22,
             "status": "rejected"
         },
 
@@ -592,19 +592,19 @@
         {
             "application_id": 79,
             "posted_job_id": 264,
-            "professional": 8,
+            "professional_id": 8,
             "status": "pending"
         },
         {
             "application_id": 80,
             "posted_job_id": 264,
-            "professional": 12,
+            "professional_id": 12,
             "status": "pending"
         },
         {
             "application_id": 81,
             "posted_job_id": 264,
-            "professional": 6,
+            "professional_id": 6,
             "status": "pending"
         },
 
@@ -614,19 +614,19 @@
         {
             "application_id": 82,
             "posted_job_id": 265,
-            "professional": 14,
+            "professional_id": 14,
             "status": "pending"
         },
         {
             "application_id": 83,
             "posted_job_id": 265,
-            "professional": 2,
+            "professional_id": 2,
             "status": "pending"
         },
         {
             "application_id": 84,
             "posted_job_id": 265,
-            "professional": 32,
+            "professional_id": 32,
             "status": "pending"
         },
 
@@ -635,19 +635,19 @@
         {
             "application_id": 85,
             "posted_job_id": 266,
-            "professional": 28,
+            "professional_id": 28,
             "status": "pending"
         },
         {
             "application_id": 86,
             "posted_job_id": 266,
-            "professional": 30,
+            "professional_id": 30,
             "status": "pending"
         },
         {
             "application_id": 87,
             "posted_job_id": 266,
-            "professional": 31,
+            "professional_id": 31,
             "status": "pending"
         },
 
@@ -656,19 +656,19 @@
         {
             "application_id": 88,
             "posted_job_id": 267,
-            "professional": 32,
+            "professional_id": 32,
             "status": "accepted"
         },
         {
             "application_id": 89,
             "posted_job_id": 267,
-            "professional": 2,
+            "professional_id": 2,
             "status": "rejected"
         },
         {
             "application_id": 90,
             "posted_job_id": 267,
-            "professional": 14,
+            "professional_id": 14,
             "status": "rejected"
         },
 
@@ -678,19 +678,19 @@
         {
             "application_id": 91,
             "posted_job_id": 268,
-            "professional": 19,
+            "professional_id": 19,
             "status": "accepted"
         },
         {
             "application_id": 92,
             "posted_job_id": 268,
-            "professional": 22,
+            "professional_id": 22,
             "status": "rejected"
         },
         {
             "application_id": 93,
             "posted_job_id": 268,
-            "professional": 24,
+            "professional_id": 24,
             "status": "rejected"
         },
 
@@ -699,19 +699,19 @@
         {
             "application_id": 94,
             "posted_job_id": 269,
-            "professional": 11,
+            "professional_id": 11,
             "status": "accepted"
         },
         {
             "application_id": 95,
             "posted_job_id": 269,
-            "professional": 3,
+            "professional_id": 3,
             "status": "rejected"
         },
         {
             "application_id": 96,
             "posted_job_id": 269,
-            "professional": 16,
+            "professional_id": 16,
             "status": "rejected"
         },
 
@@ -722,19 +722,19 @@
         {
             "application_id": 97,
             "posted_job_id": 270,
-            "professional": 30,
+            "professional_id": 30,
             "status": "pending"
         },
         {
             "application_id": 98,
             "posted_job_id": 270,
-            "professional": 31,
+            "professional_id": 31,
             "status": "pending"
         },
         {
             "application_id": 99,
             "posted_job_id": 270,
-            "professional": 28,
+            "professional_id": 28,
             "status": "pending"
         },
 
@@ -744,139 +744,139 @@
         {
             "application_id": 100,
             "posted_job_id": 271,
-            "professional": 8,
+            "professional_id": 8,
             "status": "pending"
         },
         {
             "application_id": 101,
             "posted_job_id": 271,
-            "professional": 6,
+            "professional_id": 6,
             "status": "pending"
         },
         {
             "application_id": 102,
             "posted_job_id": 271,
-            "professional": 12,
+            "professional_id": 12,
             "status": "pending"
         },
 
         {
             "application_id": 103,
             "posted_job_id": 272,
-            "professional": 2,
+            "professional_id": 2,
             "status": "accepted"
         },
         {
             "application_id": 104,
             "posted_job_id": 272,
-            "professional": 14,
+            "professional_id": 14,
             "status": "rejected"
         },
         {
             "application_id": 105,
             "posted_job_id": 272,
-            "professional": 32,
+            "professional_id": 32,
             "status": "rejected"
         },
 
         {
             "application_id": 106,
             "posted_job_id": 273,
-            "professional": 21,
+            "professional_id": 21,
             "status": "accepted"
         },
         {
             "application_id": 107,
             "posted_job_id": 273,
-            "professional": 22,
+            "professional_id": 22,
             "status": "rejected"
         },
         {
             "application_id": 108,
             "posted_job_id": 273,
-            "professional": 19,
+            "professional_id": 19,
             "status": "rejected"
         },
 
         {
             "application_id": 109,
             "posted_job_id": 274,
-            "professional": 12,
+            "professional_id": 12,
             "status": "accepted"
         },
         {
             "application_id": 110,
             "posted_job_id": 274,
-            "professional": 8,
+            "professional_id": 8,
             "status": "rejected"
         },
         {
             "application_id": 111,
             "posted_job_id": 274,
-            "professional": 6,
+            "professional_id": 6,
             "status": "rejected"
         },
 
         {
             "application_id": 112,
             "posted_job_id": 275,
-            "professional": 25,
+            "professional_id": 25,
             "status": "accepted"
         },
         {
             "application_id": 113,
             "posted_job_id": 275,
-            "professional": 13,
+            "professional_id": 13,
             "status": "rejected"
         },
         {
             "application_id": 114,
             "posted_job_id": 275,
-            "professional": 26,
+            "professional_id": 26,
             "status": "rejected"
         },
 
         {
             "application_id": 115,
             "posted_job_id": 276,
-            "professional": 8,
+            "professional_id": 8,
             "status": "pending"
         },
         {
             "application_id": 116,
             "posted_job_id": 276,
-            "professional": 12,
+            "professional_id": 12,
             "status": "pending"
         },
         {
             "application_id": 117,
             "posted_job_id": 276,
-            "professional": 6,
+            "professional_id": 6,
             "status": "pending"
         },
         {
             "application_id": 118,
             "posted_job_id": 277,
-            "professional": 14,
+            "professional_id": 14,
             "status": "accepted"
         },
 
         {
             "application_id": 121,
             "posted_job_id": 278,
-            "professional": 30,
+            "professional_id": 30,
             "status": "accepted"
         },
         {
             "application_id": 122,
             "posted_job_id": 278,
-            "professional": 31,
+            "professional_id": 31,
             "status": "rejected"
         },
         {
             "application_id": 123,
             "posted_job_id": 278,
-            "professional": 28,
+            "professional_id": 28,
             "status": "rejected"
         },
 
@@ -884,45 +884,45 @@
         {
             "application_id": 124,
             "posted_job_id": 279,
-            "professional": 11,
+            "professional_id": 11,
             "status": "accepted"
         },
         {
             "application_id": 125,
             "posted_job_id": 279,
-            "professional": 15,
+            "professional_id": 15,
             "status": "rejected"
         },
         {
             "application_id": 126,
             "posted_job_id": 279,
-            "professional": 18,
+            "professional_id": 18,
             "status": "rejected"
         },
 
         {
             "application_id": 127,
             "posted_job_id": 280,
-            "professional": 1,
+            "professional_id": 1,
             "status": "accepted"
         },
 
         {
             "application_id": 130,
             "posted_job_id": 281,
-            "professional": 7,
+            "professional_id": 7,
             "status": "pending"
         },
         {
             "application_id": 131,
             "posted_job_id": 281,
-            "professional": 9,
+            "professional_id": 9,
             "status": "pending"
         },
         {
             "application_id": 132,
             "posted_job_id": 281,
-            "professional": 1,
+            "professional_id": 1,
             "status": "pending"
         }
 
