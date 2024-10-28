@@ -525,10 +525,10 @@
         {
             "posted_job_id": 261,
             "title": "Instalación de Iluminación",
-            "client": 121,
+            "client": 108,
             "professional": 1,
             "review": {
-                "review_id": 354
+              
             },
             "posted_job_description": "Instalación de luces LED en la sala",
             "location": {
@@ -691,7 +691,7 @@
         {
             "posted_job_id": 267,
             "title": "Instalación de Césped Artificial",
-            "client": 121,
+            "client": 108,
             "professional": 32,
             "review": {
                 "review_id": 356
@@ -780,7 +780,7 @@
         {
             "posted_job_id": 270,
             "title": "Fotografía de Evento",
-            "client": 124,
+            "client": 108,
             "professional": 1,
             "posted_job_description": "Fotografía de una boda.",
             "location": {
@@ -805,7 +805,7 @@
         {
             "posted_job_id": 271,
             "title": "Instalación de Decoraciones",
-            "client": 125,
+            "client": 121,
             "professional": 1,
             "review": {},
             "posted_job_description": "Instalación de decoraciones para un evento.",
