@@ -4,8 +4,8 @@ import {
     Body,
     Param,
     ParseUUIDPipe,
-    Query,
     Post,
+    Put,
 } from '@nestjs/common';
 import { PostedJobService } from './postedJob.service';
 
@@ -207,6 +207,15 @@ export class PostedJobController {
             category,
             photo,
         );
+
+        return postedJob;
+    }
+
+    @Put('complete-job/:postedJobId')
+    async completeJob(
+        @Param('postedJobId', ParseUUIDPipe) postedJobId: string,
+    ) {
+        const postedJob = await this.postedJobService.completeJob(postedJobId);
 
         return postedJob;
     }

@@ -6,6 +6,7 @@ import { User } from '../user/user.entity';
 import { Category } from '../category/category.entity';
 import { Application } from '../application/application.entity';
 import { Location } from '../location/location.entity';
+import { PostedJobStatusEnum } from './enums/postedJobStatus.enum';
 
 @Injectable()
 export class PostedJobRepository {
@@ -137,6 +138,7 @@ export class PostedJobRepository {
 
         if (!user) throw new BadRequestException('El usuario no existe');
 
+        //Traer todos los posted jobs que coincidan con la categoria del profesional
         const postedJobs = await this.postedJobRepository.find({
             where: {
                 categories: {
@@ -156,21 +158,22 @@ export class PostedJobRepository {
         });
 
         const postedJobsArray = postedJobs.map((job) => {
+            // console.log(job.applications.professional)
             return {
                 ...job,
                 applications: job.applications.map((app) => ({
                     id: app.id,
                     status: app.status,
                     professional: {
-                        id: app.professional.id,
-                        fullname: app.professional.fullname,
-                        profileImg: app.professional.profileImg,
-                        rating: app.professional.rating,
-                        years_experience: app.professional.years_experience,
-                        availability: app.professional.availability,
+                        id: app.professional?.id,
+                        fullname: app.professional?.fullname,
+                        profileImg: app.professional?.profileImg,
+                        rating: app.professional?.rating,
+                        years_experience: app.professional?.years_experience,
+                        availability: app.professional?.availability,
                         location: {
-                            id: app.professional.location.id,
-                            name: app.professional.location.name,
+                            id: app.professional?.location?.id,
+                            name: app.professional?.location.name,
                         },
                     },
                 })),
@@ -185,14 +188,17 @@ export class PostedJobRepository {
             };
         });
 
+        //Traer todos los posted jobs a los que el profesional no haya aplicado
+
         const postedJobsForProfessional = postedJobsArray.filter((post) => {
             return post.applications.every(
                 (app) => app.professional.id !== idProfessional,
             );
         });
 
+        //traer todos los postedjobs a los que el profesional no haya aplicado y que tengan el status pendiente y ordenados por prioridad
         const postedJobsForStatus = postedJobsForProfessional
-            .filter((post) => post.status === 'pendiente')
+            .filter((post) => post.status === PostedJobStatusEnum.PENDING)
             .sort((a, b) => {
                 const priorityOrder = { alta: 1, media: 2, baja: 3 };
                 return priorityOrder[a.priority] - priorityOrder[b.priority];
@@ -259,5 +265,25 @@ export class PostedJobRepository {
             location: locationName,
             categories: categoryName,
         };
+    }
+
+    async completeJob(postedJobId: string) {
+        const postedJob = await this.postedJobRepository.findOne({
+            where: { id: postedJobId },
+        });
+
+        if (!postedJob) throw new Error('El trabajo posteado no existe');
+        // console.log(postedJob.status);
+
+        if (postedJob.status !== PostedJobStatusEnum.PROGRESS)
+            throw new Error(
+                'El trabajo debe estar en progreso para completarlo',
+            );
+
+        postedJob.status = PostedJobStatusEnum.COMPLETED;
+
+        await this.postedJobRepository.save(postedJob);
+
+        return postedJob;
     }
 }

@@ -82,4 +82,14 @@ export class PostedJobService {
             throw new BadRequestException(error.message);
         }
     }
+
+    async completeJob(postedJobId: string) {
+        try {
+            const job = await this.postedJobRepository.completeJob(postedJobId);
+
+            return job;
+        } catch (error) {
+            throw new BadRequestException(error.message);
+        }
+    }
 }
