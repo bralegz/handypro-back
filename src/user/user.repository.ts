@@ -203,6 +203,7 @@ export class UserRepository {
         const user = await this.userRepository.findOne({
             where: { id: userId },
         });
+
         return user;
     }
 
