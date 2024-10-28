@@ -38,13 +38,17 @@ export class PostedJobService {
         }
     }
 
-    async findByCategory(category: string) {
+    async postedJobsForProfessionals(idProfessional: string) {
         try {
             const postedJobs =
-                await this.postedJobRepository.findByCategory(category);
+                await this.postedJobRepository.postedJobsForProfessionals(
+                    idProfessional,
+                );
 
             if (postedJobs.length === 0) {
-                throw new Error('No se encuentran posteos con esta profesión');
+                throw new Error(
+                    'No se encuentran posteos de acuerdo a tu profesión',
+                );
             }
 
             return postedJobs;

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { SignupUserDto } from './dtos/signupUser.dto';
 import { In, Like, Repository } from 'typeorm';
 import { User } from './user.entity';
@@ -140,35 +140,50 @@ export class UserRepository {
                 categories: true,
                 location: true,
             },
+            select: {
+                id: true,
+                fullname: true,
+                profileImg: true,
+                role: true,
+                rating: true,
+                services: true,
+                bio: true,
+                availability: true,
+                portfolio_gallery: true,
+                years_experience: true,
+                hashedRefreshToken: true,
+            },
         });
 
+        if (!user) {
+            throw new BadRequestException('El usuario no existe.');
+        }
+
         const categoryNames = user?.categories.map((category) => category.name);
-        const acceptedJobs = user.applications
-            .filter(
-                (application) => application.postedJob.status === 'completado',
-            )
-            .map((application) => {
-                const { review, ...applicationWithoutReview } =
-                    application.postedJob;
-                return applicationWithoutReview;
-            });
-
-        console.log(acceptedJobs);
-
-        const reviews = user.applications
-            .filter(
-                (application) => application.postedJob.status === 'completado',
-            )
-            .map((application) => {
-                return application.postedJob.review;
-            });
+        const acceptedJobs = user.applications.filter(
+            (application) => application.postedJob.status === 'completado',
+        );
 
         return {
             ...user,
             location: user.location.name,
             categories: categoryNames,
-            applications: acceptedJobs,
-            reviews,
+            applications: acceptedJobs.map((app) => ({
+                status: app.status,
+                postedJob: {
+                    id: app.postedJob.id,
+                    title: app.postedJob.title,
+                    description: app.postedJob.description,
+                    date: app.postedJob.date,
+                    priority: app.postedJob.priority,
+                    photos: app.postedJob.photos,
+                    status: app.postedJob.status,
+                    review: {
+                        rating: app.postedJob.review?.rating,
+                        comment: app.postedJob.review?.comment,
+                    },
+                },
+            })),
         };
     }
 
@@ -188,6 +203,7 @@ export class UserRepository {
         const user = await this.userRepository.findOne({
             where: { id: userId },
         });
+
         return user;
     }
 

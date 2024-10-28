@@ -1,11 +1,10 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Application } from './application.entity';
-import { Not, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { User } from 'src/user/user.entity';
 import { PostedJob } from 'src/postedJob/postedJob.entity';
-import { Category } from 'src/category/category.entity';
-import { ApplicationStatusEnum } from './enums/applicationStatus.dto';
+import { ApplicationStatusEnum } from './enums/applicationStatus.enum';
 import { PostedJobStatusEnum } from 'src/postedJob/enums/postedJobStatus.enum';
 
 @Injectable()
@@ -56,6 +55,7 @@ export class ApplicationRepository {
 
         const postedJobsArray = postedJobsAccepted.map(
             ({ postedJob, ...job }) => {
+                console.log(postedJob.review);
                 return {
                     ...job,
                     postedJob: {
@@ -66,8 +66,8 @@ export class ApplicationRepository {
                         },
                         location: postedJob.location.name,
                         review: {
-                            rating: postedJob.review.rating,
-                            comment: postedJob.review.comment,
+                            rating: postedJob.review?.rating,
+                            comment: postedJob.review?.comment,
                         },
                         categories: postedJob.categories.map(
                             (category) => category.name,
@@ -168,7 +168,10 @@ export class ApplicationRepository {
             where: { id: application.postedJob.id },
         });
 
-        if(postedJob.status !== PostedJobStatusEnum.PENDING) throw new Error('El trabajo debe estar pendiente para poder aceptar una aplicación nueva');
+        if (postedJob.status !== PostedJobStatusEnum.PENDING)
+            throw new Error(
+                'El trabajo debe estar pendiente para poder aceptar una aplicación nueva',
+            );
 
         postedJob.status = PostedJobStatusEnum.PROGRESS;
 
