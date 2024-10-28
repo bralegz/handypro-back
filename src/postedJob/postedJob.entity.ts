@@ -27,10 +27,6 @@ export class PostedJob {
     @JoinColumn({ name: 'clientId' })
     client: User;
 
-    // @ManyToOne(() => User, (user) => user.acceptedJobs)
-    // @JoinColumn({ name: 'professionalId' })
-    // professional: User;
-
     @OneToOne(() => Review)
     @JoinColumn({ name: 'reviewId' })
     review: Review;

@@ -4,13 +4,20 @@ import { PostedJobController } from './postedJob.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PostedJob } from './postedJob.entity';
 import { PostedJobRepository } from './postedJob.repository';
-import { User } from 'src/user/user.entity';
-import { Category } from 'src/category/category.entity';
-import { Application } from 'src/application/application.entity';
+import { User } from '../user/user.entity';
+import { Category } from '../category/category.entity';
+import { Application } from '../application/application.entity';
+import { Location } from '../location/location.entity';
 
 @Module({
     imports: [
-        TypeOrmModule.forFeature([PostedJob, User, Category, Application]),
+        TypeOrmModule.forFeature([
+            PostedJob,
+            User,
+            Category,
+            Application,
+            Location,
+        ]),
     ],
     controllers: [PostedJobController],
     providers: [PostedJobService, PostedJobRepository],
