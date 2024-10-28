@@ -29,13 +29,6 @@ export class PostedJobController {
         return this.postedJobService.findAll();
     }
 
-    @ApiQuery({
-        name: 'categories',
-        required: true,
-        description:
-            'Si se quiere buscar por mas de una categoria debe separarlo por cómas. ES SENSIBLE A LOS ACENTOS Y MAYUSCULAS',
-        example: 'Mecanico, Jardinero',
-    })
     @ApiParam({
         name: 'professioanlId',
         required: true,
@@ -86,15 +79,11 @@ export class PostedJobController {
             ],
         },
     })
-    @Get('professional/:professioanlId')
+    @Get('professional/:professionalId')
     postedJobsForProfessionals(
-        @Query('categories') category: string,
-        @Param('professioanlId') idProfessional: string,
+        @Param('professionalId') idProfessional: string,
     ) {
-        return this.postedJobService.postedJobsForProfessionals(
-            category,
-            idProfessional,
-        );
+        return this.postedJobService.postedJobsForProfessionals(idProfessional);
     }
 
     @ApiParam({

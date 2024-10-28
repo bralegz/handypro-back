@@ -38,11 +38,10 @@ export class PostedJobService {
         }
     }
 
-    async postedJobsForProfessionals(category: string, idProfessional: string) {
+    async postedJobsForProfessionals(idProfessional: string) {
         try {
             const postedJobs =
                 await this.postedJobRepository.postedJobsForProfessionals(
-                    category,
                     idProfessional,
                 );
 

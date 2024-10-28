@@ -125,58 +125,41 @@ export class PostedJobRepository {
         return postedJob;
     }
 
-    async postedJobsForProfessionals(category: string, idProfessional: string) {
-        if (!category)
-            throw new BadRequestException(
-                'Debe expecificar las categorias del profesional',
-            );
-
-        //Se divide el string y formamos un array de strings
-        const professionArray = category
-            .split(',')
-            .map((category) => category.trim());
-
-        // Busca las categorías basadas en el array de profesiones
-        const categories = await this.categoriesRepository.find({
-            where: { name: In(professionArray) },
+    async postedJobsForProfessionals(idProfessional: string) {
+        const user = await this.usersRepository.findOne({
+            where: {
+                id: idProfessional,
+            },
+            relations: {
+                categories: true,
+            },
         });
 
-        // Obtiene los ids de las categorias
-        const categoryIds = categories.map((category) => category.id);
+        if (!user) throw new BadRequestException('El usuario no existe');
 
-        // Busca los postedJobs que tienen las categorías encontradas
         const postedJobs = await this.postedJobRepository.find({
             where: {
                 categories: {
-                    id: In(categoryIds),
+                    id: In(user.categories.map((cat) => cat.id)),
                 },
             },
             relations: {
-                client: true,
-                review: true,
-                location: true,
-                categories: true,
                 applications: {
-                    professional: true,
+                    professional: {
+                        location: true,
+                    },
                 },
-            },
-            select: {
-                review: { rating: true, comment: true },
-                client: {
-                    id: true,
-                    fullname: true,
-                },
+                categories: true,
+                client: true,
+                location: true,
             },
         });
 
-        const postedJobsArray = postedJobs.map(({ applications, ...job }) => {
-            const categoryNames = job.categories.map(
-                (category) => category.name,
-            );
-
+        const postedJobsArray = postedJobs.map((job) => {
             return {
                 ...job,
-                applications: applications.map((app) => ({
+                applications: job.applications.map((app) => ({
+                    id: app.id,
                     status: app.status,
                     professional: {
                         id: app.professional.id,
@@ -185,20 +168,22 @@ export class PostedJobRepository {
                         rating: app.professional.rating,
                         years_experience: app.professional.years_experience,
                         availability: app.professional.availability,
+                        location: {
+                            id: app.professional.location.id,
+                            name: app.professional.location.name,
+                        },
                     },
                 })),
-                location: job.location.name,
-                categories: categoryNames,
+                client: {
+                    id: job.client.id,
+                    fullname: job.client.fullname,
+                    profileImg: job.client.profileImg,
+                    role: job.client.role,
+                    availability: job.client.availability,
+                },
+                location: job.location,
             };
         });
-
-        const user = await this.usersRepository.findOne({
-            where: {
-                id: idProfessional,
-            },
-        });
-
-        if (!user) throw new BadRequestException('El usuario no existe');
 
         const postedJobsForProfessional = postedJobsArray.filter((post) => {
             return post.applications.every(
