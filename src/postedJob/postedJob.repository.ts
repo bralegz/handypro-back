@@ -122,7 +122,12 @@ export class PostedJobRepository {
         return postedJob;
     }
 
-    async findByCategory(category: string) {
+    async postedJobsForProfessionals(category: string, idProfessional: string) {
+        if (!category)
+            throw new BadRequestException(
+                'Debe expecificar las categorias del profesional',
+            );
+
         //Se divide el string y formamos un array de strings
         const professionArray = category
             .split(',')
@@ -184,6 +189,27 @@ export class PostedJobRepository {
             };
         });
 
-        return postedJobsArray;
+        const user = await this.usersRepository.findOne({
+            where: {
+                id: idProfessional,
+            },
+        });
+
+        if (!user) throw new BadRequestException('El usuario no existe');
+
+        const postedJobsForProfessional = postedJobsArray.filter((post) => {
+            return post.applications.every(
+                (app) => app.professional.id !== idProfessional,
+            );
+        });
+
+        const postedJobsForStatus = postedJobsForProfessional
+            .filter((post) => post.status === 'pendiente')
+            .sort((a, b) => {
+                const priorityOrder = { alta: 1, media: 2, baja: 3 };
+                return priorityOrder[a.priority] - priorityOrder[b.priority];
+            });
+
+        return postedJobsForStatus;
     }
 }

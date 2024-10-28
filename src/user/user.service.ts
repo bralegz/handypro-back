@@ -28,17 +28,7 @@ export class UserService {
     }
 
     async getProfessionalById(id: string) {
-        try {
-            const user = await this.userRepository.getProfessionalById(id);
-
-            if (!user) {
-                throw new Error('El usuario no se encuentra registrado');
-            }
-
-            return user;
-        } catch (error) {
-            throw new BadRequestException(error.message);
-        }
+        return await this.userRepository.getProfessionalById(id);
     }
 
     async getClientById(id: string) {

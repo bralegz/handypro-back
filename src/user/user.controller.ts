@@ -9,7 +9,14 @@ import {
     UseGuards,
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { ApiBearerAuth, ApiTags, ApiQuery, ApiResponse, ApiParam } from '@nestjs/swagger';
+import {
+    ApiBearerAuth,
+    ApiTags,
+    ApiQuery,
+    ApiResponse,
+    ApiParam,
+    ApiOkResponse,
+} from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth/jwt-auth.guard';
 
 @ApiTags('user')
@@ -66,6 +73,82 @@ export class UserController {
         return await this.usersService.getClients(Number(page), Number(limit));
     }
 
+    @ApiParam({
+        name: 'id',
+        required: true,
+        description: 'Se requiere el id del profesional',
+    })
+    @ApiOkResponse({
+        description:
+            'Informacion del profesional con todos los posteos a los cuales aplicó',
+        schema: {
+            example: [
+                {
+                    id: '04d7fa9d-a4c9-404e-8293-cf6988628ded',
+                    fullname: 'Roberto García',
+                    profileImg:
+                        'https://i.pravatar.cc/150?u=a042581f4e29026704d',
+                    role: 'professional',
+                    rating: 4.9,
+                    services: [
+                        'Muebles personalizados',
+                        'Reparaciones del hogar',
+                        'Restauración de trabajos en madera',
+                    ],
+                    availability: false,
+                    bio: 'Con más de 15 años de experiencia, me dedico a crear muebles personalizados y reparar estructuras del hogar. Además, restauro piezas de madera, devolviéndoles su encanto original.',
+                    portfolio_gallery: [
+                        'https://picsum.photos/600/400?random=7',
+                        'https://picsum.photos/600/400?random=8',
+                        'https://picsum.photos/600/400?random=9',
+                    ],
+                    years_experience: 15,
+                    hashedRefreshToken: null,
+                    applications: [
+                        {
+                            status: 'accepted',
+                            postedJob: {
+                                id: '6a5b437d-b201-41b0-a569-3b0610aa880e',
+                                title: 'Necesito estantería',
+                                description:
+                                    'Construcción de estantería a medida',
+                                date: '2024-07-01',
+                                priority: 'media',
+                                photos: [
+                                    'https://example.com/job243_1.jpg',
+                                    'https://example.com/job243_2.jpg',
+                                ],
+                                status: 'completado',
+                                review: {
+                                    rating: '5.00',
+                                    comment:
+                                        'Construcción de estantería perfecta, excelente calidad.',
+                                },
+                            },
+                        },
+                        {
+                            status: 'accepted',
+                            postedJob: {
+                                id: '4ad933fa-9551-43a1-ad1b-fb9d4ecd542c',
+                                title: 'Instalación de estanterías en la sala',
+                                description: 'Montaje de estanterías en pared',
+                                date: '2024-07-14',
+                                priority: 'media',
+                                photos: [
+                                    'https://example.com/job249_1.jpg',
+                                    'https://example.com/job249_2.jpg',
+                                ],
+                                status: 'completado',
+                                review: {},
+                            },
+                        },
+                    ],
+                    categories: ['Carpintero'],
+                    location: 'San Isidro',
+                },
+            ],
+        },
+    })
     @Get('professional/:id')
     async getProfessionalById(@Param('id', ParseUUIDPipe) id: string) {
         const user = await this.usersService.getProfessionalById(id);
@@ -91,17 +174,25 @@ export class UserController {
     @Post('changeRole/:id')
     @ApiParam({
         name: 'id',
-        description: 'El ID del usuario al que se le cambiará el rol. Debe ser un UUID válido.',
+        description:
+            'El ID del usuario al que se le cambiará el rol. Debe ser un UUID válido.',
         example: '123e4567-e89b-12d3-a456-426614174000',
     })
     @ApiQuery({
         name: 'role',
-        description: 'El nuevo rol para asignar al usuario. Puede ser "admin", "client" o "professional".',
+        description:
+            'El nuevo rol para asignar al usuario. Puede ser "admin", "client" o "professional".',
         required: true,
         example: 'admin',
     })
-    @ApiResponse({ status: 200, description: 'El rol del usuario ha sido cambiado exitosamente.' })
-    @ApiResponse({ status: 400, description: 'Solicitud inválida. El ID o el rol son incorrectos.' })
+    @ApiResponse({
+        status: 200,
+        description: 'El rol del usuario ha sido cambiado exitosamente.',
+    })
+    @ApiResponse({
+        status: 400,
+        description: 'Solicitud inválida. El ID o el rol son incorrectos.',
+    })
     @ApiResponse({ status: 404, description: 'Usuario no encontrado.' })
     async changerole(
         @Param('id', ParseUUIDPipe) id: string,
