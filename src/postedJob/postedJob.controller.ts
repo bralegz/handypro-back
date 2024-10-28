@@ -15,7 +15,6 @@ import {
     ApiParam,
     ApiResponse,
     ApiTags,
-    ApiQuery,
 } from '@nestjs/swagger';
 import { CreatePostedJobDto } from './dto/createPostedJob.dto';
 
@@ -30,7 +29,7 @@ export class PostedJobController {
     }
 
     @ApiParam({
-        name: 'professioanlId',
+        name: 'professionalId',
         required: true,
         description: 'Se requiere el id del profesional',
     })
