@@ -51,7 +51,6 @@ export class UserRepository {
 
         let filteredUsers = users;
 
-        console.log
 
         // Filtrar por nombre
         if (name) {
