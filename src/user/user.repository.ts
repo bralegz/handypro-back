@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+    BadRequestException,
+    Injectable,
+    NotFoundException,
+} from '@nestjs/common';
 import { SignupUserDto } from './dtos/signupUser.dto';
 import { In, Like, Repository } from 'typeorm';
 import { User } from './user.entity';
@@ -193,10 +197,7 @@ export class UserRepository {
             relations: { postedJobs: { review: true }, location: true },
         });
 
-        return {
-            ...user,
-            location: user.location.name,
-        };
+        return user;
     }
 
     async getProfile(userId: string) {
