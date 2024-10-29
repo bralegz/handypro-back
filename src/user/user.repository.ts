@@ -31,7 +31,7 @@ export class UserRepository {
         categories: string,
         page: number,
         limit: number,
-        name: string,
+        name?: string,
     ) {
         const users = await this.userRepository.find({
             where: { role: 'professional' },
@@ -50,6 +50,8 @@ export class UserRepository {
         });
 
         let filteredUsers = users;
+
+        console.log
 
         // Filtrar por nombre
         if (name) {
@@ -86,7 +88,7 @@ export class UserRepository {
                 ...user
             }) => {
                 const categoriesMapped = user.categories.map((category) => {
-                    return category.name;
+                    return category?.name;
                 });
 
                 const acceptedJobs = Array.isArray(applications)
@@ -97,7 +99,7 @@ export class UserRepository {
 
                 return {
                     ...user,
-                    location: user.location.name,
+                    location: user.location?.name,
                     categories: categoriesMapped,
                     completedJobs: acceptedJobs.length,
                 };
