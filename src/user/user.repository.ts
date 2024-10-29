@@ -123,7 +123,7 @@ export class UserRepository {
         });
 
         const usersMapped = users.map((user) => {
-            return { ...user, location: user.location.name };
+            return { ...user, location: user.location?.name };
         });
         return usersMapped;
     }
@@ -166,7 +166,7 @@ export class UserRepository {
 
         return {
             ...user,
-            location: user.location.name,
+            location: user.location?.name,
             categories: categoryNames,
             applications: acceptedJobs.map((app) => ({
                 status: app.status,
@@ -195,7 +195,7 @@ export class UserRepository {
 
         return {
             ...user,
-            location: user.location.name,
+            location: user.location?.name,
         };
     }
 
