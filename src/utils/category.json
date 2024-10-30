@@ -1,0 +1,49 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "name": "Electricista"
+    },
+    {
+      "id": 2,
+      "name": "Mecánico"
+    },
+    {
+      "id": 3,
+      "name": "Jardinero"
+    },
+    {
+      "id": 4,
+      "name": "Plomero"
+    },
+    {
+      "id": 5,
+      "name": "Fotógrafo"
+    },
+    {
+      "id": 6,
+      "name": "Diseñador"
+    },
+    {
+      "id": 7,
+      "name": "Entrenador"
+    },
+    {
+      "id": 8,
+      "name": "Pintor"
+    },
+    {
+      "id": 9,
+      "name": "Carpintero"
+    },
+    {
+      "id": 10,
+      "name": "Gasfitero"
+    },
+    {
+      "id": 11,
+      "name": "Paisajista"
+    }
+
+  ]
+}

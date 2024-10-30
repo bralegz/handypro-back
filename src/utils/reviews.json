@@ -1,0 +1,293 @@
+{
+    "reviews": [
+        {
+            "review_id": 331,
+            "professional_id": 9,
+            "user_id": 101,
+            "rating": 5,
+            "comment": "Reparación de mesa de comedor excelente, muy profesional."
+        },
+        {
+            "review_id": 332,
+            "professional_id": 4,
+            "user_id": 102,
+            "rating": 5,
+            "comment": "Instalación de calentador de agua rápida y eficiente."
+        },
+        {
+            "review_id": 333,
+            "professional_id": 5,
+            "user_id": 105,
+            "rating": 5,
+            "comment": "Pintura de habitación infantil perfecta, muy detallista."
+        },
+        {
+            "review_id": 334,
+            "professional_id": 5,
+            "user_id": 104,
+            "rating": 5,
+            "comment": "Fotografía de evento corporativo impecable, capturó todos los momentos importantes."
+        },
+        {
+            "review_id": 335,
+            "professional_id": 6,
+            "user_id": 105,
+            "rating": 4,
+            "comment": "Diseño de folleto publicitario muy creativo, aunque tardó un poco más de lo esperado."
+        },
+        {
+            "review_id": 336,
+            "professional_id": 1,
+            "user_id": 106,
+            "rating": 5,
+            "comment": "Entrenamiento para pérdida de peso muy efectivo, resultados visibles en poco tiempo."
+        },
+        {
+            "review_id": 337,
+            "professional_id": 1,
+            "user_id": 101,
+            "rating": 5,
+            "comment": "Reparación de cortocircuito en el baño rápida y eficiente."
+        },
+        {
+            "review_id": 338,
+            "professional_id": 3,
+            "user_id": 108,
+            "rating": 5,
+            "comment": "Mantenimiento de césped impecable, muy profesional."
+        },
+        {
+            "review_id": 339,
+            "professional_id": 9,
+            "user_id": 109,
+            "rating": 5,
+            "comment": "Construcción de armario empotrado perfecta, excelente calidad."
+        },
+        {
+            "review_id": 340,
+            "professional_id": 4,
+            "user_id": 110,
+            "rating": 5,
+            "comment": "Reparación de fuga en el lavabo rápida y efectiva."
+        },
+        {
+            "review_id": 341,
+            "professional_id": 6,
+            "user_id": 111,
+            "rating": 5,
+            "comment": "Creacion de logo para startup muy innovador y profesional."
+        },
+        {
+            "review_id": 342,
+            "professional_id": 7,
+            "user_id": 112,
+            "rating": 5,
+            "comment": "Practica para triatlón muy completo y efectivo."
+        },
+        {
+            "review_id": 343,
+            "professional_id": 1,
+            "user_id": 113,
+            "rating": 5,
+            "comment": "Instalación de sistema de seguridad rápida y eficiente."
+        },
+        {
+            "review_id": 344,
+            "professional_id": 3,
+            "user_id": 114,
+            "rating": 5,
+            "comment": "Mantenimiento de jardín impecable, muy profesional."
+        },
+        {
+            "review_id": 345,
+            "professional_id": 15,
+            "user_id": 103,
+            "rating": 5,
+            "comment": "Construcción de estantería perfecta, excelente calidad."
+        },
+        {
+            "review_id": 346,
+            "professional_id": 4,
+            "user_id": 102,
+            "rating": 5,
+            "comment": "Reparación de tubería rota rápida y efectiva."
+        },
+        {
+            "review_id": 347,
+            "professional_id": 8,
+            "user_id": 103,
+            "rating": 5,
+            "comment": "Paiting de oficina impecable, muy profesional."
+        },
+        {
+            "review_id": 348,
+            "professional_id": 28,
+            "user_id": 106,
+            "rating": 5,
+            "comment": "Captura de foto de evento deportivo excelente, capturó todos los momentos importantes."
+        },
+        {
+            "review_id": 402,
+            "professional_id": 6,
+            "user_id": 105,
+            "rating": 5,
+            "comment": "Diseño de interiores para sala muy creativo y funcional."
+        },
+        {
+            "review_id": 403,
+            "professional_id": 7,
+            "user_id": 106,
+            "rating": 5,
+            "comment": "Entrenamiento personalizado muy efectivo, resultados visibles en poco tiempo."
+        },
+        {
+            "review_id": 401,
+            "professional_id": 6,
+            "user_id": 107,
+            "rating": 5,
+            "comment": "Diseño de logo para startup muy innovador y profesional."
+        },
+        {
+            "review_id": 404,
+            "professional_id": 7,
+            "user_id": 108,
+            "rating": 5,
+            "comment": "Entrenamiento para triatlón muy completo y efectivo."
+        },
+        {
+            "review_id": 405,
+            "professional_id": 1,
+            "user_id": 109,
+            "rating": 5,
+            "comment": "Instalación de sistema de seguridad rápida y eficiente."
+        },
+        {
+            "review_id": 406,
+            "professional_id": 3,
+            "user_id": 110,
+            "rating": 5,
+            "comment": "Mantenimiento de jardín impecable, muy profesional."
+        },
+        {
+            "review_id": 407,
+            "professional_id": 9,
+            "user_id": 112,
+            "rating": 5,
+            "comment": "Construcción de estantería perfecta, excelente calidad."
+        },
+        {
+            "review_id": 408,
+            "professional_id": 4,
+            "user_id": 113,
+            "rating": 5,
+            "comment": "Reparación de tubería rota rápida y efectiva."
+        },
+        {
+            "review_id": 409,
+            "professional_id": 8,
+            "user_id": 114,
+            "rating": 5,
+            "comment": "Pintura de oficina impecable, muy profesional."
+        },
+        {
+            "review_id": 410,
+            "professional_id": 5,
+            "user_id": 101,
+            "rating": 5,
+            "comment": "Fotografía de evento deportivo excelente, capturó todos los momentos importantes."
+        },
+        {
+            "review_id": 411,
+            "professional_id": 6,
+            "user_id": 102,
+            "rating": 5,
+            "comment": "Diseño de interiores para sala muy creativo y funcional."
+        },
+        {
+            "review_id": 412,
+            "professional_id": 7,
+            "user_id": 103,
+            "rating": 5,
+            "comment": "Entrenamiento personalizado muy efectivo, resultados visibles en poco tiempo."
+        },
+
+        {
+            "review_id": 349,
+            "client_id": 111,
+            "professional_id": 4,
+            "rating": 5,
+            "comment": "Excelente trabajo, el grifo quedó perfecto."
+        },
+        {
+            "review_id": 350,
+            "client_id": 113,
+            "professional_id": 11,
+            "rating": 5,
+            "comment": "Las fotos del evento familiar son impresionantes, capturó todos los momentos especiales."
+        },
+        {
+            "review_id": 351,
+            "client_id": 116,
+            "professional_id": 9,
+            "rating": 4,
+            "comment": "El servicio fue rápido y eficiente, mi lavadora funciona perfectamente ahora."
+        },
+
+        {
+            "review_id": 352,
+            "client_id": 117,
+            "professional_id": 1,
+            "rating": 5,
+            "comment": "El cambio de aceite fue realizado de manera impecable y rápida."
+        },
+
+
+        {
+            "review_id": 353,
+            "client_id": 120,
+            "professional_id": 13,
+            "rating": 5,
+            "comment": "El trabajo de pintura quedó excelente, la casa se ve como nueva."
+        },
+
+        {
+            "review_id": 546,
+            "client_id": 116,
+            "professional_id": 3,
+            "rating": 5,
+            "comment": "La instalación fue rápida y precisa. Muy satisfecho con el trabajo."
+        },
+
+        {
+            "review_id": 355,
+            "client_id": 117,
+            "professional_id": 24,
+            "rating": 4,
+            "comment": "El problema se solucionó rápidamente, pero el costo fue un poco alto."
+        },
+        {
+            "review_id": 356,
+            "client_id": 124,
+            "professional_id": 32,
+            "rating": 5,
+            "comment": "El jardín quedó impresionante, un trabajo excepcional."
+        },
+
+
+        {
+            "review_id": 358,
+            "client_id": 122,
+            "professional_id": 19,
+            "rating": 4,
+            "comment": "El plomero fue muy profesional y solucionó el problema rápidamente."
+        },
+        {
+            "review_id": 359,
+            "client_id": 123,
+            "professional_id": 11,
+            "rating": 5,
+            "comment": "El trabajo de carpintería fue excepcional, muy feliz con los resultados."
+        }
+        
+    ]
+}

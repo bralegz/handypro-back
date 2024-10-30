@@ -1,0 +1,20 @@
+{
+    "locations": [
+        { "name": "San Isidro" },
+        { "name": "Lince" },
+        { "name": "Comas" },
+        { "name": "Miraflores" },
+        { "name": "Surco" },
+        { "name": "La Molina" },
+        { "name": "Jesus Maria" },
+        { "name": "San Borja" },
+        { "name": "Magdalena" },
+        { "name": "San Miguel" },
+        { "name": "Barranco" },
+        { "name": "Pueblo Libre" },
+        { "name": "Los Olivos" },
+        { "name": "Santa Anita" },
+        { "name": "La Victoria" },
+        { "name": "Chorrillos" }
+    ]
+}
