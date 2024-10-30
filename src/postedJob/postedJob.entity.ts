@@ -1,6 +1,7 @@
 import { Application } from 'src/application/application.entity';
 import { Category } from 'src/category/category.entity';
 import { Location } from 'src/location/location.entity';
+import { Payment } from 'src/payment/payment.entity';
 import { Review } from 'src/review/review.entity';
 import { User } from 'src/user/user.entity';
 import {
@@ -56,4 +57,8 @@ export class PostedJob {
 
     @OneToMany(() => Application, (application) => application.postedJob)
     applications: Application[];
+
+    @OneToMany(() => Payment, (payment) => payment.postedJob)
+    payments: Payment[];
+
 }

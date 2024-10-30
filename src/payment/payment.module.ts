@@ -1,12 +1,20 @@
+
 import { Module } from '@nestjs/common';
 import { PaymentService } from './payment.service';
 import { PaymentController } from './payment.controller';
 import Stripe from 'stripe';
 import { config as dotenvConfig } from 'dotenv';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Payment } from './payment.entity';
+import { PostedJobModule } from 'src/postedJob/postedJob.module';
 
 dotenvConfig({ path: '.env' });
 
 @Module({
+  imports: [
+    TypeOrmModule.forFeature([Payment]), 
+    PostedJobModule,
+  ],
   controllers: [PaymentController],
   providers: [
     PaymentService,
@@ -19,6 +27,6 @@ dotenvConfig({ path: '.env' });
       },
     },
   ],
-  exports: ['STRIPE'],
+  exports: ['STRIPE', TypeOrmModule],
 })
 export class PaymentModule {}
