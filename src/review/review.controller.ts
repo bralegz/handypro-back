@@ -31,7 +31,7 @@ export class ReviewController {
                 message: 'Reseña creada con exito',
                 review: {
                     rating: 4.5,
-                    comment: 'Prueba 1',
+                    comment: 'Muy buen trabajo instalando una cañeria',
                     review_id: 'ce4ac76e-54ff-4196-b7fb-112b10ffc3ad',
                 },
             },

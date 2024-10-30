@@ -6,7 +6,6 @@ import { config as dotenvConfig } from 'dotenv';
 
 dotenvConfig({ path: '.env' });
 
-
 @Injectable()
 export class UploadPhotoService {
     constructor(private readonly configService: ConfigService) {}
@@ -15,7 +14,7 @@ export class UploadPhotoService {
         region: this.configService.getOrThrow('AWS_S3_REGION'),
     });
 
-    async uploadPhoto(fileName: string, file: Buffer): Promise<string> {
+    async uploadPhoto(fileName: string, file: Buffer) {
         const bucketName = this.configService.getOrThrow('AWS_BUCKET_NAME');
         const region = this.configService.getOrThrow('AWS_S3_REGION');
         const contentType = lookup(fileName) || 'application/octet-stream';
@@ -34,7 +33,13 @@ export class UploadPhotoService {
             const encodedFileName = encodeURIComponent(fileName);
             const fileUrl = `https://${bucketName}.s3.${region}.amazonaws.com/${encodedFileName}`;
 
-            return fileUrl;
+            const response = {
+                message: 'Foto subida exitosamente',
+                url: fileUrl,
+            };
+
+            return response;
+
         } catch (error) {
             console.error('Error uploading photo:', error.message);
             throw new InternalServerErrorException(error.message);

@@ -122,13 +122,19 @@ export class ApplicationRepository {
             (category) => category.name,
         );
 
-        professionalCategories.forEach((category) => {
-            if (!postedJobCategories.includes(category)) {
-                throw new Error(
-                    'La categoria del profesional y del trabajo deben coincidir',
-                );
+        let hasCategory = false;
+        for(let i = 0; i < professionalCategories.length; i++) {
+            if(postedJobCategories.includes(professionalCategories[i])) {
+                hasCategory = true;
+                break;
             }
-        });
+        }
+
+        if (!hasCategory) {
+            throw new Error(
+                'La categoria del profesional y del trabajo deben coincidir',
+            );
+        }
 
         const application = this.applicationsRepository.create({
             postedJob,

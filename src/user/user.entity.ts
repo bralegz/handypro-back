@@ -13,6 +13,7 @@ import {
 import { Category } from 'src/category/category.entity';
 import { Application } from '../application/application.entity';
 import * as bcrypt from 'bcrypt';
+import { Payment } from 'src/payment/payment.entity';
 
 @Entity()
 export class User {
@@ -75,6 +76,12 @@ export class User {
 
     @OneToMany(() => Application, (application) => application.professional)
     applications: Application[];
+
+    @OneToMany(() => Payment, (payment) => payment.client)
+    payments: Payment[];
+
+    @OneToMany(() => Payment, (payment) => payment.professional)
+    receivedPayments: Payment[];
 
     @BeforeInsert()
     async hashPassword() {

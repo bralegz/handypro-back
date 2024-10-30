@@ -1,9 +1,11 @@
 import {
+    Body,
     Controller,
     Get,
     Param,
     ParseUUIDPipe,
     Post,
+    Put,
     Query,
     Req,
     UseGuards,
@@ -16,8 +18,10 @@ import {
     ApiResponse,
     ApiParam,
     ApiOkResponse,
+    ApiBody,
 } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth/jwt-auth.guard';
+import { UpdateUserDto } from './dtos/updateUser.dto';
 
 @ApiTags('user')
 @Controller('user')
@@ -199,5 +203,82 @@ export class UserController {
         @Query('role') role: string,
     ) {
         return this.usersService.changeRole(id, role);
+    }
+
+    @Put('updateProfile/:userId')
+    @ApiParam({
+        name: 'userId',
+        description: 'El UUID del usuario a actualizar',
+    })
+    @ApiBody({
+        description: 'Información del usuario a actualizar',
+        schema: {
+            example: {
+                fullname: 'Vale Contua',
+                location: 'San Isidro',
+                phone: '+51 946982744',
+                profileImg:
+                    'https://testimage.com/150?u=a042581f4e29026704d',
+                years_experience: 15,
+                services: [
+                    'Muebles personalizados',
+                    'Reparaciones del hogar',
+                    'Restauración de trabajos en madera',
+                ],
+                categories: ['Electricista', 'Carpintero'],
+            },
+        },
+    })
+    @ApiResponse({
+        status: 200,
+        description: 'Perfil actualizado exitosamente',
+        schema: {
+            example: {
+                id: 'cc777717-3935-497c-acf5-4a4a3c099825',
+                email: 'ampaso@example.com',
+                fullname: 'Lopenizo',
+                password:
+                    '$2b$10$4ZDP7ysG/9.3.C1Y1krYZeZTJs6t1zESYIJlY3myKYFU2Wg/nI2ee',
+                phone: '1123456789',
+                profileImg: 'https://testimage/150?u=a042581f4e29026704d',
+                role: 'professional',
+                rating: null,
+                services: [
+                    'Muebles personalizados',
+                    'Reparaciones del hogar',
+                    'Restauración de trabajos en madera',
+                ],
+                availability: false,
+                bio: null,
+                portfolio_gallery: null,
+                years_experience: 15,
+                hashedRefreshToken: null,
+                categories: [
+                    {
+                        id: '535467d7-837e-489f-86cb-152c318c443f',
+                        name: 'Electricista',
+                    },
+                    {
+                        id: '53a659ca-737b-4ae3-a008-79ab1309c8e0',
+                        name: 'Carpintero',
+                    },
+                ],
+                location: {
+                    id: 'b31f1074-07d9-4b6d-ac1b-97fc86ac9f0d',
+                    name: 'San Isidro',
+                },
+            },
+        },
+    })
+    @ApiResponse({
+        status: 400,
+        description:
+            'El location, y las categorias deben ser iguales a las definidas en la base de datos. El phone debe empezar con el código de país y el profileImg debe ser un URL válido',
+    })
+    async updateProfile(
+        @Body() userNewInfo: UpdateUserDto,
+        @Param('userId', ParseUUIDPipe) userId: string,
+    ) {
+        return await this.usersService.updateProfile(userNewInfo, userId);
     }
 }

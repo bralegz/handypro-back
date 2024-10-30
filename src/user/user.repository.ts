@@ -4,17 +4,23 @@ import {
     NotFoundException,
 } from '@nestjs/common';
 import { SignupUserDto } from './dtos/signupUser.dto';
-import { In, Like, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { User } from './user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { PostedJob } from 'src/postedJob/postedJob.entity';
-import { Category } from 'src/category/category.entity';
+import { PostedJob } from '../postedJob/postedJob.entity';
+import { Category } from '../category/category.entity';
+import { UpdateUserDto } from './dtos/updateUser.dto';
+import { Location } from '../location/location.entity';
 
 @Injectable()
 export class UserRepository {
     constructor(
         @InjectRepository(User)
         private readonly userRepository: Repository<User>,
+        @InjectRepository(Location)
+        private readonly locationRepository: Repository<Location>,
+        @InjectRepository(Category)
+        private readonly categoryRepository: Repository<Category>,
     ) {}
 
     async createUser(newUser: SignupUserDto & { profileImg?: string }) {
@@ -35,7 +41,7 @@ export class UserRepository {
         categories: string,
         page: number,
         limit: number,
-        name: string,
+        name?: string,
     ) {
         const users = await this.userRepository.find({
             where: { role: 'professional' },
@@ -90,7 +96,7 @@ export class UserRepository {
                 ...user
             }) => {
                 const categoriesMapped = user.categories.map((category) => {
-                    return category.name;
+                    return category?.name;
                 });
 
                 const acceptedJobs = Array.isArray(applications)
@@ -101,7 +107,7 @@ export class UserRepository {
 
                 return {
                     ...user,
-                    location: user.location.name,
+                    location: user.location?.name,
                     categories: categoriesMapped,
                     completedJobs: acceptedJobs.length,
                 };
@@ -127,7 +133,7 @@ export class UserRepository {
         });
 
         const usersMapped = users.map((user) => {
-            return { ...user, location: user.location.name };
+            return { ...user, location: user.location?.name };
         });
         return usersMapped;
     }
@@ -170,7 +176,7 @@ export class UserRepository {
 
         return {
             ...user,
-            location: user.location.name,
+            location: user.location?.name,
             categories: categoryNames,
             applications: acceptedJobs.map((app) => ({
                 status: app.status,
@@ -197,7 +203,10 @@ export class UserRepository {
             relations: { postedJobs: { review: true }, location: true },
         });
 
-        return user;
+        return {
+            ...user,
+            location: user.location?.name,
+        };
     }
 
     async getProfile(userId: string) {
@@ -238,5 +247,58 @@ export class UserRepository {
         const user = await this.userRepository.findOne({ where: { id } });
 
         return user;
+    }
+
+    async updateProfile(userNewInfo: UpdateUserDto, userId: string) {
+        const updateUser = await this.userRepository.findOne({
+            where: { id: userId },
+            relations: ['categories'],
+        });
+
+        if (!updateUser) {
+            throw new Error('El usuario no existe');
+        }
+
+        let location = null;
+        if (userNewInfo.location) {
+            location = await this.locationRepository.findOne({
+                where: { name: userNewInfo.location },
+            });
+
+            if (!location) {
+                throw new Error('La ubicación no existe');
+            }
+        }
+
+        
+
+        updateUser.fullname = userNewInfo?.fullname;
+        updateUser.location = location && location;
+        updateUser.phone = userNewInfo?.phone;
+        updateUser.profileImg = userNewInfo?.profileImg;
+        updateUser.years_experience = userNewInfo?.years_experience;
+        updateUser.services = userNewInfo?.services;
+
+        const categories =
+            userNewInfo?.categories &&
+            (await Promise.all(
+                userNewInfo.categories.map(async (category) => {
+                    const foundCategory = await this.categoryRepository.findOne(
+                        { where: { name: category } },
+                    );
+
+                    if (!foundCategory) {
+                        throw new Error('La categoría no existe');
+                    }
+
+                    return foundCategory;
+                }),
+            ));
+
+        updateUser.categories = categories;
+
+        await this.userRepository.save(updateUser);
+
+        return updateUser;
     }
 }

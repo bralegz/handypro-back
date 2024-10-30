@@ -4,6 +4,7 @@ import {
     NotFoundException,
 } from '@nestjs/common';
 import { UserRepository } from './user.repository';
+import { UpdateUserDto } from './dtos/updateUser.dto';
 
 @Injectable()
 export class UserService {
@@ -65,6 +66,16 @@ export class UserService {
             }
 
             return user;
+        } catch (error) {
+            throw new BadRequestException(error.message);
+        }
+    }
+
+    async updateProfile(userNewInfo: UpdateUserDto, userId: string) {
+        try {
+            const userUpdated = await this.userRepository.updateProfile(userNewInfo, userId);
+
+            return userUpdated
         } catch (error) {
             throw new BadRequestException(error.message);
         }
