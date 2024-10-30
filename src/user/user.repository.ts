@@ -1,7 +1,7 @@
 import {
     BadRequestException,
     Injectable,
-    NotFoundException,
+    RequestTimeoutException,
 } from '@nestjs/common';
 import { SignupUserDto } from './dtos/signupUser.dto';
 import { Repository } from 'typeorm';
@@ -11,6 +11,7 @@ import { PostedJob } from '../postedJob/postedJob.entity';
 import { Category } from '../category/category.entity';
 import { UpdateUserDto } from './dtos/updateUser.dto';
 import { Location } from '../location/location.entity';
+import { MailService } from '../mail/mail.service';
 
 @Injectable()
 export class UserRepository {
@@ -21,11 +22,14 @@ export class UserRepository {
         private readonly locationRepository: Repository<Location>,
         @InjectRepository(Category)
         private readonly categoryRepository: Repository<Category>,
+        private readonly mailService: MailService,
     ) {}
 
     async createUser(newUser: SignupUserDto & { profileImg?: string }) {
         const createdUser = this.userRepository.create(newUser);
         await this.userRepository.save(createdUser);
+
+        await this.mailService.sendUserWelcome(newUser);
 
         return createdUser;
     }
@@ -269,8 +273,6 @@ export class UserRepository {
                 throw new Error('La ubicación no existe');
             }
         }
-
-        
 
         updateUser.fullname = userNewInfo?.fullname;
         updateUser.location = location && location;

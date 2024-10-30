@@ -12,13 +12,15 @@ import { ReviewsModule } from './review/review.module';
 import { UploadPhotoModule } from './upload-photo/upload-photo.module';
 import { ApplicationModule } from './application/application.module';
 // import { PaymentModule } from './payment/payment.module';
+import { MailModule } from './mail/mail.module';
+import mailConfig from './config/mail.config';
 
 @Module({
     imports: [
         UserModule,
         AuthModule,
         PostedJobModule,
-        ConfigModule.forRoot({ isGlobal: true, load: [typeOrmConfig] }),
+        ConfigModule.forRoot({ isGlobal: true, load: [typeOrmConfig, mailConfig] }),
         TypeOrmModule.forRootAsync({
             inject: [ConfigService],
             useFactory: (configService: ConfigService) =>
@@ -29,10 +31,11 @@ import { ApplicationModule } from './application/application.module';
         ReviewsModule,
         UploadPhotoModule,
         ApplicationModule,
+        MailModule,
         // PaymentModule,
     ],
     controllers: [],
-    providers: [PreloadService], 
+    providers: [PreloadService],
 })
 export class AppModule implements OnModuleInit {
     constructor(private readonly preloadService: PreloadService) {}
