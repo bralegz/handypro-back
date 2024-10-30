@@ -3,8 +3,8 @@ import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class CreateReview {
     @ApiProperty({
-        description: 'El rating debe ser un numeroc con un decimal como maximo',
-        example: '4,5',
+        description: 'El rating debe ser un numero con un decimal como maximo',
+        example: 4.5,
     })
     @IsNotEmpty()
     @IsNumber()
