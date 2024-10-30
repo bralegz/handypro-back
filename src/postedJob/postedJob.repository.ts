@@ -83,6 +83,11 @@ export class PostedJobRepository {
             },
         });
 
+        if (postedJobs.length === 0)
+            throw new BadRequestException(
+                'No se encuentran posteos realizados.',
+            );
+
         const postedJobsArray = postedJobs.map(({ applications, ...job }) => {
             const categoryNames = job.categories.map(
                 (category) => category.name,
@@ -90,15 +95,15 @@ export class PostedJobRepository {
 
             return {
                 ...job,
-                applications: applications.map((app) => ({
+                applications: applications?.map((app) => ({
                     status: app.status,
                     professional: {
-                        id: app.professional.id,
-                        fullname: app.professional.fullname,
-                        profileImg: app.professional.profileImg,
-                        rating: app.professional.rating,
-                        years_experience: app.professional.years_experience,
-                        availability: app.professional.availability,
+                        id: app.professional?.id,
+                        fullname: app.professional?.fullname,
+                        profileImg: app.professional?.profileImg,
+                        rating: app.professional?.rating,
+                        years_experience: app.professional?.years_experience,
+                        availability: app.professional?.availability,
                     },
                 })),
                 location: job.location.name,
@@ -138,11 +143,19 @@ export class PostedJobRepository {
 
         if (!user) throw new BadRequestException('El usuario no existe');
 
+        // Verificar que user.categories no sea null o vacío antes de mapear
+        const categoryIds = user.categories?.map((cat) => cat.id) || [];
+        if (categoryIds.length === 0) {
+            throw new BadRequestException(
+                'El profesional no tiene categorías asociadas',
+            );
+        }
+
         //Traer todos los posted jobs que coincidan con la categoria del profesional
         const postedJobs = await this.postedJobRepository.find({
             where: {
                 categories: {
-                    id: In(user.categories.map((cat) => cat.id)),
+                    id: In(categoryIds),
                 },
             },
             relations: {
@@ -158,10 +171,9 @@ export class PostedJobRepository {
         });
 
         const postedJobsArray = postedJobs.map((job) => {
-            // console.log(job.applications.professional)
             return {
                 ...job,
-                applications: job.applications.map((app) => ({
+                applications: job.applications?.map((app) => ({
                     id: app.id,
                     status: app.status,
                     professional: {
@@ -178,21 +190,20 @@ export class PostedJobRepository {
                     },
                 })),
                 client: {
-                    id: job.client.id,
-                    fullname: job.client.fullname,
-                    profileImg: job.client.profileImg,
-                    role: job.client.role,
-                    availability: job.client.availability,
+                    id: job.client?.id,
+                    fullname: job.client?.fullname,
+                    profileImg: job.client?.profileImg,
+                    role: job.client?.role,
+                    availability: job.client?.availability,
                 },
                 location: job.location,
             };
         });
 
         //Traer todos los posted jobs a los que el profesional no haya aplicado
-
         const postedJobsForProfessional = postedJobsArray.filter((post) => {
             return post.applications.every(
-                (app) => app.professional.id !== idProfessional,
+                (app) => app.professional?.id !== idProfessional,
             );
         });
 

@@ -8,9 +8,13 @@ export class ApplicationService {
     ) {}
 
     async applicationsByProfessional(professionalId: string) {
-        return await this.applicationsRepository.applicationsByProfessional(
-            professionalId,
-        );
+        try {
+            return await this.applicationsRepository.applicationsByProfessional(
+                professionalId,
+            );
+        } catch (error) {
+            throw new BadRequestException(error.message);
+        }
     }
 
     async createApplication(postedJobId: string, professionalId: string) {

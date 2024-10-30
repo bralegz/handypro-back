@@ -48,6 +48,11 @@ export class ApplicationRepository {
             },
         });
 
+        if (applicationsArray.length === 0)
+            throw new BadRequestException(
+                'No se encontraron aplicaciones realizadas',
+            );
+
         // Todas las postulacion del profesional que no fueron rechazadas por el cliente
         const postedJobsAccepted = applicationsArray.filter(
             (app) => app.status !== 'rejected' && app.status !== 'pending',
@@ -55,16 +60,15 @@ export class ApplicationRepository {
 
         const postedJobsArray = postedJobsAccepted.map(
             ({ postedJob, ...job }) => {
-                console.log(postedJob.review);
                 return {
                     ...job,
                     postedJob: {
                         ...postedJob,
                         client: {
-                            id: postedJob.client.id,
-                            fullname: postedJob.client.fullname,
+                            id: postedJob.client?.id,
+                            fullname: postedJob.client?.fullname,
                         },
-                        location: postedJob.location.name,
+                        location: postedJob.location?.name,
                         review: {
                             rating: postedJob.review?.rating,
                             comment: postedJob.review?.comment,

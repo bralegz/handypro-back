@@ -23,13 +23,6 @@ export class ReviewController {
         example: '9d0eaae9-a2e1-4373-9c50-a42fcce25ead',
     })
     @ApiBody({
-        required: true,
-        schema: {
-            example: {
-                rating: 4.5,
-                comment: 'Prueba 1',
-            },
-        },
         type: CreateReview,
     })
     @ApiOkResponse({
