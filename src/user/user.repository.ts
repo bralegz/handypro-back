@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+    BadRequestException,
+    Injectable,
+    NotFoundException,
+} from '@nestjs/common';
 import { SignupUserDto } from './dtos/signupUser.dto';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
