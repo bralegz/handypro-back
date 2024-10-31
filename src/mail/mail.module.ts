@@ -22,7 +22,7 @@ import { strict } from 'assert';
                     },
                 },
                 defaults: {
-                    from: `HandyPro <no-reply@handypro.com>`,
+                    from: `HandyPro <no-reply@handypro.site>`,
                 },
                 template: {
                     dir: join(__dirname, 'templates'),

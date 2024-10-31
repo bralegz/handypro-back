@@ -11,9 +11,10 @@ import { LocationModule } from './location/location.module';
 import { ReviewsModule } from './review/review.module';
 import { UploadPhotoModule } from './upload-photo/upload-photo.module';
 import { ApplicationModule } from './application/application.module';
-// import { PaymentModule } from './payment/payment.module';
+import { PaymentModule } from './payment/payment.module';
 import { MailModule } from './mail/mail.module';
 import mailConfig from './config/mail.config';
+
 
 @Module({
     imports: [
@@ -32,7 +33,7 @@ import mailConfig from './config/mail.config';
         UploadPhotoModule,
         ApplicationModule,
         MailModule,
-        // PaymentModule,
+        PaymentModule,
     ],
     controllers: [],
     providers: [PreloadService],
