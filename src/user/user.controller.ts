@@ -217,8 +217,7 @@ export class UserController {
                 fullname: 'Vale Contua',
                 location: 'San Isidro',
                 phone: '+51 946982744',
-                profileImg:
-                    'https://testimage.com/150?u=a042581f4e29026704d',
+                profileImg: 'https://testimage.com/150?u=a042581f4e29026704d',
                 years_experience: 15,
                 services: [
                     'Muebles personalizados',

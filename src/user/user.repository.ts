@@ -31,7 +31,9 @@ export class UserRepository {
 
         await this.mailService.sendUserWelcome(newUser);
 
-        return createdUser;
+        return {
+            createdUser,
+        };
     }
 
     async findUserByEmail(email: string) {
