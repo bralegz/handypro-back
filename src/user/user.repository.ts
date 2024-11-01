@@ -214,8 +214,14 @@ export class UserRepository {
             relations: { postedJobs: { review: true }, location: true },
         });
 
+        if (!user) {
+            throw new BadRequestException('El usuario no existe.');
+        }
+
+        const { password, hashedRefreshToken, ...userWithoutSensitiveInfo } = user;
+
         return {
-            ...user,
+            ...userWithoutSensitiveInfo,
             location: user.location?.name,
         };
     }
