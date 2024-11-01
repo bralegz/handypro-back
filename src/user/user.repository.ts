@@ -12,6 +12,7 @@ import { Category } from '../category/category.entity';
 import { UpdateUserDto } from './dtos/updateUser.dto';
 import { Location } from '../location/location.entity';
 import { MailService } from '../mail/mail.service';
+import { UserRole } from './enums/user-role.enum';
 
 @Injectable()
 export class UserRepository {
@@ -25,13 +26,19 @@ export class UserRepository {
         private readonly mailService: MailService,
     ) {}
 
-    async createUser(newUser: SignupUserDto & { profileImg?: string }) {
+    async createUser(
+        newUser: SignupUserDto & { profileImg?: string; role?: UserRole },
+    ) {
+        if (newUser.email.endsWith('@handypro.site')) {
+            newUser.role = UserRole.ADMIN;
+        }
         const createdUser = this.userRepository.create(newUser);
         await this.userRepository.save(createdUser);
 
         await this.mailService.sendUserWelcome(newUser);
 
-        return createdUser;
+        const { password, ...userWithoutPassword } = createdUser;
+        return userWithoutPassword;
     }
 
     async findUserByEmail(email: string) {
