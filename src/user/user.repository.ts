@@ -35,7 +35,7 @@ export class UserRepository {
         const createdUser = this.userRepository.create(newUser);
         await this.userRepository.save(createdUser);
 
-        await this.mailService.sendUserWelcome(newUser);
+        // await this.mailService.sendUserWelcome(newUser);
 
         const { password, ...userWithoutPassword } = createdUser;
         return userWithoutPassword;

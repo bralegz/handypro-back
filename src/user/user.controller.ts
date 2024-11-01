@@ -9,6 +9,7 @@ import {
     Query,
     Req,
     UseGuards,
+    ForbiddenException,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import {
@@ -19,6 +20,7 @@ import {
     ApiParam,
     ApiOkResponse,
     ApiBody,
+    ApiOperation,
 } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth/jwt-auth.guard';
 import { UpdateUserDto } from './dtos/updateUser.dto';
@@ -54,6 +56,10 @@ export class UserController {
             'Solo se puede buscar por un nombre a la vez, es indiferente a las MAYUSC',
         example: 'JUAN',
     })
+    @ApiOperation({
+        summary:
+            'Lista de todos los profesionales. Se puede filtrar por categoria y por nombre. Protección por rol: ["professional", "client", "admin"] (Vista de cliente o admin)',
+    })
     @Get('professionals')
     async getProfessionals(
         @Query('categories') categories?: string,
@@ -70,6 +76,10 @@ export class UserController {
     }
 
     @Get('clients')
+    @ApiOperation({
+        summary:
+            'Lista de todos los clientes. Protección por rol: ["admin"]. (Vista de admin)',
+    })
     async getClients(
         @Query('page') page: number = 1,
         @Query('limit') limit: number = 5,
@@ -153,6 +163,10 @@ export class UserController {
             ],
         },
     })
+    @ApiOperation({
+        summary:
+            'Busca un sólo profesional por id. Protección por rol: ["professional", "client", "admin"] (Vista de cliente o admin)',
+    })
     @Get('professional/:id')
     async getProfessionalById(@Param('id', ParseUUIDPipe) id: string) {
         const user = await this.usersService.getProfessionalById(id);
@@ -161,6 +175,10 @@ export class UserController {
     }
 
     @Get('client/:id')
+    @ApiOperation({
+        summary:
+            'Busca un sólo cliente por id. Protección por rol: ["admin"] (Vista de admin)',
+    })
     async getClientById(@Param('id', ParseUUIDPipe) id: string) {
         const user = await this.usersService.getClientById(id);
 
@@ -169,13 +187,20 @@ export class UserController {
 
     /* When this endpoint is called the JwtAuthGuard and it activates the JwtStrategy and it looks for the jwt token inside the header of the request and validates it. If its valid, then it will be decoded and the payload will pass through the validate function in the jwt strategy and then appended to Request.user*/
     @ApiBearerAuth()
+    @ApiOperation({
+        summary:
+            'Lista de un cliente por id. No tiene protección por rol. Si el usuario está logueado podrá ver su perfil.',
+    })
     @UseGuards(JwtAuthGuard)
     @Get('profile')
     async getProfile(@Req() req) {
         return await this.usersService.getProfile(req.user.id);
     }
 
-    @Post('changeRole/:id')
+    @ApiOperation({
+        summary:
+            'Un cliente logueado podrá cambiar su rol de "client" a "professional" o viceversa pero no podrá ser cambiado a "admin". No podrá cambiar la información de otro usuario.',
+    })
     @ApiParam({
         name: 'id',
         description:
@@ -185,9 +210,9 @@ export class UserController {
     @ApiQuery({
         name: 'role',
         description:
-            'El nuevo rol para asignar al usuario. Puede ser "admin", "client" o "professional".',
+            'El nuevo rol para asignar al usuario. Puede ser "client" o "professional". No puede ser cambiado a "admin"',
         required: true,
-        example: 'admin',
+        example: 'professional',
     })
     @ApiResponse({
         status: 200,
@@ -198,10 +223,19 @@ export class UserController {
         description: 'Solicitud inválida. El ID o el rol son incorrectos.',
     })
     @ApiResponse({ status: 404, description: 'Usuario no encontrado.' })
+    @ApiBearerAuth()
+    @UseGuards(JwtAuthGuard)
+    @Post('changeRole/:id')
     async changerole(
         @Param('id', ParseUUIDPipe) id: string,
         @Query('role') role: string,
+        @Req() req,
     ) {
+        if (req.user.id !== id) {
+            throw new ForbiddenException(
+                'No puedes cambiar el rol de otra persona',
+            );
+        }
         return this.usersService.changeRole(id, role);
     }
 
@@ -217,8 +251,7 @@ export class UserController {
                 fullname: 'Vale Contua',
                 location: 'San Isidro',
                 phone: '+51 946982744',
-                profileImg:
-                    'https://testimage.com/150?u=a042581f4e29026704d',
+                profileImg: 'https://testimage.com/150?u=a042581f4e29026704d',
                 years_experience: 15,
                 services: [
                     'Muebles personalizados',
@@ -274,6 +307,10 @@ export class UserController {
         status: 400,
         description:
             'El location, y las categorias deben ser iguales a las definidas en la base de datos. El phone debe empezar con el código de país y el profileImg debe ser un URL válido',
+    })
+    @ApiOperation({
+        summary:
+            'Un usuario podrá cambiar su información de perfil si está logueado. No podrá cambiar la información de otra persona.',
     })
     async updateProfile(
         @Body() userNewInfo: UpdateUserDto,

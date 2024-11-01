@@ -1,10 +1,12 @@
 import {
     BadRequestException,
+    ForbiddenException,
     Injectable,
     NotFoundException,
 } from '@nestjs/common';
 import { UserRepository } from './user.repository';
 import { UpdateUserDto } from './dtos/updateUser.dto';
+import { UserRole } from './enums/user-role.enum';
 
 @Injectable()
 export class UserService {
@@ -59,6 +61,22 @@ export class UserService {
 
     async changeRole(userId: string, role: string) {
         try {
+            if (role === UserRole.ADMIN) {
+                throw new BadRequestException(
+                    'No puedes cambiar tu rol a administrador',
+                );
+            }
+
+            if (
+                ![UserRole.CLIENT, UserRole.PROFESSIONAL].includes(
+                    role as UserRole,
+                )
+            ) {
+                throw new ForbiddenException(
+                    "Solamente puedes cambiar tu rol a 'client' o a 'professional'",
+                );
+            }
+
             const user = await this.userRepository.changeRole(userId, role);
 
             if (!user) {
@@ -73,9 +91,12 @@ export class UserService {
 
     async updateProfile(userNewInfo: UpdateUserDto, userId: string) {
         try {
-            const userUpdated = await this.userRepository.updateProfile(userNewInfo, userId);
+            const userUpdated = await this.userRepository.updateProfile(
+                userNewInfo,
+                userId,
+            );
 
-            return userUpdated
+            return userUpdated;
         } catch (error) {
             throw new BadRequestException(error.message);
         }
