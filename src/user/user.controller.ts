@@ -10,6 +10,7 @@ import {
     Req,
     UseGuards,
     ForbiddenException,
+    UnauthorizedException,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import {
@@ -239,7 +240,6 @@ export class UserController {
         return this.usersService.changeRole(id, role);
     }
 
-    @Put('updateProfile/:userId')
     @ApiParam({
         name: 'userId',
         description: 'El UUID del usuario a actualizar',
@@ -312,10 +312,19 @@ export class UserController {
         summary:
             'Un usuario podrá cambiar su información de perfil si está logueado. No podrá cambiar la información de otra persona.',
     })
+    @ApiBearerAuth()
+    @UseGuards(JwtAuthGuard)
+    @Put('updateProfile/:userId')
     async updateProfile(
         @Body() userNewInfo: UpdateUserDto,
         @Param('userId', ParseUUIDPipe) userId: string,
+        @Req() req,
     ) {
+        if (userId !== req.user.id) {
+            throw new ForbiddenException(
+                'No puedes cambiar la información de otra persona',
+            );
+        }
         return await this.usersService.updateProfile(userNewInfo, userId);
     }
 }
