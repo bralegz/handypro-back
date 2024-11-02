@@ -125,4 +125,18 @@ export class UserService {
             throw new BadRequestException(error.message);
         }
     }
+
+    async getAdmins() {
+        try {
+            const users = await this.userRepository.getUsersByRole(UserRole.ADMIN);
+
+            if (!users || users.length === 0) {
+                throw new Error('No se encontraron usuarios administradores');
+            }
+
+            return users;
+        } catch (error) {
+            throw new BadRequestException(error.message);
+        }
+    }
 }

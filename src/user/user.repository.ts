@@ -367,4 +367,12 @@ export class UserRepository {
 
         return users;
     }
+
+    async getUsersByRole(role: UserRole) {
+        const users = await this.userRepository.find({
+            where: { role },
+        });
+
+        return users;
+    }
 }

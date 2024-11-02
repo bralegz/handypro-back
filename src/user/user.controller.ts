@@ -370,4 +370,23 @@ export class UserController {
     async getInactiveUsers() {
         return this.usersService.getInactiveUsers();
     }
+
+    @ApiOperation({
+        summary: 'Obtiene una lista de todos los usuarios con rol de administrador. Protección por rol: ["admin"].',
+    })
+    @ApiResponse({
+        status: 200,
+        description: 'Lista de usuarios administradores obtenida exitosamente.',
+    })
+    @ApiResponse({
+        status: 400,
+        description: 'Solicitud inválida.',
+    })
+    @ApiResponse({ status: 404, description: 'No se encontraron usuarios administradores.' })
+    @ApiBearerAuth()
+    @UseGuards(JwtAuthGuard)
+    @Get('admins')
+    async getAdmins() {
+        return this.usersService.getAdmins();
+    }
 }
