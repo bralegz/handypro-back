@@ -61,6 +61,9 @@ export class User {
     @Column({ nullable: true })
     hashedRefreshToken: string;
 
+    @Column({type: 'boolean', default: true})
+    is_active: boolean
+
     @ManyToOne(() => Location, (location) => location.users)
     location: Location;
 
