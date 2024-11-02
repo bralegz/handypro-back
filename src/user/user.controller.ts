@@ -351,4 +351,23 @@ export class UserController {
     async toggleActiveStatus(@Param('id', ParseUUIDPipe) id: string) {
         return this.usersService.toggleUserActiveStatus(id);
     }
+
+    @ApiOperation({
+        summary: 'Obtiene una lista de todos los usuarios inactivos. Protección por rol: ["admin"].',
+    })
+    @ApiResponse({
+        status: 200,
+        description: 'Lista de usuarios inactivos obtenida exitosamente.',
+    })
+    @ApiResponse({
+        status: 400,
+        description: 'Solicitud inválida.',
+    })
+    @ApiResponse({ status: 404, description: 'No se encontraron usuarios inactivos.' })
+    // @ApiBearerAuth()
+    // @UseGuards(JwtAuthGuard)
+    @Get('inactiveUsers')
+    async getInactiveUsers() {
+        return this.usersService.getInactiveUsers();
+    }
 }

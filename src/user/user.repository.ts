@@ -359,4 +359,12 @@ export class UserRepository {
             is_active: user.is_active,
         };
     }
+
+    async getInactiveUsers() {
+        const users = await this.userRepository.find({
+            where: { is_active: false },
+        });
+
+        return users;
+    }
 }
