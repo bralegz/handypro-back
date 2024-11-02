@@ -53,7 +53,7 @@ export class PostedJobRepository {
         const postedJobsArray = postedJobs.map((job) => {
             const categoryNames = job.categories?.map(
                 (category) => category.name,
-            )    
+            );
 
             //return applications with professional data avoiding sensitive data
             const applications = job.applications?.map((application) => {
@@ -83,9 +83,28 @@ export class PostedJobRepository {
             };
         });
 
-
-
         return postedJobsArray;
+    }
+
+    async findJob(id: string) {
+        const postedJob = await this.postedJobRepository.findOne({
+            where: { id, is_active: true },
+            relations: {
+                client: true,
+                review: true,
+                location: true,
+                categories: true,
+                applications: {
+                    professional: true,
+                },
+            },
+        });
+        
+        if (!postedJob) throw new BadRequestException('Este trabajo no existe');
+
+        if(postedJob.client?.is_active === false) throw new BadRequestException('Este cliente está inhabilitado');
+
+        return postedJob;
     }
 
     async postedJobsByClient(clientId: string) {
@@ -99,7 +118,9 @@ export class PostedJobRepository {
             where: {
                 client: {
                     id: clientId,
+                    is_active: true,
                 },
+                is_active: true,
             },
             relations: [
                 'review',
@@ -139,23 +160,6 @@ export class PostedJobRepository {
         return postedJobsArray;
     }
 
-    async findJob(id: string) {
-        const postedJob = await this.postedJobRepository.findOne({
-            where: { id },
-            relations: {
-                client: true,
-                review: true,
-                location: true,
-                categories: true,
-                applications: {
-                    professional: true,
-                },
-            },
-        });
-
-        return postedJob;
-    }
-
     async postedJobsForProfessionals(idProfessional: string) {
         const user = await this.usersRepository.findOne({
             where: {
@@ -173,6 +177,10 @@ export class PostedJobRepository {
             where: {
                 categories: {
                     id: In(user.categories.map((cat) => cat.id)),
+                },
+                is_active: true,
+                client: {
+                    is_active: true,
                 },
             },
             relations: {
@@ -267,15 +275,16 @@ export class PostedJobRepository {
             throw new Error('La ubicación no existe');
 
         //Get client entity
-        const postedJobClient = await this.usersRepository.find({
+        const postedJobClient = await this.usersRepository.findOne({
             where: { id: clientId },
         });
 
-        if (!postedJobClient.length) throw new Error('El cliente no existe');
+        if (!postedJobClient) throw new Error('El cliente no existe');
+        if(postedJobClient.is_active === false) throw new Error('Este cliente está inhabilitado');
 
         const postedJobCreated = this.postedJobRepository.create({
             title,
-            client: postedJobClient[0],
+            client: postedJobClient,
             description: description,
             location: postedJobLocation[0],
             date: postedJobdate,

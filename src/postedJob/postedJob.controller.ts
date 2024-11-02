@@ -80,6 +80,9 @@ export class PostedJobController {
         return this.postedJobService.findAll();
     }
 
+    @ApiOperation({
+        summary: 'Obtiene una lista de trabajos posteados que coinciden con las categorías del profesional y filtradas según postulaciones.',
+    })
     @ApiParam({
         name: 'professionalId',
         required: true,
@@ -87,7 +90,7 @@ export class PostedJobController {
     })
     @ApiOkResponse({
         description:
-            'Lista de posteos que coinciden con las categorias del profesional y ademas filtradas de acuerdo a si ya hice su postulacion o no',
+            'Lista de posteos que coinciden con las categorias del profesional y ademas filtradas de acuerdo a si ya hizo su postulacion o no',
         schema: {
             example: [
                 {
@@ -137,6 +140,9 @@ export class PostedJobController {
         return this.postedJobService.postedJobsForProfessionals(idProfessional);
     }
 
+    @ApiOperation({
+        summary: 'Obtiene una lista de trabajos posteados por un cliente específico, incluyendo todas las postulaciones y profesionales.',
+    })
     @ApiParam({
         name: 'clientId',
         required: false,
@@ -205,6 +211,9 @@ export class PostedJobController {
         return postedJobs;
     }
 
+    @ApiOperation({
+        summary: 'Obtiene los detalles de un trabajo posteado específico por su ID.',
+    })
     @Get(':id')
     async findJob(@Param('id', ParseUUIDPipe) id: string) {
         const postedJob = await this.postedJobService.findJob(id);
@@ -212,7 +221,9 @@ export class PostedJobController {
         return postedJob;
     }
 
-    @Post('post-job/:clientId')
+    @ApiOperation({
+        summary: 'Permite a un cliente postear un nuevo trabajo.',
+    })
     @ApiResponse({
         status: 201,
         description: 'Trabajo posteado exitosamente',
@@ -243,6 +254,7 @@ export class PostedJobController {
             'Datos del trabajo a postear. El location y el category tienen que ser escritos exactamente como están en la base de datos o devolverá un error.',
         type: CreatePostedJobDto,
     })
+    @Post('post-job/:clientId')
     async createPostedJob(
         @Param('clientId', ParseUUIDPipe) clientId: string,
         @Body() newPostedJob: CreatePostedJobDto,
@@ -263,6 +275,9 @@ export class PostedJobController {
         return postedJob;
     }
 
+    @ApiOperation({
+        summary: 'Permite completar un trabajo posteado específico.',
+    })
     @ApiResponse({
         status: 200,
         description: 'Trabajo completado exitosamente',
