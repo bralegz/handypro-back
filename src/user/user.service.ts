@@ -101,4 +101,28 @@ export class UserService {
             throw new BadRequestException(error.message);
         }
     }
+
+    async toggleUserActiveStatus(userId: string) {
+        try {
+            const user = await this.userRepository.toggleUserActiveStatus(userId);
+
+            return user;
+        } catch (error) {
+            throw new BadRequestException(error.message);
+        }
+    }
+
+    async getInactiveUsers() {
+        try {
+            const users = await this.userRepository.getInactiveUsers();
+
+            if (!users || users.length === 0) {
+                throw new Error('No se encontraron usuarios inactivos');
+            }
+
+            return users;
+        } catch (error) {
+            throw new BadRequestException(error.message);
+        }
+    }
 }

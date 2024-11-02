@@ -45,6 +45,9 @@ export class PostedJob {
     @Column('varchar', { length: 20, nullable: false })
     priority: string;
 
+    @Column({ type: 'boolean', default: true })
+    is_active: boolean;
+
     @Column('text', { array: true, nullable: false })
     photos: string[];
 
@@ -60,5 +63,4 @@ export class PostedJob {
 
     @OneToMany(() => Payment, (payment) => payment.postedJob)
     payments: Payment[];
-
 }

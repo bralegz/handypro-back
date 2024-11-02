@@ -9,6 +9,9 @@ export class Category {
 
     @Column({ type: 'varchar', length: 100 })
     name: string;
+    
+    @Column({ type: 'boolean', default: true })
+    is_active: boolean;
 
     @ManyToMany(() => User, (user) => user.categories, { cascade: true })
     users: User[];

@@ -55,7 +55,7 @@ export class UserRepository {
         name?: string,
     ) {
         const users = await this.userRepository.find({
-            where: { role: 'professional' },
+            where: { role: 'professional', is_active: true },
             relations: {
                 applications: {
                     postedJob: true,
@@ -132,6 +132,7 @@ export class UserRepository {
         const users = await this.userRepository.find({
             where: {
                 role: 'client',
+                is_active: true,
             },
             relations: {
                 postedJobs: {
@@ -180,6 +181,10 @@ export class UserRepository {
             throw new BadRequestException('El usuario no existe.');
         }
 
+        if (!user.is_active) {
+            throw new BadRequestException('Este usuario se encuentra inhabilitado');
+        }
+
         const categoryNames = user?.categories.map((category) => category.name);
         const acceptedJobs = user.applications.filter(
             (application) => application.postedJob.status === 'completado',
@@ -218,6 +223,10 @@ export class UserRepository {
             throw new BadRequestException('El usuario no existe.');
         }
 
+        if (!user.is_active) {
+            throw new BadRequestException('Este usuario se encuentra inhabilitado');
+        }
+
         const { password, hashedRefreshToken, ...userWithoutSensitiveInfo } = user;
 
         return {
@@ -231,6 +240,14 @@ export class UserRepository {
             where: { id: userId },
         });
 
+        if (!user) {
+            throw new BadRequestException('El usuario no existe.');
+        }
+
+        if (!user.is_active) {
+            throw new BadRequestException('Este usuario se encuentra inhabilitado');
+        }
+
         return user;
     }
 
@@ -241,6 +258,10 @@ export class UserRepository {
 
         if (!user) {
             return user;
+        }
+
+        if (!user.is_active) {
+            throw new BadRequestException('Este usuario se encuentra inhabilitado');
         }
 
         if (role === user.role) {
@@ -274,6 +295,10 @@ export class UserRepository {
 
         if (!updateUser) {
             throw new Error('El usuario no existe');
+        }
+
+        if (!updateUser.is_active) {
+            throw new BadRequestException('Este usuario se encuentra inhabilitado');
         }
 
         let location = null;
@@ -315,5 +340,31 @@ export class UserRepository {
         await this.userRepository.save(updateUser);
 
         return updateUser;
+    }
+
+    async toggleUserActiveStatus(userId: string) {
+        const user = await this.userRepository.findOne({ where: { id: userId } });
+
+        if (!user) {
+            throw new BadRequestException('El usuario no existe.');
+        }
+
+        user.is_active = !user.is_active;
+        await this.userRepository.save(user);
+
+        return {
+            id: user.id,
+            fullname: user.fullname,
+            email: user.email,
+            is_active: user.is_active,
+        };
+    }
+
+    async getInactiveUsers() {
+        const users = await this.userRepository.find({
+            where: { is_active: false },
+        });
+
+        return users;
     }
 }
