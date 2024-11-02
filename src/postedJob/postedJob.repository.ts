@@ -308,7 +308,9 @@ export class PostedJobRepository {
 
     async completeJob(postedJobId: string) {
         const postedJob = await this.postedJobRepository.findOne({
-            where: { id: postedJobId },
+            where: { id: postedJobId,
+                is_active: true,
+             },
         });
 
         if (!postedJob) throw new Error('El trabajo posteado no existe');
