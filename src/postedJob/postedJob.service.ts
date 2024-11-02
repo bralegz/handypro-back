@@ -6,7 +6,7 @@ export class PostedJobService {
     constructor(private readonly postedJobRepository: PostedJobRepository) {}
 
     async findAll() {
-        return this.postedJobRepository.findAll();
+        return this.postedJobRepository.findAllActive();
     }
 
     async postedJobsByClient(clientId: string) {

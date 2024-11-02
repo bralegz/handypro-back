@@ -23,8 +23,15 @@ export class PostedJobRepository {
         private locationRepository: Repository<Location>,
     ) {}
 
-    async findAll() {
+
+    async findAllActive() {
         const postedJobs = await this.postedJobRepository.find({
+            where: {
+                is_active: true,
+                client: {
+                    is_active: true,
+                },
+            },
             relations: {
                 client: true,
                 review: true,
