@@ -45,4 +45,6 @@ export class MailService {
             console.error('Error sending email:', error);
         }
     }
+
+   
 }

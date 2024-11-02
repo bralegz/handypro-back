@@ -12,6 +12,7 @@ import { Category } from '../category/category.entity';
 import { UpdateUserDto } from './dtos/updateUser.dto';
 import { Location } from '../location/location.entity';
 import { MailService } from '../mail/mail.service';
+import { UserRole } from './enums/user-role.enum';
 
 @Injectable()
 export class UserRepository {
@@ -25,15 +26,25 @@ export class UserRepository {
         private readonly mailService: MailService,
     ) {}
 
-    async createUser(newUser: SignupUserDto & { profileImg?: string }) {
+    async createUser(
+        newUser: SignupUserDto & { profileImg?: string; role?: UserRole },
+    ) {
+        if (newUser.email.endsWith('@handypro.site')) {
+            newUser.role = UserRole.ADMIN;
+        }
         const createdUser = this.userRepository.create(newUser);
         await this.userRepository.save(createdUser);
 
-        await this.mailService.sendUserWelcome(newUser);
+        // await this.mailService.sendUserWelcome(newUser);
 
+<<<<<<< HEAD
         return {
             createdUser,
         };
+=======
+        const { password, ...userWithoutPassword } = createdUser;
+        return userWithoutPassword;
+>>>>>>> 0167ba6f9609f6b0386666d57b58282a132884b3
     }
 
     async findUserByEmail(email: string) {
@@ -209,8 +220,14 @@ export class UserRepository {
             relations: { postedJobs: { review: true }, location: true },
         });
 
+        if (!user) {
+            throw new BadRequestException('El usuario no existe.');
+        }
+
+        const { password, hashedRefreshToken, ...userWithoutSensitiveInfo } = user;
+
         return {
-            ...user,
+            ...userWithoutSensitiveInfo,
             location: user.location?.name,
         };
     }
