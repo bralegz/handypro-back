@@ -37,14 +37,8 @@ export class UserRepository {
 
         // await this.mailService.sendUserWelcome(newUser);
 
-<<<<<<< HEAD
-        return {
-            createdUser,
-        };
-=======
         const { password, ...userWithoutPassword } = createdUser;
         return userWithoutPassword;
->>>>>>> 0167ba6f9609f6b0386666d57b58282a132884b3
     }
 
     async findUserByEmail(email: string) {
