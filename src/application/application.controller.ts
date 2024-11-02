@@ -3,6 +3,7 @@ import {
     Get,
     Param,
     ParseUUIDPipe,
+    Patch,
     Post,
     Put,
     Query,
@@ -97,10 +98,15 @@ export class ApplicationController {
     })
     @ApiResponse({
         status: 400,
-        description: 'La aplicación no existe, la aplicación ya fue aceptada, el trabajo debe estar pendiente para poder aceptar una aplicación nueva',
+        description:
+            'La aplicación no existe, la aplicación ya fue aceptada, el trabajo debe estar pendiente para poder aceptar una aplicación nueva',
     })
-    @ApiParam({description: 'UUID de la aplicación que se quiere aceptar', name: 'applicationId', type: 'string'})
-    @Put('accept/:applicationId')
+    @ApiParam({
+        description: 'UUID de la aplicación que se quiere aceptar',
+        name: 'applicationId',
+        type: 'string',
+    })
+    @Patch('accept/:applicationId')
     async acceptApplication(
         @Param('applicationId', ParseUUIDPipe) applicationId: string,
     ) {

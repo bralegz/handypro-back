@@ -315,7 +315,7 @@ export class UserController {
     })
     @ApiBearerAuth()
     @UseGuards(JwtAuthGuard)
-    @Put('updateProfile/:userId')
+    @Patch('updateProfile/:userId')
     async updateProfile(
         @Body() userNewInfo: UpdateUserDto,
         @Param('userId', ParseUUIDPipe) userId: string,
@@ -331,16 +331,19 @@ export class UserController {
 
     // @ApiBearerAuth()
     @ApiOperation({
-        summary: 'Permite al administrador cambiar el estado activo de un usuario.',
+        summary:
+            'Permite al administrador cambiar el estado activo de un usuario.',
     })
     @ApiParam({
         name: 'id',
-        description: 'El ID del usuario cuyo estado activo se cambiará. Debe ser un UUID válido.',
+        description:
+            'El ID del usuario cuyo estado activo se cambiará. Debe ser un UUID válido.',
         example: '123e4567-e89b-12d3-a456-426614174000',
     })
     @ApiResponse({
         status: 200,
-        description: 'El estado activo del usuario ha sido cambiado exitosamente.',
+        description:
+            'El estado activo del usuario ha sido cambiado exitosamente.',
     })
     @ApiResponse({
         status: 400,
@@ -354,7 +357,8 @@ export class UserController {
     }
 
     @ApiOperation({
-        summary: 'Obtiene una lista de todos los usuarios inactivos. Protección por rol: ["admin"].',
+        summary:
+            'Obtiene una lista de todos los usuarios inactivos. Protección por rol: ["admin"].',
     })
     @ApiResponse({
         status: 200,
@@ -364,7 +368,10 @@ export class UserController {
         status: 400,
         description: 'Solicitud inválida.',
     })
-    @ApiResponse({ status: 404, description: 'No se encontraron usuarios inactivos.' })
+    @ApiResponse({
+        status: 404,
+        description: 'No se encontraron usuarios inactivos.',
+    })
     // @ApiBearerAuth()
     // @UseGuards(JwtAuthGuard)
     @Get('inactiveUsers')
@@ -373,7 +380,8 @@ export class UserController {
     }
 
     @ApiOperation({
-        summary: 'Obtiene una lista de todos los usuarios con rol de administrador. Protección por rol: ["admin"].',
+        summary:
+            'Obtiene una lista de todos los usuarios con rol de administrador. Protección por rol: ["admin"].',
     })
     @ApiResponse({
         status: 200,
@@ -383,7 +391,10 @@ export class UserController {
         status: 400,
         description: 'Solicitud inválida.',
     })
-    @ApiResponse({ status: 404, description: 'No se encontraron usuarios administradores.' })
+    @ApiResponse({
+        status: 404,
+        description: 'No se encontraron usuarios administradores.',
+    })
     // @ApiBearerAuth()
     // @UseGuards(JwtAuthGuard)
     @Get('admins')

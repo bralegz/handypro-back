@@ -7,6 +7,7 @@ import {
     Post,
     Put,
     UseGuards,
+    Patch,
 } from '@nestjs/common';
 import { PostedJobService } from './postedJob.service';
 
@@ -302,7 +303,7 @@ export class PostedJobController {
         description: 'UUID del trabajo que se completará',
         name: 'postedJobId',
     })
-    @Put('complete-job/:postedJobId')
+    @Patch('complete-job/:postedJobId')
     async completeJob(
         @Param('postedJobId', ParseUUIDPipe) postedJobId: string,
     ) {
@@ -336,7 +337,7 @@ export class PostedJobController {
     })
     @ApiBearerAuth()
     // @UseGuards(JwtAuthGuard)
-    @Put('toggleActiveStatus/:postedJobId')
+    @Patch('toggleActiveStatus/:postedJobId')
     async togglePostedJobActiveStatus(
         @Param('postedJobId', ParseUUIDPipe) postedJobId: string,
     ) {
