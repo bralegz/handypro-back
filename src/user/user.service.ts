@@ -101,4 +101,15 @@ export class UserService {
             throw new BadRequestException(error.message);
         }
     }
+
+    async toggleUserActiveStatus(userId: string) {
+        try {
+            const user = await this.userRepository.toggleUserActiveStatus(userId);
+
+
+            return user;
+        } catch (error) {
+            throw new BadRequestException(error.message);
+        }
+    }
 }

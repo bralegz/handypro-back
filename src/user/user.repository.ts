@@ -316,4 +316,22 @@ export class UserRepository {
 
         return updateUser;
     }
+
+    async toggleUserActiveStatus(userId: string) {
+        const user = await this.userRepository.findOne({ where: { id: userId } });
+
+        if (!user) {
+            throw new BadRequestException('El usuario no existe.');
+        }
+
+        user.is_active = !user.is_active;
+        await this.userRepository.save(user);
+
+        return {
+            id: user.id,
+            fullname: user.fullname,
+            email: user.email,
+            is_active: user.is_active,
+        };
+    }
 }

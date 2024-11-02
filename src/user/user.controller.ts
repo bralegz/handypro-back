@@ -327,4 +327,28 @@ export class UserController {
         }
         return await this.usersService.updateProfile(userNewInfo, userId);
     }
+
+    // @ApiBearerAuth()
+    @ApiOperation({
+        summary: 'Permite al administrador cambiar el estado activo de un usuario.',
+    })
+    @ApiParam({
+        name: 'id',
+        description: 'El ID del usuario cuyo estado activo se cambiará. Debe ser un UUID válido.',
+        example: '123e4567-e89b-12d3-a456-426614174000',
+    })
+    @ApiResponse({
+        status: 200,
+        description: 'El estado activo del usuario ha sido cambiado exitosamente.',
+    })
+    @ApiResponse({
+        status: 400,
+        description: 'Solicitud inválida. El ID es incorrecto.',
+    })
+    @ApiResponse({ status: 404, description: 'Usuario no encontrado.' })
+    // @UseGuards(JwtAuthGuard)
+    @Post('toggleActiveStatus/:id')
+    async toggleActiveStatus(@Param('id', ParseUUIDPipe) id: string) {
+        return this.usersService.toggleUserActiveStatus(id);
+    }
 }
