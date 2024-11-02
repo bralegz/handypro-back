@@ -11,6 +11,7 @@ import {
     UseGuards,
     ForbiddenException,
     UnauthorizedException,
+    Patch,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import {
@@ -226,7 +227,7 @@ export class UserController {
     @ApiResponse({ status: 404, description: 'Usuario no encontrado.' })
     @ApiBearerAuth()
     @UseGuards(JwtAuthGuard)
-    @Post('changeRole/:id')
+    @Patch('changeRole/:id')
     async changerole(
         @Param('id', ParseUUIDPipe) id: string,
         @Query('role') role: string,
@@ -347,7 +348,7 @@ export class UserController {
     })
     @ApiResponse({ status: 404, description: 'Usuario no encontrado.' })
     // @UseGuards(JwtAuthGuard)
-    @Post('toggleActiveStatus/:id')
+    @Patch('toggleActiveStatus/:id')
     async toggleActiveStatus(@Param('id', ParseUUIDPipe) id: string) {
         return this.usersService.toggleUserActiveStatus(id);
     }
