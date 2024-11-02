@@ -86,6 +86,67 @@ export class PostedJobRepository {
         return postedJobsArray;
     }
 
+    async findAllInactive() {
+        const postedJobs = await this.postedJobRepository.find({
+            where: {
+                is_active: false,
+                client: {
+                    is_active: true,
+                },
+            },
+            relations: {
+                client: true,
+                review: true,
+                location: true,
+                categories: true,
+                applications: {
+                    professional: true,
+                },
+            },
+            order: {
+                applications: {
+                    professional: {
+                        rating: 'DESC',
+                    },
+                },
+            },
+        });
+
+        const postedJobsArray = postedJobs.map((job) => {
+            const categoryNames = job.categories?.map(
+                (category) => category.name,
+            );
+
+            const applications = job.applications?.map((application) => {
+                return {
+                    ...application,
+                    professional: {
+                        id: application.professional.id,
+                        fullname: application.professional.fullname,
+                        profileImg: application.professional.profileImg,
+                        rating: application.professional.rating,
+                        years_experience:
+                            application.professional.years_experience,
+                        availability: application.professional.availability,
+                    },
+                };
+            });
+
+            return {
+                ...job,
+                location: job.location?.name,
+                categories: categoryNames,
+                client: {
+                    id: job.client.id,
+                    fullname: job.client.fullname,
+                },
+                applications,
+            };
+        });
+
+        return postedJobsArray;
+    }
+
     async findJob(id: string) {
         const postedJob = await this.postedJobRepository.findOne({
             where: { id, is_active: true },

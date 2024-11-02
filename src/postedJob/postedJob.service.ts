@@ -106,4 +106,18 @@ export class PostedJobService {
             throw new BadRequestException(error.message);
         }
     }
+
+    async findAllInactive() {
+        try {
+            const postedJobs = await this.postedJobRepository.findAllInactive();
+
+            if (postedJobs.length === 0) {
+                throw new Error('No hay trabajos inactivos');
+            }
+
+            return postedJobs;
+        } catch (error) {
+            throw new BadRequestException(error.message);
+        }
+    }
 }

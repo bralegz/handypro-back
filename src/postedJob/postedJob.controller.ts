@@ -82,7 +82,8 @@ export class PostedJobController {
     }
 
     @ApiOperation({
-        summary: 'Obtiene una lista de trabajos posteados que coinciden con las categorías del profesional y filtradas según postulaciones.',
+        summary:
+            'Obtiene una lista de trabajos posteados que coinciden con las categorías del profesional y filtradas según postulaciones.',
     })
     @ApiParam({
         name: 'professionalId',
@@ -142,7 +143,8 @@ export class PostedJobController {
     }
 
     @ApiOperation({
-        summary: 'Obtiene una lista de trabajos posteados por un cliente específico, incluyendo todas las postulaciones y profesionales.',
+        summary:
+            'Obtiene una lista de trabajos posteados por un cliente específico, incluyendo todas las postulaciones y profesionales.',
     })
     @ApiParam({
         name: 'clientId',
@@ -210,16 +212,6 @@ export class PostedJobController {
             await this.postedJobService.postedJobsByClient(clientId);
 
         return postedJobs;
-    }
-
-    @ApiOperation({
-        summary: 'Obtiene los detalles de un trabajo posteado específico por su ID.',
-    })
-    @Get(':id')
-    async findJob(@Param('id', ParseUUIDPipe) id: string) {
-        const postedJob = await this.postedJobService.findJob(id);
-
-        return postedJob;
     }
 
     @ApiOperation({
@@ -335,12 +327,38 @@ export class PostedJobController {
         status: 404,
         description: 'Trabajo posteado no encontrado.',
     })
-    @ApiBearerAuth()
+    // @ApiBearerAuth()
     // @UseGuards(JwtAuthGuard)
     @Patch('toggleActiveStatus/:postedJobId')
     async togglePostedJobActiveStatus(
         @Param('postedJobId', ParseUUIDPipe) postedJobId: string,
     ) {
         return this.postedJobService.togglePostedJobActiveStatus(postedJobId);
+    }
+
+    //Get all inactive jobs
+    @ApiOperation({
+        summary:
+            'Obtiene una lista de todos los trabajos posteados que están inactivos.',
+    })
+    @ApiOkResponse({
+        description: 'Lista de todos los trabajos posteados inactivos',
+    })
+    @Get('inactive')
+    findAllInactive() {
+        return this.postedJobService.findAllInactive();
+    }
+
+
+    //Get posted job by id
+    @ApiOperation({
+        summary:
+            'Obtiene los detalles de un trabajo posteado específico por su ID.',
+    })
+    @Get(':id')
+    async findJob(@Param('id', ParseUUIDPipe) id: string) {
+        const postedJob = await this.postedJobService.findJob(id);
+
+        return postedJob;
     }
 }
