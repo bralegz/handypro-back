@@ -92,4 +92,18 @@ export class PostedJobService {
             throw new BadRequestException(error.message);
         }
     }
+
+    async togglePostedJobActiveStatus(postedJobId: string) {
+        try {
+            const job = await this.postedJobRepository.togglePostedJobActiveStatus(postedJobId);
+
+            if (!job) {
+                throw new Error('Trabajo posteado no encontrado');
+            }
+
+            return job;
+        } catch (error) {
+            throw new BadRequestException(error.message);
+        }
+    }
 }

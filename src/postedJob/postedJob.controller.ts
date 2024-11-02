@@ -6,6 +6,7 @@ import {
     ParseUUIDPipe,
     Post,
     Put,
+    UseGuards,
 } from '@nestjs/common';
 import { PostedJobService } from './postedJob.service';
 
@@ -15,8 +16,11 @@ import {
     ApiParam,
     ApiResponse,
     ApiTags,
+    ApiOperation,
+    ApiBearerAuth,
 } from '@nestjs/swagger';
 import { CreatePostedJobDto } from './dto/createPostedJob.dto';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth/jwt-auth.guard';
 
 @ApiTags('posted-jobs')
 @Controller('posted-jobs')
@@ -242,5 +246,29 @@ export class PostedJobController {
         const postedJob = await this.postedJobService.completeJob(postedJobId);
 
         return postedJob;
+    }
+
+    @ApiOperation({
+        summary: 'Permite al administrador cambiar el estado activo de un trabajo posteado.',
+    })
+    @ApiParam({
+        name: 'postedJobId',
+        description: 'El ID del trabajo posteado cuyo estado activo se cambiará. Debe ser un UUID válido.',
+        example: '123e4567-e89b-12d3-a456-426614174000',
+    })
+    @ApiResponse({
+        status: 200,
+        description: 'El estado activo del trabajo posteado ha sido cambiado exitosamente.',
+    })
+    @ApiResponse({
+        status: 400,
+        description: 'Solicitud inválida. El ID es incorrecto.',
+    })
+    @ApiResponse({ status: 404, description: 'Trabajo posteado no encontrado.' })
+    @ApiBearerAuth()
+    // @UseGuards(JwtAuthGuard)
+    @Put('toggleActiveStatus/:postedJobId')
+    async togglePostedJobActiveStatus(@Param('postedJobId', ParseUUIDPipe) postedJobId: string) {
+        return this.postedJobService.togglePostedJobActiveStatus(postedJobId);
     }
 }

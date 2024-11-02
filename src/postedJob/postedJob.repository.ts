@@ -286,4 +286,18 @@ export class PostedJobRepository {
 
         return postedJob;
     }
+
+    async togglePostedJobActiveStatus(postedJobId: string) {
+        const postedJob = await this.postedJobRepository.findOne({
+            where: { id: postedJobId },
+        });
+
+        if (!postedJob) throw new Error('Trabajo posteado no encontrado');
+
+        postedJob.is_active = !postedJob.is_active;
+
+        await this.postedJobRepository.save(postedJob);
+
+        return postedJob;
+    }
 }
