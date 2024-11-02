@@ -16,6 +16,9 @@ export class Application {
     @Column('varchar', { length: 20, default: 'pendiente' })
     status: string;
 
+    @Column({ type: 'boolean', default: true })
+    is_active: boolean;
+
     @ManyToOne(() => User, (user) => user.applications)
     @JoinColumn({ name: 'professionalId' })
     professional: User;

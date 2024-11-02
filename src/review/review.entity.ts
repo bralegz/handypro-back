@@ -10,4 +10,7 @@ export class Review {
 
     @Column('varchar', { length: 255, nullable: false })
     comment: string;
+
+    @Column({ type: 'boolean', default: true })
+    is_active: boolean;
 }
