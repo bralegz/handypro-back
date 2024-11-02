@@ -383,8 +383,8 @@ export class UserController {
         description: 'Solicitud inválida.',
     })
     @ApiResponse({ status: 404, description: 'No se encontraron usuarios administradores.' })
-    @ApiBearerAuth()
-    @UseGuards(JwtAuthGuard)
+    // @ApiBearerAuth()
+    // @UseGuards(JwtAuthGuard)
     @Get('admins')
     async getAdmins() {
         return this.usersService.getAdmins();
