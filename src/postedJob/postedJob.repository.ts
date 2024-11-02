@@ -7,6 +7,7 @@ import { Category } from '../category/category.entity';
 import { Application } from '../application/application.entity';
 import { Location } from '../location/location.entity';
 import { PostedJobStatusEnum } from './enums/postedJobStatus.enum';
+import { profile } from 'console';
 
 @Injectable()
 export class PostedJobRepository {
@@ -22,7 +23,6 @@ export class PostedJobRepository {
         @InjectRepository(Location)
         private locationRepository: Repository<Location>,
     ) {}
-
 
     async findAllActive() {
         const postedJobs = await this.postedJobRepository.find({
@@ -53,14 +53,37 @@ export class PostedJobRepository {
         const postedJobsArray = postedJobs.map((job) => {
             const categoryNames = job.categories?.map(
                 (category) => category.name,
-            );
+            )    
+
+            //return applications with professional data avoiding sensitive data
+            const applications = job.applications?.map((application) => {
+                return {
+                    ...application,
+                    professional: {
+                        id: application.professional.id,
+                        fullname: application.professional.fullname,
+                        profileImg: application.professional.profileImg,
+                        rating: application.professional.rating,
+                        years_experience:
+                            application.professional.years_experience,
+                        availability: application.professional.availability,
+                    },
+                };
+            });
 
             return {
                 ...job,
                 location: job.location?.name,
                 categories: categoryNames,
+                client: {
+                    id: job.client.id,
+                    fullname: job.client.fullname,
+                },
+                applications,
             };
         });
+
+
 
         return postedJobsArray;
     }
