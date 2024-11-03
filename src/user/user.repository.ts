@@ -104,6 +104,9 @@ export class UserRepository {
                 portfolio_gallery,
                 email,
                 role,
+                password,
+                hashedRefreshToken,
+                is_active,
                 ...user
             }) => {
                 const categoriesMapped = user.categories.map((category) => {
@@ -144,9 +147,22 @@ export class UserRepository {
             take: limit,
         });
 
-        const usersMapped = users.map((user) => {
-            return { ...user, location: user.location?.name };
-        });
+        const usersMapped = users.map(
+            ({
+                password,
+                hashedRefreshToken,
+                is_active,
+                rating,
+                services,
+                availability,
+                bio,
+                portfolio_gallery,
+                years_experience,
+                ...user
+            }) => {
+                return { ...user, location: user.location?.name };
+            },
+        );
         return usersMapped;
     }
 
