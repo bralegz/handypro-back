@@ -6,6 +6,8 @@ import { User } from 'src/user/user.entity';
 import { Application } from 'src/application/application.entity';
 import { Review } from 'src/review/review.entity';
 import { ApplicationStatusEnum } from 'src/application/enums/applicationStatus.enum';
+import { Payment } from 'src/payment/payment.entity';
+import { PostedJobStatusEnum } from 'src/postedJob/enums/postedJobStatus.enum';
 
 @Injectable()
 export class MailService {
@@ -102,12 +104,38 @@ export class MailService {
                     professionalName: professional.map(prof => prof.fullname),
                     clientName: client.fullname,
                     jobTitle: postedJob.title,
-                    jobUrl: `https://handypro.com/posted-jobs/professional/${professional.map(prof => prof.id)}`,
+                    jobUrl: `https://handypro.com/posted-jobs/${postedJob.id}`,
                     contactUrl: 'https://handypro.com/contact',
                 },
             });
 
-            // console.log(`Email sent successfully to ${professional.email}`);
+            console.log(`Email sent successfully to ${professional.map(prof => prof.id)}`);
+        } catch (error) {
+            console.error('Error sending email:', error);
+        }
+    }
+
+    public async paymentConfirmed(payment: Partial<Payment>){
+        try {
+            const client = payment.client
+            const professional = payment.professional
+            const postedJob = payment.postedJob
+
+            await this.mailerService.sendMail({
+                to: client.email,
+                subject: 'Confirmación de Pago Recibido en HandyPro',
+                template: './paymentConfirmed',
+                context: {
+                    clientName: client.fullname,
+                    jobTitle: postedJob.title,
+                    paymentAmount: payment.amount,
+                    professionalName: professional.fullname,
+                    jobUrl: `https://handypro.com/posted-jobs/${postedJob.id}`,
+                    contactUrl: 'https://handypro.com/contact',
+                },
+            });
+
+            console.log(`Email sent successfully to ${client.email}`);
         } catch (error) {
             console.error('Error sending email:', error);
         }

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Confirmed</title>
+</head>
+<body>
+    <div style="font-family: Arial, sans-serif; font-size: 16px; color: #333333; padding: 10px; background-color: #dae2e6;">
+        <p>Estimado/a <%= clientName %>,</p>
+
+        <p>Gracias por tu pago. Nos complace informarte que hemos recibido el pago correspondiente al trabajo <strong><a href="<% jobUrl %>"><%= jobTitle %></a></strong>.</p>
+
+        <p><strong>Monto del Pago:</strong> $<%= paymentAmount %></p>
+        <p><strong>Profesional:</strong> <%= professionalName %></p>
+
+        <p>Si tienes alguna pregunta o necesitas asistencia adicional, no dudes en ponerte en contacto con nosotros: <a style="text-decoration: none;" href="<%= contactUrl %>">Contáctanos.</a></p>
+        <p></p>
+
+        <p>Agradecemos tu confianza en HandyPro. ¡Esperamos que hayas tenido una excelente experiencia!</p>
+
+        <p>Atentamente,<br>El equipo de HandyPro</p>
+
+    </div>
+</body>
+</html>
