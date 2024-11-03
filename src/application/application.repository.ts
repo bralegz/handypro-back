@@ -146,7 +146,7 @@ export class ApplicationRepository {
         });
 
         await this.applicationsRepository.save(application);
-        await this.mailService.sendApplicationrReceived(postedJob);
+        await this.mailService.sendApplicationrReceived(postedJob, application.professional);
 
         const { id: workerId, fullname } = application.professional;
         const { id: jobId, title } = application.postedJob;

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Received</title>
+</head>
+<body>
+    <div style="font-family: Arial, sans-serif; font-size: 16px; color: #333333; padding: 10px; background-color: #dae2e6;">
+        <p>Estimado/a <%= professionalName %>,</p>
+
+        <p>¡Felicidades! El cliente ha dejado una reseña sobre el trabajo titulado <strong><%= jobTitle %></strong>.</p>
+
+        <p><strong>Datos del cliente:</strong></p>
+        <ul>
+            <li>
+                <strong>Nombre del cliente:</strong>
+                <%= clientName %>
+            </li>
+            <li>
+                <strong>Enlace al trabajo publicado:</strong>
+                <a style="text-decoration: none;" href="<%= postedJobUrl %>">Ver trabajo.</a>
+            </li>
+        </ul>
+
+        <p>Si deseas responder a la reseña o necesitas más información, no dudes en contactarnos: <a style="text-decoration: none;" href="<%= contactUrl %>">Contáctanos.</a></p>
+        
+
+        <p>Gracias por tu dedicación y esfuerzo en cada proyecto que realizas.</p>
+
+        <p>Atentamente,<br>El equipo de HandyPro</p>
+    </div>
+</body>
+</html>

@@ -14,8 +14,8 @@ import { strict } from 'assert';
             useFactory: async (config: ConfigService) => ({
                 transport: {
                     host: config.get('mail.mailHost'),
-                    port: 465,
-                    secure: true,
+                    port: 2525,
+                    secure: false,
                     auth: {
                         user: config.get('mail.smtpUsername'),
                         pass: config.get('mail.smtpPassword'),

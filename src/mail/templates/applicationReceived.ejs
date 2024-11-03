@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Application Received</title>
+    </head>
+
+    <body>
+        <div style="font-family: Arial, sans-serif; font-size: 16px; color: #333333; padding: 10px; background-color: #dae2e6;"></divstyle>
+            <p>Estimado/a <%= name %>,</p>
+
+            <p>
+                Has recibido una nueva postulación para el puesto de
+                <strong> <%= jobTitle %> </strong>.
+            </p>
+
+            <p>Detalles de la postulación:</p>
+            <ul>
+                <li>
+                    <strong>Nombre del candidato:</strong>
+                    <%= professionalName %>
+                </li>
+                <li>
+                    <strong>Enlace al trabajo publicado:</strong>
+                    <a style="text-decoration: none;" href="<%= postedJobUrl %>">Ver trabajo</a>
+                </li>
+            </ul>
+
+            <p>
+                Si deseas ver más detalles sobre la postulación, visita el
+                enlace proporcionado.
+            </p>
+
+            <p>
+                Gracias por usar HandyPro para tus necesidades de contratación.
+            </p>
+
+            <p>Atentamente,<br />El equipo de HandyPro</p>
+        </div>
+    </body>
+</html>

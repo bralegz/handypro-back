@@ -2,6 +2,7 @@ import { PostedJob } from 'src/postedJob/postedJob.entity';
 import { User } from 'src/user/user.entity';
 import {
     Column,
+    CreateDateColumn,
     Entity,
     JoinColumn,
     ManyToOne,
@@ -18,6 +19,9 @@ export class Application {
 
     @Column({ type: 'boolean', default: true })
     is_active: boolean;
+
+    @CreateDateColumn({type: 'timestamp'})
+    created_at: Date;
 
     @ManyToOne(() => User, (user) => user.applications)
     @JoinColumn({ name: 'professionalId' })

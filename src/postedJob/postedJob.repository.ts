@@ -7,6 +7,7 @@ import { Category } from '../category/category.entity';
 import { Application } from '../application/application.entity';
 import { Location } from '../location/location.entity';
 import { PostedJobStatusEnum } from './enums/postedJobStatus.enum';
+import { MailService } from 'src/mail/mail.service';
 
 @Injectable()
 export class PostedJobRepository {
@@ -21,6 +22,7 @@ export class PostedJobRepository {
         private applicationsRepository: Repository<Application>,
         @InjectRepository(Location)
         private locationRepository: Repository<Location>,
+        private readonly mailService: MailService,
     ) {}
 
     async findAll() {
@@ -281,6 +283,9 @@ export class PostedJobRepository {
     async completeJob(postedJobId: string) {
         const postedJob = await this.postedJobRepository.findOne({
             where: { id: postedJobId },
+            relations: {
+                client: true
+            }
         });
 
         if (!postedJob) throw new Error('El trabajo posteado no existe');
@@ -294,6 +299,7 @@ export class PostedJobRepository {
         postedJob.status = PostedJobStatusEnum.COMPLETED;
 
         await this.postedJobRepository.save(postedJob);
+        await this.mailService.jobCompleted(postedJob);
 
         return postedJob;
     }

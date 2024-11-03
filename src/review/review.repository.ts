@@ -11,6 +11,7 @@ import { CreateReview } from './dtos/createReview.dto';
 import { User } from 'src/user/user.entity';
 import { PostedJobStatusEnum } from 'src/postedJob/enums/postedJobStatus.enum';
 import { ApplicationStatusEnum } from 'src/application/enums/applicationStatus.enum';
+import { MailService } from 'src/mail/mail.service';
 
 @Injectable()
 export class ReviewRepository {
@@ -21,6 +22,7 @@ export class ReviewRepository {
         private postedJobsRepository: Repository<PostedJob>,
         @InjectRepository(User)
         private usersRepository: Repository<User>,
+        private readonly mailService: MailService,
     ) {}
 
     async createReviews(review: CreateReview, postedId: string) {
@@ -30,6 +32,7 @@ export class ReviewRepository {
                 applications: {
                     professional: true,
                 },
+                client: true,
                 review: true,
             },
         });
@@ -53,7 +56,7 @@ export class ReviewRepository {
 
         postedJob.review = newReview;
         await this.postedJobsRepository.save(postedJob);
-
+        
         // Filtro por las aplicaciones que hayan sido aceptas
         const appsfiltered = postedJob.applications.filter(
             (app) => app.status === ApplicationStatusEnum.ACCEPTED,
@@ -77,24 +80,26 @@ export class ReviewRepository {
                 },
             },
         });
-
+        
         // Agrupo en un array los ratings de todas las reviews de las aplicaciones aceptadas que hizo
         const profesionalReviews = professional.applications
-            .filter((app) => app.status === ApplicationStatusEnum.ACCEPTED)
+        .filter((app) => app.status === ApplicationStatusEnum.ACCEPTED)
             .map((app) => app.postedJob.review?.rating)
             .map(Number)
             .filter((rating) => !isNaN(rating));
 
-        if (profesionalReviews.length > 0) {
-            // Saco el promedio del rating
-            const prom =
+            if (profesionalReviews.length > 0) {
+                // Saco el promedio del rating
+                const prom =
                 profesionalReviews.reduce((acc, current) => acc + current, 0) /
                 profesionalReviews.length;
-
-            professional.rating = prom;
-            await this.usersRepository.save(professional);
-        }
-
+                
+                professional.rating = prom;
+                await this.usersRepository.save(professional);
+            }
+            
+            await this.mailService.reviewReceived(newReview, postedJob)
+            
         return {
             message: 'Reseña creada con exito',
             review: newReview,

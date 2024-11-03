@@ -6,6 +6,7 @@ import { Review } from 'src/review/review.entity';
 import { User } from 'src/user/user.entity';
 import {
     Column,
+    CreateDateColumn,
     Entity,
     JoinColumn,
     JoinTable,
@@ -53,6 +54,9 @@ export class PostedJob {
 
     @Column('varchar', { length: 15, default: 'pendiente' })
     status: string;
+
+    @CreateDateColumn({type: 'timestamp'})
+    created_at: Date;
 
     @ManyToMany(() => Category, (category) => category.postedJobs)
     @JoinTable()

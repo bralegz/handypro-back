@@ -3,6 +3,7 @@ import { Location } from '../location/location.entity';
 import {
     BeforeInsert,
     Column,
+    CreateDateColumn,
     Entity,
     JoinTable,
     ManyToMany,
@@ -60,9 +61,12 @@ export class User {
 
     @Column({ nullable: true })
     hashedRefreshToken: string;
-
+    
     @Column({type: 'boolean', default: true})
     is_active: boolean
+    
+    @CreateDateColumn({type: 'timestamp'})
+    created_at: Date;
 
     @ManyToOne(() => Location, (location) => location.users)
     location: Location;
