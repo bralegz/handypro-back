@@ -377,7 +377,7 @@ export class UserRepository {
                 (application) => application.postedJob.status === 'completado',
             );
 
-            const { phone, password, hashedRefreshToken, is_active, ...userWithoutSensitiveInfo } = user;
+            const { password, hashedRefreshToken, is_active, ...userWithoutSensitiveInfo } = user;
 
             return {
                 ...userWithoutSensitiveInfo,
