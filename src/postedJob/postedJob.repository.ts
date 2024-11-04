@@ -383,10 +383,9 @@ export class PostedJobRepository {
 
     async completeJob(postedJobId: string) {
         const postedJob = await this.postedJobRepository.findOne({
-            where: { id: postedJobId },
+            where: { id: postedJobId, is_active: true },
             relations: {
                 client: true,
-                is_active: true
             }
         });
 
