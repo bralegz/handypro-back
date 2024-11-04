@@ -1,19 +1,51 @@
-<p style="font-family: Arial, sans-serif; font-size: 16px; color: #333333; margin-bottom: 20px;">
-  Estimado <%= name %>,
-</p>
-<p style="font-family: Arial, sans-serif; font-size: 16px; color: #333333; line-height: 1.6; margin-bottom: 20px;">
-  Gracias por registrarte en <span style="font-weight: bold; color: #007bff;">HandyPro</span>. Estamos muy emocionados de tenerte a bordo.
-</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to HandyPro</title>
+</head>
+<body style="font-family: Arial, sans-serif; font-size: 16px; color: #333333; background-color: #e6f2f7; margin: 0; padding: 0;">
 
-<p style="font-family: Arial, sans-serif; font-size: 16px; color: #333333; margin-bottom: 10px;">
-  Estos son los detalles de tu cuenta:
-</p>
-<ul style="font-family: Arial, sans-serif; font-size: 16px; color: #333333; padding-left: 20px; margin-bottom: 20px;">
-  <li style="color: #555555; margin-bottom: 5px;">Email: <span style="font-weight: bold;"><%= email %></span></li>
-  <li style="color: #555555;">Login URL: <a href="<%= loginUrl %>" style="color: #007bff; text-decoration: none;"><%= loginUrl %></a></li>
-</ul>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color: #e6f2f7; padding: 20px 0;">
+        <tr>
+            <td align="center">
+                <table width="600" border="0" cellspacing="0" cellpadding="0" style="background-color: #f4f4f4; border: 1px solid #cccccc; border-radius: 8px; overflow: hidden; padding: 20px;">
+                    <tr>
+                        <td style="text-align: center; padding: 20px;">
+                            <h1 style="color: #0056b3; font-size: 24px; margin: 0;">Bienvenido a HandyPro</h1>
+                            <hr style="border: none; border-top: 1px solid #cccccc; margin: 20px 0;">
+                        </td>
+                    </tr>
 
-<p style="font-family: Arial, sans-serif; font-size: 16px; color: #333333; line-height: 1.6;">
-  Bienvenido!<br />
-  <span style="font-weight: bold; color: #007bff;">HandyPro developer team</span>
-</p>
+                    <tr>
+                        <td style="padding: 20px;">
+                            <p style="font-family: Arial, sans-serif; font-size: 16px; color: #333333; margin-bottom: 20px;">Estimado/a <%= name %>,</p>
+
+                            <p style="font-family: Arial, sans-serif; font-size: 16px; color: #333333; line-height: 1.6; margin-bottom: 20px;">
+                                Gracias por registrarte en
+                                <span style="font-weight: bold; color: #007bff;">HandyPro</span>. Estamos muy emocionados de tenerte a bordo.
+                            </p>
+
+                            <p style="font-family: Arial, sans-serif; font-size: 16px; color: #333333; margin-bottom: 10px;">Estos son los detalles de tu cuenta:</p>
+                            <ul style="font-family: Arial, sans-serif; font-size: 16px; color: #333333; padding-left: 20px; margin-bottom: 20px;">
+                                <li style="color: #555555; margin-bottom: 5px;">Email: <span style="font-weight: bold;"><%= email %></span></li>
+                                <li style="color: #555555;">
+                                    Login URL:
+                                    <a href="<%= loginUrl %>" style="color: #007bff; text-decoration: none;"><%= loginUrl %></a>
+                                </li>
+                            </ul>
+
+                            <p style="font-family: Arial, sans-serif; font-size: 16px; color: #333333; line-height: 1.6;">
+                                ¡Bienvenido!<br />
+                                <span style="font-weight: bold; color: #007bff;">El equipo de desarrollo de HandyPro</span>
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+</body>
+</html>

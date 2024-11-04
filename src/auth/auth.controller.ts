@@ -124,7 +124,7 @@ export class AuthController {
         // res.redirect(
         //     `http://localhost:3005/api?token=${response.token}&refreshToken=${response.refreshToken}`,
         // );
-        
+
         res.redirect(
             `http://localhost:3000/choose-role?token=${response.token}&refreshToken=${response.refreshToken}`,
         );

@@ -48,6 +48,11 @@ export class ApplicationRepository {
             },
         });
 
+        if (applicationsArray.length === 0)
+            throw new BadRequestException(
+                'No se encontraron aplicaciones realizadas',
+            );
+
         // Todas las postulacion del profesional que no fueron rechazadas por el cliente
         const postedJobsAccepted = applicationsArray.filter(
             (app) => app.status !== 'rejected' && app.status !== 'pending',
@@ -55,16 +60,15 @@ export class ApplicationRepository {
 
         const postedJobsArray = postedJobsAccepted.map(
             ({ postedJob, ...job }) => {
-                console.log(postedJob.review);
                 return {
                     ...job,
                     postedJob: {
                         ...postedJob,
                         client: {
-                            id: postedJob.client.id,
-                            fullname: postedJob.client.fullname,
+                            id: postedJob.client?.id,
+                            fullname: postedJob.client?.fullname,
                         },
-                        location: postedJob.location.name,
+                        location: postedJob.location?.name,
                         review: {
                             rating: postedJob.review?.rating,
                             comment: postedJob.review?.comment,
@@ -83,11 +87,13 @@ export class ApplicationRepository {
     async createApplication(postedJobId: string, professionalId: string) {
         const postedJob = await this.postedJobsRepository.findOne({
             where: { id: postedJobId },
-            relations: [
-                'categories',
-                'applications',
-                'applications.professional',
-            ],
+            relations: {
+                categories: true,
+                applications: {
+                    professional: true,
+                },
+                client: true,
+            },
         });
 
         const applicationExists = postedJob.applications.find((app) => {
@@ -119,8 +125,8 @@ export class ApplicationRepository {
         );
 
         let hasCategory = false;
-        for(let i = 0; i < professionalCategories.length; i++) {
-            if(postedJobCategories.includes(professionalCategories[i])) {
+        for (let i = 0; i < professionalCategories.length; i++) {
+            if (postedJobCategories.includes(professionalCategories[i])) {
                 hasCategory = true;
                 break;
             }
