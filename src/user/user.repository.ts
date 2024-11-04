@@ -368,9 +368,39 @@ export class UserRepository {
     async getInactiveUsers() {
         const users = await this.userRepository.find({
             where: { is_active: false },
+            relations: ['location', 'categories', 'applications', 'applications.postedJob', 'applications.postedJob.review'],
         });
 
-        return users;
+        return users.map(user => {
+            const categoryNames = user?.categories?.map((category) => category.name);
+            const acceptedJobs = user.applications?.filter(
+                (application) => application.postedJob.status === 'completado',
+            );
+
+            const { phone, password, hashedRefreshToken, is_active, ...userWithoutSensitiveInfo } = user;
+
+            return {
+                ...userWithoutSensitiveInfo,
+                location: user.location?.name,
+                categories: categoryNames,
+                applications: acceptedJobs.map((app) => ({
+                    status: app.status,
+                    postedJob: {
+                        id: app.postedJob.id,
+                        title: app.postedJob.title,
+                        description: app.postedJob.description,
+                        date: app.postedJob.date,
+                        priority: app.postedJob.priority,
+                        photos: app.postedJob.photos,
+                        status: app.postedJob.status,
+                        review: {
+                            rating: app.postedJob.review?.rating,
+                            comment: app.postedJob.review?.comment,
+                        },
+                    },
+                })),
+            };
+        });
     }
 
     async getUsersByRole(role: UserRole) {
