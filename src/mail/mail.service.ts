@@ -31,27 +31,6 @@ export class MailService {
         }
     }
 
-    public async sendApplicationrReceived(postedJob: Partial<PostedJob>, professional: Partial<User>): Promise<void> {
-        try {
-            const client = postedJob?.client;
-            await this.mailerService.sendMail({
-                to: client.email,
-                subject: 'Nueva Postulación para tu Publicación',
-                template: './applicationReceived',
-                context: {
-                    name: client.fullname,
-                    professionalName: professional.fullname,
-                    jobTitle: postedJob.title,
-                    postedJobUrl: `https://handypro.com/posted-jobs/clients/${client.id}`,
-                },
-            });
-
-            console.log(`Email sent successfully to ${client.email}`);
-        } catch (error) {
-            console.error('Error sending email:', error);
-        }
-    }
-
     public async bannedUser(user: Partial<User>): Promise<void> {
         try {
             await this.mailerService.sendMail({

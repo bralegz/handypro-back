@@ -6,7 +6,6 @@ import { User } from 'src/user/user.entity';
 import { PostedJob } from 'src/postedJob/postedJob.entity';
 import { ApplicationStatusEnum } from './enums/applicationStatus.enum';
 import { PostedJobStatusEnum } from 'src/postedJob/enums/postedJobStatus.enum';
-import { MailService } from 'src/mail/mail.service';
 
 @Injectable()
 export class ApplicationRepository {
@@ -17,7 +16,6 @@ export class ApplicationRepository {
         private usersRepository: Repository<User>,
         @InjectRepository(PostedJob)
         private postedJobsRepository: Repository<PostedJob>,
-        private readonly mailService: MailService,
     ) {}
 
     async applicationsByProfessional(professionalId: string) {
@@ -146,7 +144,6 @@ export class ApplicationRepository {
         });
 
         await this.applicationsRepository.save(application);
-        await this.mailService.sendApplicationrReceived(postedJob, application.professional);
 
         const { id: workerId, fullname } = application.professional;
         const { id: jobId, title } = application.postedJob;
