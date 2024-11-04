@@ -5,22 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment Confirmed</title>
 </head>
-<body>
-    <div style="font-family: Arial, sans-serif; font-size: 16px; color: #333333; padding: 10px; background-color: #dae2e6;">
-        <p>Estimado/a <%= clientName %>,</p>
+<body style="font-family: Arial, sans-serif; font-size: 16px; color: #333333; background-color: #e6f2f7; margin: 0; padding: 0;">
 
-        <p>Gracias por tu pago. Nos complace informarte que hemos recibido el pago correspondiente al trabajo <strong><a href="<% jobUrl %>"><%= jobTitle %></a></strong>.</p>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color: #e6f2f7; padding: 20px 0;">
+        <tr>
+            <td align="center">
+                <table width="600" border="0" cellspacing="0" cellpadding="0" style="background-color: #f4f4f4; border: 1px solid #cccccc; border-radius: 8px; overflow: hidden; padding: 20px;">
+                    <tr>
+                        <td style="text-align: center; padding: 20px;">
+                            <h1 style="color: #0056b3; font-size: 24px; margin: 0;">Pago Confirmado</h1>
+                            <hr style="border: none; border-top: 1px solid #cccccc; margin: 20px 0;">
+                        </td>
+                    </tr>
 
-        <p><strong>Monto del Pago:</strong> $<%= paymentAmount %></p>
-        <p><strong>Profesional:</strong> <%= professionalName %></p>
+                    <tr>
+                        <td style="padding: 20px;">
+                            <p style="margin: 0 0 10px;">Estimado/a <%= clientName %>,</p>
 
-        <p>Si tienes alguna pregunta o necesitas asistencia adicional, no dudes en ponerte en contacto con nosotros: <a style="text-decoration: none;" href="<%= contactUrl %>">Contáctanos.</a></p>
-        <p></p>
+                            <p style="margin: 0 0 10px;">
+                                Gracias por tu pago. Nos complace informarte que hemos recibido el pago correspondiente al trabajo <strong><a href="<%= jobUrl %>" style="color: #1a73e8; text-decoration: none;"><%= jobTitle %></a></strong>.
+                            </p>
 
-        <p>Agradecemos tu confianza en HandyPro. ¡Esperamos que hayas tenido una excelente experiencia!</p>
+                            <p style="margin: 0 0 10px;"><strong>Monto del Pago:</strong> $<%= paymentAmount %></p>
+                            <p style="margin: 0 0 10px;"><strong>Profesional:</strong> <%= professionalName %></p>
 
-        <p>Atentamente,<br>El equipo de HandyPro</p>
+                            <p style="margin: 0 0 10px;">
+                                Si tienes alguna pregunta o necesitas asistencia adicional, no dudes en ponerte en contacto con nosotros: <a href="<%= contactUrl %>" style="color: #1a73e8; text-decoration: none;">Contáctanos.</a>
+                            </p>
 
-    </div>
+                            <p style="margin: 20px 0 0;">
+                                Agradecemos tu confianza en HandyPro. ¡Esperamos que hayas tenido una excelente experiencia!
+                            </p>
+
+                            <p style="margin: 20px 0 0;">
+                                Atentamente,<br>
+                                <strong>El equipo de HandyPro</strong>
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
 </body>
 </html>

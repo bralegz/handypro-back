@@ -91,7 +91,7 @@ export class MailService {
         
     }
 
-    public async reviewReceived(review: Partial<Review>, postedJob: Partial<PostedJob>){
+    public async reviewReceived( postedJob: Partial<PostedJob>){
         try {
             const professional = postedJob.applications.filter((app) => app.status === ApplicationStatusEnum.ACCEPTED).map(app => app.professional)
             const client = postedJob.client
@@ -135,6 +135,27 @@ export class MailService {
                 },
             });
 
+            console.log(`Email sent successfully to ${client.email}`);
+        } catch (error) {
+            console.error('Error sending email:', error);
+        }
+    }
+
+    public async deleteReview(postedJob: Partial<PostedJob>){
+        try {
+            const client = postedJob.client; 
+
+            await this.mailerService.sendMail({
+                to: client.email,
+                subject: 'Notificación de eliminación de reseña en HandyPro',
+                template: './deleteReview',
+                context: {
+                    clientName: client.fullname,
+                    jobTitle: postedJob.title,
+                    reason: 'Su reseña fue eliminada debido a violaciones de nuestras políticas.',
+                    contactUrl: 'https://handypro.com/contact',
+                },
+            });
             console.log(`Email sent successfully to ${client.email}`);
         } catch (error) {
             console.error('Error sending email:', error);

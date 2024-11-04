@@ -5,19 +5,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Job Completed</title>
 </head>
-<body style="font-family: Arial, sans-serif; font-size: 16px; color: #333333; padding: 10px; background-color: #dae2e6;">
-    <div>
-        <p>Estimado/a <%= name %>,</p>
+<body style="font-family: Arial, sans-serif; font-size: 16px; color: #333333; background-color: #e6f2f7; margin: 0; padding: 0;">
 
-        <p>Nos complace informarte que el trabajo titulado <strong><%= jobTitle %></strong> ha sido completado exitosamente.</p>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color: #e6f2f7; padding: 20px 0;">
+        <tr>
+            <td align="center">
+                <table width="600" border="0" cellspacing="0" cellpadding="0" style="background-color: #f4f4f4; border: 1px solid #cccccc; border-radius: 8px; overflow: hidden; padding: 20px;">
+                    <tr>
+                        <td style="text-align: center; padding: 20px;">
+                            <h1 style="color: #0056b3; font-size: 24px; margin: 0;">Trabajo Completado</h1>
+                            <hr style="border: none; border-top: 1px solid #cccccc; margin: 20px 0;">
+                        </td>
+                    </tr>
+                    
 
-        <p>Agradecemos tu confianza en HandyPro y esperamos que estés satisfecho con el resultado.</p>
+                    <tr>
+                        <td style="padding: 20px;">
+                            <p style="margin: 0 0 10px;">Estimado/a <%= name %>,</p>
 
-        <p>Te invitamos a dejar tus comentarios sobre el trabajo completado accediendo al siguiente enlace: <a style="text-decoration: none;" href="<%= feedbackUrl %>">Feddback.</a></p>
+                            <p style="margin: 0 0 10px;">
+                                Nos complace informarte que el trabajo titulado <strong><%= jobTitle %></strong> ha sido completado exitosamente.
+                            </p>
 
-        <p>Si necesitas más asistencia o tienes preguntas, no dudes en contactarnos: <a style="text-decoration: none;" href="<%= contactUrl %>">Contáctanos.</a></p>
+                            <p style="margin: 0 0 10px;">
+                                Agradecemos tu confianza en HandyPro y esperamos que estés satisfecho con el resultado.
+                            </p>
 
-        <p>Atentamente,<br>El equipo de HandyPro</p>
-    </div>
+                            <p style="margin: 0 0 10px;">
+                                Te invitamos a dejar tus comentarios sobre el trabajo completado accediendo al siguiente enlace:
+                                <a href="<%= feedbackUrl %>" style="color: #1a73e8; text-decoration: none;">Feedback</a>.
+                            </p>
+
+                            <p style="margin: 0 0 10px;">
+                                Si necesitas más asistencia o tienes preguntas, no dudes en contactarnos:
+                                <a href="<%= contactUrl %>" style="color: #1a73e8; text-decoration: none;">Contáctanos</a>.
+                            </p>
+
+                            <p style="margin: 20px 0 0;">
+                                Atentamente,<br>
+                                <strong>El equipo de HandyPro</strong>
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
 </body>
 </html>
+
+

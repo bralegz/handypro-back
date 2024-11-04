@@ -98,11 +98,47 @@ export class ReviewRepository {
                 await this.usersRepository.save(professional);
             }
             
-            await this.mailService.reviewReceived(newReview, postedJob)
+            await this.mailService.reviewReceived(postedJob)
             
         return {
             message: 'Reseña creada con exito',
             review: newReview,
         };
+    }
+
+    async deleteReview(postedId: string) {
+        const postedJob = await this.postedJobsRepository.findOne({
+            where: {
+                id: postedId
+            },
+            relations: {
+                review: true,
+                client: true
+            }
+        })
+
+        if (!postedJob) throw new NotFoundException('El trabajo posteado no existe')
+
+        const review = await this.reviewsRepository.findOne({
+            where: {
+                review_id: postedJob.review.review_id
+            }
+        })
+        
+        if (review === null) throw new NotFoundException('No existe una reseña para este trabajo')
+
+        postedJob.review = null
+        await this.postedJobsRepository.save(postedJob)
+
+        review.is_active = false
+        await this.reviewsRepository.save(review)
+
+        await this.mailService.deleteReview(postedJob)
+        
+        return {
+            message: 'Review eliminada exitosamente',
+            postedReview: postedJob.review,
+            review: review
+        }
     }
 }
