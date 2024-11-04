@@ -178,19 +178,6 @@ export class UserRepository {
                 categories: true,
                 location: true,
             },
-            select: {
-                id: true,
-                fullname: true,
-                profileImg: true,
-                role: true,
-                rating: true,
-                services: true,
-                bio: true,
-                availability: true,
-                portfolio_gallery: true,
-                years_experience: true,
-                hashedRefreshToken: true,
-            },
         });
 
         if (!user) {
@@ -206,8 +193,10 @@ export class UserRepository {
             (application) => application.postedJob.status === 'completado',
         );
 
+        const { phone, password, hashedRefreshToken, is_active,...userWithoutSensitiveInfo } = user;
+
         return {
-            ...user,
+            ...userWithoutSensitiveInfo,
             location: user.location?.name,
             categories: categoryNames,
             applications: acceptedJobs.map((app) => ({
