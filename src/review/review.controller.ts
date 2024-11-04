@@ -44,8 +44,8 @@ export class ReviewController {
         return this.reviewsService.createReviews(review, postedId);
     }
 
-    @Get('delete-review/:postedId')
-    deleteReview(@Param('postedId', ParseUUIDPipe) postedId: string) {
-        return this.reviewsService.deleteReview(postedId)
+    @Get('toggleActiveStatus/:postedId')
+    toggleActiveStatus(@Param('postedId', ParseUUIDPipe) postedId: string) {
+        return this.reviewsService.toggleActiveStatus(postedId)
     }
 }

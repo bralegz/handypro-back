@@ -42,6 +42,25 @@ export class MailService {
                     contactUrl: 'https://handypro.com/contact',
                 },
             });
+
+            console.log(`Email sent successfully to ${user.email}`);
+        } catch (error) {
+            console.error('Error sending email:', error);
+        }
+    }
+
+    public async unBannedUser(user: Partial<User>): Promise<void> {
+        try {
+            await this.mailerService.sendMail({
+                to: user.email,
+                subject: 'Notificación de reactivación de cuenta en HandyPro',
+                template: './unBannedUser',
+                context: {
+                    name: user.fullname,
+                    contactUrl: 'https://handypro.com/contact',
+                },
+            });
+
             console.log(`Email sent successfully to ${user.email}`);
         } catch (error) {
             console.error('Error sending email:', error);
@@ -135,6 +154,51 @@ export class MailService {
                     contactUrl: 'https://handypro.com/contact',
                 },
             });
+
+            console.log(`Email sent successfully to ${client.email}`);
+        } catch (error) {
+            console.error('Error sending email:', error);
+        }
+    }
+
+    public async restoreReview(postedJob: Partial<PostedJob>){
+        try {
+            const client = postedJob.client; 
+
+            await this.mailerService.sendMail({
+                to: client.email,
+                subject: 'Notificación de restablecimiento de reseña en HandyPro',
+                template: './restoreReview',
+                context: {
+                    clientName: client.fullname,
+                    jobTitle: postedJob.title,
+                    message: 'Nos complace informarle que su reseña ha sido restablecida y ahora es visible nuevamente.',
+                    contactUrl: 'https://handypro.com/contact',
+                },
+            });
+
+            console.log(`Email sent successfully to ${client.email}`);
+        } catch (error) {
+            console.error('Error sending email:', error);
+        }
+    }
+
+    public async deletePostedJob(postedJob: Partial<PostedJob>){
+        try {
+            const client = postedJob.client; 
+
+            await this.mailerService.sendMail({
+                to: client.email,
+                subject: 'Notificación de eliminación de reseña en HandyPro',
+                template: './deleteReview',
+                context: {
+                    clientName: client.fullname,
+                    jobTitle: postedJob.title,
+                    reason: 'Su reseña fue eliminada debido a violaciones de nuestras políticas.',
+                    contactUrl: 'https://handypro.com/contact',
+                },
+            });
+
             console.log(`Email sent successfully to ${client.email}`);
         } catch (error) {
             console.error('Error sending email:', error);

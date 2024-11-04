@@ -10,7 +10,7 @@ export class ReviewService {
         return this.reviewsRepository.createReviews(review, postedId);
     }
 
-    async deleteReview(postedId: string) {
-        return await this.reviewsRepository.deleteReview(postedId)
+    async toggleActiveStatus(postedId: string) {
+        return await this.reviewsRepository.toggleActiveStatus(postedId)
     }
 }

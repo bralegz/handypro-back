@@ -106,7 +106,7 @@ export class ReviewRepository {
         };
     }
 
-    async deleteReview(postedId: string) {
+    async toggleActiveStatus(postedId: string) {
         const postedJob = await this.postedJobsRepository.findOne({
             where: {
                 id: postedId
@@ -127,14 +127,17 @@ export class ReviewRepository {
         
         if (review === null) throw new NotFoundException('No existe una reseña para este trabajo')
 
-        postedJob.review = null
-        await this.postedJobsRepository.save(postedJob)
-
-        review.is_active = false
+        review.is_active = !review.is_active;
         await this.reviewsRepository.save(review)
 
-        await this.mailService.deleteReview(postedJob)
-        
+        if (review.is_active === false) {
+            await this.postedJobsRepository.save(postedJob)
+            await this.mailService.deleteReview(postedJob)
+        } else {
+            await this.postedJobsRepository.save(postedJob)
+            await this.mailService.restoreReview(postedJob)
+        }
+
         return {
             message: 'Review eliminada exitosamente',
             postedReview: postedJob.review,

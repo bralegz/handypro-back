@@ -356,7 +356,8 @@ export class UserRepository {
 
         user.is_active = !user.is_active;
         await this.userRepository.save(user);
-        await this.mailService.bannedUser(user) 
+
+        user.is_active === true ? await this.mailService.unBannedUser(user) : await this.mailService.bannedUser(user);
 
         return {
             id: user.id,
