@@ -321,11 +321,11 @@ export class UserController {
         @Param('userId', ParseUUIDPipe) userId: string,
         @Req() req,
     ) {
-        if (userId !== req.user.id) {
-            throw new ForbiddenException(
-                'No puedes cambiar la información de otra persona',
-            );
-        }
+        // if (userId !== req.user.id) {
+        //     throw new ForbiddenException(
+        //         'No puedes cambiar la información de otra persona',
+        //     );
+        // }
         return await this.usersService.updateProfile(userNewInfo, userId);
     }
 
