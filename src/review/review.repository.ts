@@ -98,7 +98,7 @@ export class ReviewRepository {
                 await this.usersRepository.save(professional);
             }
             
-            await this.mailService.reviewReceived(postedJob)
+            // await this.mailService.reviewReceived(postedJob)
             
         return {
             message: 'Reseña creada con exito',
@@ -133,7 +133,7 @@ export class ReviewRepository {
         review.is_active = false
         await this.reviewsRepository.save(review)
 
-        await this.mailService.deleteReview(postedJob)
+        // await this.mailService.deleteReview(postedJob)
         
         return {
             message: 'Review eliminada exitosamente',

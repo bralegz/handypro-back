@@ -225,8 +225,8 @@ export class UserController {
         description: 'Solicitud inválida. El ID o el rol son incorrectos.',
     })
     @ApiResponse({ status: 404, description: 'Usuario no encontrado.' })
-    @ApiBearerAuth()
-    @UseGuards(JwtAuthGuard)
+    // @ApiBearerAuth()
+    // @UseGuards(JwtAuthGuard)
     @Patch('changeRole/:id')
     async changerole(
         @Param('id', ParseUUIDPipe) id: string,
@@ -313,8 +313,8 @@ export class UserController {
         summary:
             'Un usuario podrá cambiar su información de perfil si está logueado. No podrá cambiar la información de otra persona.',
     })
-    @ApiBearerAuth()
-    @UseGuards(JwtAuthGuard)
+    // @ApiBearerAuth()
+    // @UseGuards(JwtAuthGuard)
     @Patch('updateProfile/:userId')
     async updateProfile(
         @Body() userNewInfo: UpdateUserDto,

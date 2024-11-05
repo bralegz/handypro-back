@@ -400,7 +400,7 @@ export class PostedJobRepository {
         postedJob.status = PostedJobStatusEnum.COMPLETED;
 
         await this.postedJobRepository.save(postedJob);
-        await this.mailService.jobCompleted(postedJob);
+        // await this.mailService.jobCompleted(postedJob);
 
         return postedJob;
     }

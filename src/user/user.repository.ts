@@ -100,9 +100,7 @@ export class UserRepository {
         const usersMapped = filteredUsers.map(
             ({
                 applications,
-                phone,
                 portfolio_gallery,
-                email,
                 role,
                 password,
                 hashedRefreshToken,
@@ -356,7 +354,7 @@ export class UserRepository {
 
         user.is_active = !user.is_active;
         await this.userRepository.save(user);
-        await this.mailService.bannedUser(user) 
+        // await this.mailService.bannedUser(user) 
 
         return {
             id: user.id,
