@@ -6,6 +6,11 @@ import * as express from 'express';
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule, {rawBody: true});
+    app.useGlobalPipes(new ValidationPipe({
+        whitelist: true,
+        transform: true,
+        forbidNonWhitelisted: true
+    }));
 
     const swaggerConfig = new DocumentBuilder()
         .setTitle('Proyecto Final para ver si nos graduamos')

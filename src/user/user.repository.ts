@@ -304,27 +304,29 @@ export class UserRepository {
             throw new BadRequestException('Este usuario se encuentra inhabilitado');
         }
 
-        let location = null;
+        // Handle location if provided
         if (userNewInfo.location) {
-            location = await this.locationRepository.findOne({
+            const location = await this.locationRepository.findOne({
                 where: { name: userNewInfo.location },
             });
 
             if (!location) {
                 throw new Error('La ubicación no existe');
             }
+            updateUser.location = location;
         }
 
-        updateUser.fullname = userNewInfo?.fullname;
-        updateUser.location = location && location;
-        updateUser.phone = userNewInfo?.phone;
-        updateUser.profileImg = userNewInfo?.profileImg;
-        updateUser.years_experience = userNewInfo?.years_experience;
-        updateUser.services = userNewInfo?.services;
+        // Only update fields that are present in userNewInfo
+        if (userNewInfo.fullname !== undefined) updateUser.fullname = userNewInfo.fullname;
+        if (userNewInfo.phone !== undefined) updateUser.phone = userNewInfo.phone;
+        if (userNewInfo.profileImg !== undefined) updateUser.profileImg = userNewInfo.profileImg;
+        if (userNewInfo.years_experience !== undefined) updateUser.years_experience = userNewInfo.years_experience;
+        if (userNewInfo.services !== undefined) updateUser.services = userNewInfo.services;
+        if (userNewInfo.portfolio_gallery !== undefined) updateUser.portfolio_gallery = userNewInfo.portfolio_gallery;
 
-        const categories =
-            userNewInfo?.categories &&
-            (await Promise.all(
+        // Handle categories if provided
+        if (userNewInfo.categories) {
+            const categories = await Promise.all(
                 userNewInfo.categories.map(async (category) => {
                     const foundCategory = await this.categoryRepository.findOne(
                         { where: { name: category } },
@@ -336,13 +338,15 @@ export class UserRepository {
 
                     return foundCategory;
                 }),
-            ));
-
-        updateUser.categories = categories;
+            );
+            updateUser.categories = categories;
+        }
 
         await this.userRepository.save(updateUser);
 
-        return updateUser;
+        const { password, hashedRefreshToken, ...userWithoutSensitiveInfo } = updateUser;
+
+        return userWithoutSensitiveInfo;
     }
 
     async toggleUserActiveStatus(userId: string) {

@@ -1,4 +1,5 @@
-import { IsNumber, IsPhoneNumber, IsString, IsUrl, IsOptional } from 'class-validator';
+import { IsNumber, IsPhoneNumber, IsString, IsUrl, IsOptional, IsArray, ArrayNotEmpty, ArrayMinSize } from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class UpdateUserDto {
     
@@ -28,4 +29,12 @@ export class UpdateUserDto {
 
     @IsOptional()
     categories?: string[];
+
+    @IsOptional()
+    @IsArray()
+    @ArrayNotEmpty()
+    @ArrayMinSize(1)
+    @Type(() => String)
+    @IsUrl({}, { each: true })
+    portfolio_gallery?: string[];
 }
