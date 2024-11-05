@@ -100,9 +100,7 @@ export class UserRepository {
         const usersMapped = filteredUsers.map(
             ({
                 applications,
-                phone,
                 portfolio_gallery,
-                email,
                 role,
                 password,
                 hashedRefreshToken,
