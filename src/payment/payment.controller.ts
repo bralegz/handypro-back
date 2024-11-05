@@ -115,6 +115,7 @@ export class PaymentController {
                 professionalId: paymentIntent.metadata.professionalId,
                 amount: paymentIntent.amount_received,
             });
+
             console.log(
                 `Payment ${paymentId} guardado correctamente en la base de datos.`,
             );

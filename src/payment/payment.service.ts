@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { Payment } from './payment.entity';
 import { PostedJob } from 'src/postedJob/postedJob.entity';
 import { User } from 'src/user/user.entity';
+import { MailService } from 'src/mail/mail.service';
 
 @Injectable()
 export class PaymentService {
@@ -17,6 +18,7 @@ export class PaymentService {
     private readonly postedJobRepository: Repository<PostedJob>,
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
+    private readonly mailService: MailService,
   ) {
     this.stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
       apiVersion: '2024-09-30.acacia',
@@ -87,6 +89,8 @@ export class PaymentService {
 
     postedJob.status = 'completado';
     await this.postedJobRepository.save(postedJob);
+
+    await this.mailService.paymentConfirmed(payment)
 
     console.log(`Payment ID: ${paymentId} guardado exitosamente.`);
 }
