@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notificación de Restablecimiento de Reseña</title>
+    <title>Notificación de Eliminación de Posteo</title>
 </head>
 <body style="font-family: Arial, sans-serif; font-size: 16px; color: #333333; background-color: #e6f2f7; margin: 0; padding: 0;">
 
@@ -13,7 +13,7 @@
                 <table width="600" border="0" cellspacing="0" cellpadding="0" style="background-color: #f4f4f4; border: 1px solid #cccccc; border-radius: 8px; overflow: hidden; padding: 20px;">
                     <tr>
                         <td style="text-align: center; padding: 20px;">
-                            <h1 style="color: #5cb85c; font-size: 24px; margin: 0;">Notificación de Restablecimiento de Reseña</h1>
+                            <h1 style="color: #d9534f; font-size: 24px; margin: 0;">Notificación de Eliminación de Posteo</h1>
                             <hr style="border: none; border-top: 1px solid #cccccc; margin: 20px 0;">
                         </td>
                     </tr>
@@ -23,18 +23,20 @@
                             <p style="font-family: Arial, sans-serif; font-size: 16px; color: #333333; margin-bottom: 20px;">Estimado/a <%= clientName %>,</p>
 
                             <p style="font-family: Arial, sans-serif; font-size: 16px; color: #333333; line-height: 1.6; margin-bottom: 20px;">
-                                Nos complace informarle que su reseña sobre el trabajo <span style="color: #007bff;">"<%= jobTitle %>"</span> ha sido restablecida y ahora es visible nuevamente en nuestra plataforma.
+                                Lamentamos informarle que su posteo titulado <span style="color: #007bff;">"<%= jobTitle %>"</span> ha sido eliminado de nuestra plataforma.
                             </p>
 
+                            <p style="font-family: Arial, sans-serif; font-size: 16px; color: #333333; margin-bottom: 10px;">Razón: <span style="font-weight: bold; color: #d9534f;"><%= reason %></span></p>
+
                             <p style="font-family: Arial, sans-serif; font-size: 16px; color: #333333; line-height: 1.6;">
-                                Si tiene alguna pregunta o necesita asistencia adicional, no dude en contactarnos a través de nuestro sitio web.
+                                Si tiene alguna pregunta o desea discutir esta decisión, no dude en contactarnos a través de nuestro sitio web.
                             </p>
                             <p style="font-family: Arial, sans-serif; font-size: 16px; color: #333333; line-height: 1.6;">
                                 Visite nuestra página de contacto: <a href="<%= contactUrl %>" style="color: #007bff; text-decoration: none;"><%= contactUrl %></a>
                             </p>
 
                             <p style="font-family: Arial, sans-serif; font-size: 16px; color: #333333; line-height: 1.6;">
-                                Gracias por seguir confiando en nosotros.<br />
+                                Gracias por su comprensión.<br />
                                 <span style="font-weight: bold; color: #007bff;">El equipo de HandyPro</span>
                             </p>
                         </td>
@@ -46,3 +48,4 @@
 
 </body>
 </html>
+

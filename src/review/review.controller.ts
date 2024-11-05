@@ -4,6 +4,7 @@ import {
     Get,
     Param,
     ParseUUIDPipe,
+    Patch,
     Post,
 } from '@nestjs/common';
 import { ReviewService } from './review.service';
@@ -44,7 +45,7 @@ export class ReviewController {
         return this.reviewsService.createReviews(review, postedId);
     }
 
-    @Get('toggleActiveStatus/:postedId')
+    @Patch('toggleActiveStatus/:postedId')
     toggleActiveStatus(@Param('postedId', ParseUUIDPipe) postedId: string) {
         return this.reviewsService.toggleActiveStatus(postedId)
     }

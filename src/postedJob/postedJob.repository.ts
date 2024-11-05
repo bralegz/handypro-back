@@ -408,13 +408,22 @@ export class PostedJobRepository {
     async togglePostedJobActiveStatus(postedJobId: string) {
         const postedJob = await this.postedJobRepository.findOne({
             where: { id: postedJobId },
+            relations: {
+                client: true
+            }
         });
 
         if (!postedJob) throw new Error('Trabajo posteado no encontrado');
 
         postedJob.is_active = !postedJob.is_active;
 
-        await this.postedJobRepository.save(postedJob);
+        if (postedJob.is_active === false) {
+            await this.postedJobRepository.save(postedJob);
+            await this.mailService.bannedUserPost(postedJob)
+        } else {
+            await this.postedJobRepository.save(postedJob);
+            await this.mailService.restoreUserPost(postedJob);
+        }
 
         return postedJob;
     }

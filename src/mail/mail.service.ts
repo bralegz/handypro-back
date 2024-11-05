@@ -183,18 +183,39 @@ export class MailService {
         }
     }
 
-    public async deletePostedJob(postedJob: Partial<PostedJob>){
+    public async bannedUserPost(postedJob: Partial<PostedJob>){
         try {
             const client = postedJob.client; 
 
             await this.mailerService.sendMail({
                 to: client.email,
-                subject: 'Notificación de eliminación de reseña en HandyPro',
-                template: './deleteReview',
+                subject: 'Notificación de eliminación de posteo en HandyPro',
+                template: './deletePost',
                 context: {
                     clientName: client.fullname,
                     jobTitle: postedJob.title,
-                    reason: 'Su reseña fue eliminada debido a violaciones de nuestras políticas.',
+                    reason: 'Su posteo fue eliminado debido a violaciones de nuestras políticas.',
+                    contactUrl: 'https://handypro.com/contact',
+                },
+            });
+
+            console.log(`Email sent successfully to ${client.email}`);
+        } catch (error) {
+            console.error('Error sending email:', error);
+        }
+    }
+
+    public async restoreUserPost(postedJob: Partial<PostedJob>){
+        try {
+            const client = postedJob.client; 
+
+            await this.mailerService.sendMail({
+                to: client.email,
+                subject: 'Notificación de restauración de posteo en HandyPro',
+                template: './restorePost',
+                context: {
+                    clientName: client.fullname,
+                    jobTitle: postedJob.title,
                     contactUrl: 'https://handypro.com/contact',
                 },
             });
