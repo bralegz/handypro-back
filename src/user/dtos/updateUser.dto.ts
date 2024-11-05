@@ -13,7 +13,6 @@ export class UpdateUserDto {
 
     @IsOptional()
     @IsString()
-    @IsPhoneNumber()
     phone?: string;
 
     @IsOptional()
@@ -22,6 +21,7 @@ export class UpdateUserDto {
 
     @IsOptional()
     @IsNumber()
+    @Type(() => Number)
     years_experience?: number;
 
     @IsOptional()
