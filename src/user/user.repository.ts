@@ -323,6 +323,8 @@ export class UserRepository {
         if (userNewInfo.years_experience !== undefined) updateUser.years_experience = userNewInfo.years_experience;
         if (userNewInfo.services !== undefined) updateUser.services = userNewInfo.services;
         if (userNewInfo.portfolio_gallery !== undefined) updateUser.portfolio_gallery = userNewInfo.portfolio_gallery;
+        if (userNewInfo.bio !== undefined) updateUser.bio = userNewInfo.bio;
+
 
         // Handle categories if provided
         if (userNewInfo.categories) {

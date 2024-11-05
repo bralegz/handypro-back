@@ -25,6 +25,10 @@ export class UpdateUserDto {
     years_experience?: number;
 
     @IsOptional()
+    @IsString()
+    bio?: string;
+
+    @IsOptional()
     services?: string[];
 
     @IsOptional()
