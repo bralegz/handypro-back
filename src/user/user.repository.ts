@@ -195,6 +195,7 @@ export class UserRepository {
 
         return {
             ...userWithoutSensitiveInfo,
+            location: user.location?.name,
             categories: categoryNames,
             applications: acceptedJobs.map((app) => ({
                 status: app.status,
