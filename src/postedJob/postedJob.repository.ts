@@ -287,7 +287,7 @@ export class PostedJobRepository {
                         availability: app.professional?.availability,
                         location: {
                             id: app.professional?.location?.id,
-                            name: app.professional?.location.name,
+                            name: app.professional?.location?.name,
                         },
                     },
                 })),
