@@ -15,6 +15,7 @@ import { Category } from 'src/category/category.entity';
 import { Application } from '../application/application.entity';
 import * as bcrypt from 'bcrypt';
 import { Payment } from 'src/payment/payment.entity';
+import { Chat } from 'src/chat/chat.entity';
 
 @Entity()
 export class User {
@@ -67,6 +68,9 @@ export class User {
     
     @CreateDateColumn({type: 'timestamp'})
     created_at: Date;
+
+    @Column({ type: 'text', array: true, nullable: true })
+    chatRooms: string[];    
 
     @ManyToOne(() => Location, (location) => location.users)
     location: Location;
