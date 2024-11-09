@@ -397,7 +397,7 @@ export class PostedJobRepository {
                 'El trabajo debe estar en progreso para completarlo',
             );
 
-        postedJob.status = PostedJobStatusEnum.COMPLETED;
+        postedJob.status = PostedJobStatusEnum.PAYMENT_PENDING;
 
         await this.postedJobRepository.save(postedJob);
         // await this.mailService.jobCompleted(postedJob);
