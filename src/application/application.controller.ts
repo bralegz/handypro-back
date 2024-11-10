@@ -115,4 +115,49 @@ export class ApplicationController {
 
         return application;
     }
+
+    @ApiResponse({
+        status: 200,
+        description: 'La aplicación fue rechazada exitosamente',
+        schema: {
+            example: {
+                id: 'a2e201c0-b120-4169-8772-885d8324e616',
+                status: 'rechazada',
+                professional: {
+                    id: '65595a20-943f-463f-8c06-bfc27b5b26ff',
+                    fullname: 'Roberto García',
+                    rating: 4.9,
+                    services: [
+                        'Muebles personalizados',
+                        'Reparaciones del hogar',
+                        'Restauración de trabajos en madera',
+                    ],
+                },
+                postedJob: {
+                    id: '8d680d14-7471-4562-83ba-d117e70a190d',
+                    title: 'Mi mesa se rompio',
+                },
+            },
+        },
+    })
+    @ApiResponse({
+        status: 400,
+        description:
+            'La aplicación no existe, la aplicación ya fue rechazada, el trabajo debe estar pendiente para poder rechazar una aplicación nueva',
+    })
+    @ApiParam({
+        description: 'UUID de la aplicación que se quiere rechazar',
+        name: 'applicationId',
+        type: 'string',
+    })
+    @Patch('reject/:applicationId')
+
+    async rejectApplication(
+        @Param('applicationId', ParseUUIDPipe) applicationId: string,
+    ) {
+        const application =
+            await this.applicationService.rejectApplication(applicationId);
+
+        return application;
+    }
 }

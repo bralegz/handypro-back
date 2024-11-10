@@ -40,4 +40,14 @@ export class ApplicationService {
             throw new BadRequestException(error.message);
         }
     }
+
+    async rejectApplication(applicationId: string) {
+        try {
+            return await this.applicationsRepository.rejectApplication(
+                applicationId,
+            );
+        } catch (error) {
+            throw new BadRequestException(error.message);
+        }
+    }
 }
