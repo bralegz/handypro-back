@@ -214,7 +214,8 @@ export class UserController {
         bio: 'Experienced professional in home repairs and custom furniture.',
         services: ['Muebles personalizados', 'Reparaciones del hogar', 'Restauración de trabajos en madera'],
         categories: ['Electricista', 'Carpintero'],
-        portfolio_gallery: ['https://example.com/portfolio1.jpg', 'https://example.com/portfolio2.jpg']
+        portfolio_gallery: ['https://example.com/portfolio1.jpg', 'https://example.com/portfolio2.jpg'],
+        availability: true
       }
     }
   })

@@ -1,4 +1,4 @@
-import { IsNumber, IsPhoneNumber, IsString, IsUrl, IsOptional, IsArray, ArrayNotEmpty, ArrayMinSize } from 'class-validator';
+import { IsNumber, IsPhoneNumber, IsString, IsUrl, IsOptional, IsArray, ArrayNotEmpty, ArrayMinSize, IsBoolean } from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class UpdateUserDto {
@@ -33,6 +33,10 @@ export class UpdateUserDto {
 
     @IsOptional()
     categories?: string[];
+
+    @IsOptional()
+    @IsBoolean()
+    availability?: boolean;
 
     @IsOptional()
     @IsArray()

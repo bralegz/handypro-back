@@ -330,6 +330,7 @@ export class UserRepository {
         if (userNewInfo.services !== undefined) updateUser.services = userNewInfo.services;
         if (userNewInfo.portfolio_gallery !== undefined) updateUser.portfolio_gallery = userNewInfo.portfolio_gallery;
         if (userNewInfo.bio !== undefined) updateUser.bio = userNewInfo.bio;
+        if (userNewInfo.availability !== undefined) updateUser.availability = userNewInfo.availability
 
 
         // Handle categories if provided
