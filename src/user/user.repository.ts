@@ -13,6 +13,9 @@ import { UpdateUserDto } from './dtos/updateUser.dto';
 import { Location } from '../location/location.entity';
 import { MailService } from '../mail/mail.service';
 import { UserRole } from './enums/user-role.enum';
+import { PostedJobStatusEnum } from 'src/postedJob/enums/postedJobStatus.enum';
+import { application } from 'express';
+import { ApplicationStatusEnum } from 'src/application/enums/applicationStatus.enum';
 
 @Injectable()
 export class UserRepository {
@@ -113,15 +116,17 @@ export class UserRepository {
 
                 const acceptedJobs = Array.isArray(applications)
                     ? applications
-                          .filter((app) => app.status === 'accepted')
+                          .filter((app) => app.status === ApplicationStatusEnum.ACCEPTED && app.postedJob.status === PostedJobStatusEnum.COMPLETED)
                           .map((app) => app.postedJob)
                     : [];
+
+
 
                 return {
                     ...user,
                     location: user.location?.name,
                     categories: categoriesMapped,
-                    completedJobs: acceptedJobs.length,
+                    completedJobs: acceptedJobs.length
                 };
             },
         );
@@ -187,9 +192,10 @@ export class UserRepository {
         }
 
         const categoryNames = user?.categories.map((category) => category.name);
-        const acceptedJobs = user.applications.filter(
-            (application) => application.postedJob.status === 'completado',
-        );
+
+        // Filter accepted jobs
+        const acceptedJobs = user.applications?.filter(application => application.status === ApplicationStatusEnum.ACCEPTED);
+
 
         const { password, hashedRefreshToken, is_active,...userWithoutSensitiveInfo } = user;
 
@@ -197,7 +203,7 @@ export class UserRepository {
             ...userWithoutSensitiveInfo,
             location: user.location?.name,
             categories: categoryNames,
-            applications: acceptedJobs.map((app) => ({
+            applications: acceptedJobs.map((app) => ({ 
                 status: app.status,
                 postedJob: {
                     id: app.postedJob.id,
