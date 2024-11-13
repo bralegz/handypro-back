@@ -139,4 +139,17 @@ export class UserService {
             throw new BadRequestException(error.message);
         }
     }
+
+    async deleteUser(userId: string) {
+        try {
+            const user = await this.userRepository.findUserById(userId);
+            if (!user) {
+                throw new NotFoundException('Usuario no encontrado');
+            }
+            const deleteResult = await this.userRepository.deleteUser(userId);
+            return deleteResult;
+        } catch (error) {
+            throw new BadRequestException(error.message);
+        }
+    }
 }

@@ -11,7 +11,8 @@ import {
   UseGuards,
   ForbiddenException,
   UnauthorizedException,
-  Patch
+  Patch,
+  Delete
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { ApiBearerAuth, ApiTags, ApiQuery, ApiResponse, ApiParam, ApiOkResponse, ApiBody, ApiOperation } from '@nestjs/swagger';
@@ -344,5 +345,29 @@ export class UserController {
   @Get('admins')
   async getAdmins() {
     return this.usersService.getAdmins();
+  }
+
+  @ApiOperation({
+    summary: 'Elimina un usuario por ID. Protección por rol: ["admin"].'
+  })
+  @ApiParam({
+    name: 'id',
+    description: 'El ID del usuario a eliminar. Debe ser un UUID válido.',
+    example: '123e4567-e89b-12d3-a456-426614174000'
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Usuario eliminado exitosamente.'
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Solicitud inválida. El ID es incorrecto.'
+  })
+  @ApiResponse({ status: 404, description: 'Usuario no encontrado.' })
+  // @ApiBearerAuth()
+  // @UseGuards(JwtAuthGuard)
+  @Delete('deleteUser/:id')
+  async deleteUser(@Param('id', ParseUUIDPipe) id: string) {
+    return this.usersService.deleteUser(id);
   }
 }
