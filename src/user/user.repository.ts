@@ -22,7 +22,7 @@ export class UserRepository {
         private readonly locationRepository: Repository<Location>,
         @InjectRepository(Category)
         private readonly categoryRepository: Repository<Category>,
-        private readonly mailService: MailService,
+        private readonly mailService: MailService
     ) {}
 
     async createUser(newUser: SignupUserDto & { profileImg?: string; role?: UserRole }) {
@@ -67,7 +67,7 @@ export class UserRepository {
         // Filtrar por nombre
         if (name) {
             filteredUsers = filteredUsers.filter(
-                (user) => user.fullname.toLowerCase().includes(name.toLowerCase()), // Filtro por nombre
+                (user) => user.fullname.toLowerCase().includes(name.toLowerCase()) // Filtro por nombre
             );
         }
 
@@ -292,7 +292,7 @@ export class UserRepository {
                     }
 
                     return foundCategory;
-                }),
+                })
             );
             updateUser.categories = categories;
         }
@@ -316,6 +316,8 @@ export class UserRepository {
 
         if (user.is_active === false) {
             await this.mailService.bannedUser(user);
+        } else {
+            await this.mailService.userUnbanned(user);
         }
 
         return {

@@ -164,6 +164,24 @@ export class MailService {
         }
     }
 
+    public async userUnbanned(user: Partial<User>) {
+        try {
+            await this.mailerService.sendMail({
+                to: user.email,
+                subject: 'Notificación de Rehabilitación de Cuenta en HandyPro',
+                template: './unbannedUser',
+                context: {
+                    name: user.fullname,
+                    contactUrl: 'https://handypro.com/contacto',
+                },
+            });
+
+            console.log(`Email sent successfully`);
+        } catch (error) {
+            console.error('Error sending email:', error);
+        }
+    }
+
     public async deleteReview(postedJob: Partial<PostedJob>) {
         try {
             const client = postedJob.client;
