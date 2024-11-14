@@ -1,9 +1,4 @@
-import {
-    BadRequestException,
-    ForbiddenException,
-    Injectable,
-    NotFoundException,
-} from '@nestjs/common';
+import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { UserRepository } from './user.repository';
 import { UpdateUserDto } from './dtos/updateUser.dto';
 import { UserRole } from './enums/user-role.enum';
@@ -12,18 +7,8 @@ import { UserRole } from './enums/user-role.enum';
 export class UserService {
     constructor(private readonly userRepository: UserRepository) {}
 
-    async getProfessionals(
-        categories: string,
-        page: number,
-        limit: number,
-        name: string,
-    ) {
-        return await this.userRepository.getProfessionals(
-            categories,
-            page,
-            limit,
-            name,
-        );
+    async getProfessionals(categories: string, page: number, limit: number, name: string) {
+        return await this.userRepository.getProfessionals(categories, page, limit, name);
     }
 
     async getClients(page: number, limit: number) {
@@ -62,19 +47,11 @@ export class UserService {
     async changeRole(userId: string, role: string) {
         try {
             if (role === UserRole.ADMIN) {
-                throw new BadRequestException(
-                    'No puedes cambiar tu rol a administrador',
-                );
+                throw new BadRequestException('No puedes cambiar tu rol a administrador');
             }
 
-            if (
-                ![UserRole.CLIENT, UserRole.PROFESSIONAL].includes(
-                    role as UserRole,
-                )
-            ) {
-                throw new ForbiddenException(
-                    "Solamente puedes cambiar tu rol a 'client' o a 'professional'",
-                );
+            if (![UserRole.CLIENT, UserRole.PROFESSIONAL].includes(role as UserRole)) {
+                throw new ForbiddenException("Solamente puedes cambiar tu rol a 'client' o a 'professional'");
             }
 
             const user = await this.userRepository.changeRole(userId, role);
@@ -91,10 +68,7 @@ export class UserService {
 
     async updateProfile(userNewInfo: UpdateUserDto, userId: string) {
         try {
-            const userUpdated = await this.userRepository.updateProfile(
-                userNewInfo,
-                userId,
-            );
+            const userUpdated = await this.userRepository.updateProfile(userNewInfo, userId);
 
             return userUpdated;
         } catch (error) {

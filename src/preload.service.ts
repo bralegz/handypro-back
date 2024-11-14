@@ -51,9 +51,7 @@ export class PreloadService {
         const existingLocations = await this.locationRepository.find();
         if (existingLocations.length === 0) {
             await this.locationRepository.save(locations);
-            this.logger.log(
-                'Se han cargado las ubicaciones a la base de datos',
-            );
+            this.logger.log('Se han cargado las ubicaciones a la base de datos');
         } else {
             this.logger.log('Ya la base de datos tiene las ubicaciones');
         }
@@ -61,9 +59,7 @@ export class PreloadService {
         // Cargar users
         const usersData = await Promise.all(
             users.users.map(async (user) => {
-                const professionArray = Array.isArray(user.profession)
-                    ? user.profession
-                    : [];
+                const professionArray = Array.isArray(user.profession) ? user.profession : [];
                 const categories = await Promise.all(
                     professionArray.map(async (categoryName) => {
                         const category = await this.categoryRepository.findOne({
@@ -91,6 +87,7 @@ export class PreloadService {
                     years_experience: user.experience,
                     categories: categories.filter((category) => category),
                     location: location || null,
+                    isBanned: user.isBanned,
                 });
 
                 return createdUser;
@@ -123,9 +120,7 @@ export class PreloadService {
         // Cargar postedJobs
         const existingJobs = await this.postedJobRepository.find();
         if (existingJobs.length > 0) {
-            this.logger.warn(
-                'Ya existen trabajos publicados en la base de datos. No se cargarán nuevos trabajos.',
-            );
+            this.logger.warn('Ya existen trabajos publicados en la base de datos. No se cargarán nuevos trabajos.');
             return 'Proceso de pre-carga cancelado debido a datos existentes.';
         }
 
@@ -133,9 +128,7 @@ export class PreloadService {
             let postedJob = new PostedJob();
 
             // Asignar el cliente
-            const clientEmail = users.users.find(
-                (user) => user.id === job.client,
-            )?.contact.email;
+            const clientEmail = users.users.find((user) => user.id === job.client)?.contact.email;
             if (clientEmail) {
                 const client = await this.userRepository.findOne({
                     where: { email: clientEmail },
@@ -146,9 +139,7 @@ export class PreloadService {
             }
 
             // Asignar la reseña
-            const reviewComment = reviews.reviews.find(
-                (review) => review.review_id === job.review?.review_id,
-            )?.comment;
+            const reviewComment = reviews.reviews.find((review) => review.review_id === job.review?.review_id)?.comment;
             if (reviewComment) {
                 const review = await this.reviewRepository.findOne({
                     where: { comment: reviewComment },
@@ -159,9 +150,7 @@ export class PreloadService {
             }
 
             // Asignar la ubicación
-            const locationName = location.locations.find(
-                (loc) => loc.name === job.location?.name,
-            )?.name;
+            const locationName = location.locations.find((loc) => loc.name === job.location?.name)?.name;
             if (locationName) {
                 const locationEntity = await this.locationRepository.findOne({
                     where: { name: locationName },
@@ -174,14 +163,11 @@ export class PreloadService {
             // Asignar las categorías
             const categoriesToAssign = [];
             for (const catId of job.categories.map((cat) => cat.id)) {
-                const categoryName = category.categories.find(
-                    (cat) => cat.id === catId,
-                )?.name;
+                const categoryName = category.categories.find((cat) => cat.id === catId)?.name;
                 if (categoryName) {
-                    const categoryEntity =
-                        await this.categoryRepository.findOne({
-                            where: { name: categoryName },
-                        });
+                    const categoryEntity = await this.categoryRepository.findOne({
+                        where: { name: categoryName },
+                    });
                     if (categoryEntity) {
                         categoriesToAssign.push(categoryEntity);
                     }
@@ -204,16 +190,12 @@ export class PreloadService {
             await this.postedJobRepository.save(postedJob);
         }
 
-        this.logger.log(
-            'Se han cargado los trabajos publicados a la base de datos',
-        );
+        this.logger.log('Se han cargado los trabajos publicados a la base de datos');
 
         // Cargar application a la base de datos
         const existingApps = await this.applicationRepository.find();
         if (existingApps.length > 0) {
-            this.logger.log(
-                'Ya existen aplicaciones en la base de datos. No se cargarán nuevas aplicaciones.',
-            );
+            this.logger.log('Ya existen aplicaciones en la base de datos. No se cargarán nuevas aplicaciones.');
             return 'Proceso de pre-carga cancelado debido a datos existentes.';
         }
 
@@ -221,9 +203,7 @@ export class PreloadService {
             let app = new Application();
 
             // Asignar el profesional
-            const profEmail = users.users.find(
-                (user) => user.id === application.professional_id,
-            )?.contact.email;
+            const profEmail = users.users.find((user) => user.id === application.professional_id)?.contact.email;
             if (profEmail) {
                 const professional = await this.userRepository.findOne({
                     where: { email: profEmail },
@@ -234,9 +214,7 @@ export class PreloadService {
             }
 
             // Asignar el trabajo publicado
-            const postedJobTitle = postedJobs.posted_jobs.find(
-                (job) => job.posted_job_id === application.posted_job_id,
-            )?.title;
+            const postedJobTitle = postedJobs.posted_jobs.find((job) => job.posted_job_id === application.posted_job_id)?.title;
             if (postedJobTitle) {
                 const postedJob = await this.postedJobRepository.findOne({
                     where: { title: postedJobTitle },
@@ -249,9 +227,7 @@ export class PreloadService {
             await this.applicationRepository.save(app);
         }
 
-        this.logger.log(
-            'Se han guardado todas las aplicaciones en la base de datos',
-        );
+        this.logger.log('Se han guardado todas las aplicaciones en la base de datos');
 
         return 'Proceso de pre-carga completado';
     }
