@@ -154,7 +154,6 @@ export class MailService {
                 template: './bannedUser',
                 context: {
                     name: user.fullname,
-                    email: user.email,
                     contactUrl: 'https://handypro.com/contacto',
                 },
             });
