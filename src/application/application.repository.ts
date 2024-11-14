@@ -6,6 +6,7 @@ import { User } from 'src/user/user.entity';
 import { PostedJob } from 'src/postedJob/postedJob.entity';
 import { ApplicationStatusEnum } from './enums/applicationStatus.enum';
 import { PostedJobStatusEnum } from 'src/postedJob/enums/postedJobStatus.enum';
+import { MailService } from 'src/mail/mail.service';
 
 @Injectable()
 export class ApplicationRepository {
@@ -16,6 +17,7 @@ export class ApplicationRepository {
         private usersRepository: Repository<User>,
         @InjectRepository(PostedJob)
         private postedJobsRepository: Repository<PostedJob>,
+        private readonly mailService: MailService,
     ) {}
 
     async applicationsByProfessional(professionalId: string) {
@@ -48,38 +50,29 @@ export class ApplicationRepository {
             },
         });
 
-        if (applicationsArray.length === 0)
-            throw new BadRequestException(
-                'No se encontraron aplicaciones realizadas',
-            );
+        if (applicationsArray.length === 0) throw new BadRequestException('No se encontraron aplicaciones realizadas');
 
         // Todas las postulacion del profesional que no fueron rechazadas por el cliente
-        const postedJobsAccepted = applicationsArray.filter(
-            (app) => app.status !== 'rejected' && app.status !== 'pending',
-        );
+        const postedJobsAccepted = applicationsArray.filter((app) => app.status !== 'rejected' && app.status !== 'pending');
 
-        const postedJobsArray = postedJobsAccepted.map(
-            ({ postedJob, ...job }) => {
-                return {
-                    ...job,
-                    postedJob: {
-                        ...postedJob,
-                        client: {
-                            id: postedJob.client?.id,
-                            fullname: postedJob.client?.fullname,
-                        },
-                        location: postedJob.location?.name,
-                        review: {
-                            rating: postedJob.review?.rating,
-                            comment: postedJob.review?.comment,
-                        },
-                        categories: postedJob.categories.map(
-                            (category) => category.name,
-                        ),
+        const postedJobsArray = postedJobsAccepted.map(({ postedJob, ...job }) => {
+            return {
+                ...job,
+                postedJob: {
+                    ...postedJob,
+                    client: {
+                        id: postedJob.client?.id,
+                        fullname: postedJob.client?.fullname,
                     },
-                };
-            },
-        );
+                    location: postedJob.location?.name,
+                    review: {
+                        rating: postedJob.review?.rating,
+                        comment: postedJob.review?.comment,
+                    },
+                    categories: postedJob.categories.map((category) => category.name),
+                },
+            };
+        });
 
         return postedJobsArray;
     }
@@ -104,25 +97,21 @@ export class ApplicationRepository {
 
         if (applicationExists) throw new Error('Ya postulaste a este trabajo');
 
-        if (postedJob.status === 'completado')
-            throw new Error('El trabajo ya fue completado');
+        if (postedJob.status === 'completado') throw new Error('El trabajo ya fue completado');
 
         const professional = await this.usersRepository.findOne({
             where: { id: professionalId },
             relations: {
                 categories: true,
+                location: true,
             },
         });
 
         if (!professional) throw new Error('El profesional no existe');
 
-        const postedJobCategories = postedJob.categories.map(
-            (category) => category.name,
-        );
+        const postedJobCategories = postedJob.categories.map((category) => category.name);
 
-        const professionalCategories = professional.categories.map(
-            (category) => category.name,
-        );
+        const professionalCategories = professional.categories.map((category) => category.name);
 
         let hasCategory = false;
         for (let i = 0; i < professionalCategories.length; i++) {
@@ -133,9 +122,7 @@ export class ApplicationRepository {
         }
 
         if (!hasCategory) {
-            throw new Error(
-                'La categoria del profesional y del trabajo deben coincidir',
-            );
+            throw new Error('La categoria del profesional y del trabajo deben coincidir');
         }
 
         const application = this.applicationsRepository.create({
@@ -144,6 +131,7 @@ export class ApplicationRepository {
         });
 
         await this.applicationsRepository.save(application);
+        await this.mailService.sendApplicationrReceived(postedJob, professional);
 
         const { id: workerId, fullname } = application.professional;
         const { id: jobId, title } = application.postedJob;
@@ -168,8 +156,7 @@ export class ApplicationRepository {
 
         if (!application) throw new Error('La aplicación no existe');
 
-        if (application.status === ApplicationStatusEnum.ACCEPTED)
-            throw new Error('La aplicación ya fue aceptada');
+        if (application.status === ApplicationStatusEnum.ACCEPTED) throw new Error('La aplicación ya fue aceptada');
 
         // Cambiar el estado de la aplicación a aceptada
         application.status = ApplicationStatusEnum.ACCEPTED;
@@ -180,18 +167,13 @@ export class ApplicationRepository {
             where: { id: application.postedJob.id },
         });
 
-        if (postedJob.status !== PostedJobStatusEnum.PENDING)
-            throw new Error(
-                'El trabajo debe estar pendiente para poder aceptar una aplicación nueva',
-            );
+        if (postedJob.status !== PostedJobStatusEnum.PENDING) throw new Error('El trabajo debe estar pendiente para poder aceptar una aplicación nueva');
 
         postedJob.status = PostedJobStatusEnum.PROGRESS;
 
         await this.postedJobsRepository.save(postedJob);
 
-        const postedJobApplicationsId = application.postedJob.applications.map(
-            (app) => app.id,
-        );
+        const postedJobApplicationsId = application.postedJob.applications.map((app) => app.id);
 
         // Rechazar todas las aplicaciones del trabajo posteado menos la aceptada
         postedJobApplicationsId.forEach(async (app) => {
@@ -233,8 +215,7 @@ export class ApplicationRepository {
 
         if (!application) throw new Error('La aplicación no existe');
 
-        if (application.status === ApplicationStatusEnum.REJECTED)
-            throw new Error('La aplicación ya fue rechazada');
+        if (application.status === ApplicationStatusEnum.REJECTED) throw new Error('La aplicación ya fue rechazada');
 
         // Cambiar el estado de la aplicación a rechazada
         application.status = ApplicationStatusEnum.REJECTED;

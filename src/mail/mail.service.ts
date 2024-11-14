@@ -13,6 +13,7 @@ import { PostedJobStatusEnum } from 'src/postedJob/enums/postedJobStatus.enum';
 export class MailService {
     constructor(private mailerService: MailerService) {}
 
+    //SEND MAIL WHEN USEER IS CREATED
     public async sendUserWelcome(user: SignupUserDto): Promise<void> {
         try {
             await this.mailerService.sendMail({
@@ -31,34 +32,40 @@ export class MailService {
         }
     }
 
-    public async bannedUser(user: Partial<User>): Promise<void> {
+    public async sendApplicationrReceived(postedJob: Partial<PostedJob>, professional: Partial<User>): Promise<void> {
         try {
+            const client = postedJob.client;
+
             await this.mailerService.sendMail({
-                to: user.email,
-                subject: 'Notificación de suspensión de cuenta en HandyPro',
-                template: './bannedUser',
+                to: client.email,
+                subject: 'Nueva Postulación Recibida para tu trabajo',
+                template: './applicationReceived',
                 context: {
-                    name: user.fullname,
-                    contactUrl: 'https://handypro.com/contact',
+                    name: client.fullname,
+                    jobTitle: postedJob.title,
+                    professionalName: professional.fullname,
+                    postedJobUrl: `https://handypro.com/job/${postedJob.id}`,
                 },
             });
-            console.log(`Email sent successfully to ${user.email}`);
+
+            console.log(`Email sent successfully to ${client.email}`);
         } catch (error) {
             console.error('Error sending email:', error);
         }
     }
 
-    public async jobCompleted(postedJob: Partial<PostedJob>){
+    public async jobCompleted(postedJob: Partial<PostedJob>) {
         try {
-            const user = postedJob.client
+            const user = postedJob.client;
+
             await this.mailerService.sendMail({
                 to: user.email,
-                subject: '¡Tu trabajo ha sido completado en HandyPro!',
+                subject: '¡Tu trabajo ha sido completado en HandyPro! ¡Pago pendiente!',
                 template: './jobCompleted',
                 context: {
                     name: user.fullname,
                     jobTitle: postedJob.title,
-                    feedbackUrl: 'https://handypro.com/feedback',
+                    paymentUrl: 'https://handypro.com/create-payment-intent',
                     contactUrl: 'https://handypro.com/contact',
                 },
             });
@@ -67,20 +74,20 @@ export class MailService {
         } catch (error) {
             console.error('Error sending email:', error);
         }
-        
     }
 
-    public async reviewReceived( postedJob: Partial<PostedJob>){
+    //SEND MAIL WHEN REVIEW IS POSTED
+    public async reviewReceived(postedJob: Partial<PostedJob>) {
         try {
-            const professional = postedJob.applications.filter((app) => app.status === ApplicationStatusEnum.ACCEPTED).map(app => app.professional)
-            const client = postedJob.client
+            const professional = postedJob.applications.filter((app) => app.status === ApplicationStatusEnum.ACCEPTED).map((app) => app.professional);
+            const client = postedJob.client;
 
             await this.mailerService.sendMail({
-                to: professional.map(prof => prof.email),
+                to: professional.map((prof) => prof.email),
                 subject: '¡Nueva reseña de un cliente en HandyPro!',
                 template: './reviewReceived',
                 context: {
-                    professionalName: professional.map(prof => prof.fullname),
+                    professionalName: professional.map((prof) => prof.fullname),
                     clientName: client.fullname,
                     jobTitle: postedJob.title,
                     jobUrl: `https://handypro.com/posted-jobs/${postedJob.id}`,
@@ -88,17 +95,17 @@ export class MailService {
                 },
             });
 
-            console.log(`Email sent successfully to ${professional.map(prof => prof.id)}`);
+            console.log(`Email sent successfully to ${professional.map((prof) => prof.id)}`);
         } catch (error) {
             console.error('Error sending email:', error);
         }
     }
 
-    public async paymentConfirmed(payment: Partial<Payment>){
+    public async paymentConfirmed(payment: Partial<Payment>) {
         try {
-            const client = payment.client
-            const professional = payment.professional
-            const postedJob = payment.postedJob
+            const client = payment.client;
+            const professional = payment.professional;
+            const postedJob = payment.postedJob;
 
             await this.mailerService.sendMail({
                 to: client.email,
@@ -120,9 +127,65 @@ export class MailService {
         }
     }
 
-    public async deleteReview(postedJob: Partial<PostedJob>){
+    // public async prueba(email: string): Promise<void> {
+    //     try {
+    //         await this.mailerService.sendMail({
+    //             to: email,
+    //             subject: 'Recibió una postulación en su posteo publicado',
+    //             template: './applicationsReceived',
+    //             context: {
+    //                 name: 'nahuel',
+    //                 email: email,
+    //                 jobTitle: 'postulacion',
+    //                 postedJobUrl: 'https://handypro.com/prueba',
+    //             },
+    //         });
+
+    //         console.log(`Email sent successfully`);
+    //     } catch (error) {
+    //         console.error('Error sending email:', error);
+    //     }
+    // }
+
+    public async bannedUser(user: Partial<User>) {
         try {
-            const client = postedJob.client; 
+            await this.mailerService.sendMail({
+                to: user.email,
+                subject: 'Notificación de Suspensión de Cuenta en HandyPro',
+                template: './bannedUser',
+                context: {
+                    name: user.fullname,
+                    contactUrl: 'https://handypro.com/contacto',
+                },
+            });
+
+            console.log(`Email sent successfully`);
+        } catch (error) {
+            console.error('Error sending email:', error);
+        }
+    }
+
+    public async userUnbanned(user: Partial<User>) {
+        try {
+            await this.mailerService.sendMail({
+                to: user.email,
+                subject: 'Notificación de Rehabilitación de Cuenta en HandyPro',
+                template: './unbannedUser',
+                context: {
+                    name: user.fullname,
+                    contactUrl: 'https://handypro.com/contacto',
+                },
+            });
+
+            console.log(`Email sent successfully`);
+        } catch (error) {
+            console.error('Error sending email:', error);
+        }
+    }
+
+    public async deleteReview(postedJob: Partial<PostedJob>) {
+        try {
+            const client = postedJob.client;
 
             await this.mailerService.sendMail({
                 to: client.email,
@@ -135,6 +198,7 @@ export class MailService {
                     contactUrl: 'https://handypro.com/contact',
                 },
             });
+
             console.log(`Email sent successfully to ${client.email}`);
         } catch (error) {
             console.error('Error sending email:', error);

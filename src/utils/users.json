@@ -3,7 +3,10 @@
         {
             "id": 1,
             "name": "Carlos Martínez",
-            "profession": ["Electricista", "Mecánico"],
+            "profession": [
+                "Electricista",
+                "Mecánico"
+            ],
             "info": "San Isidro",
             "rating": 1.8,
             "services": [
@@ -26,12 +29,15 @@
             "profile_picture": "https://i.pravatar.cc/150?u=a042581f4e29026024d",
             "role": "professional",
             "password": "password",
-            "bio": "Soy especialista en reparaciones eléctricas y de motores. Con más de 10 años de experiencia, ofrezco servicios de instalación de cableado y configuración de iluminación en San Isidro."
+            "bio": "Soy especialista en reparaciones eléctricas y de motores. Con más de 10 años de experiencia, ofrezco servicios de instalación de cableado y configuración de iluminación en San Isidro.",
+            "isBanned": false
         },
         {
             "id": 2,
             "name": "Ana López",
-            "profession": ["Jardinero"],
+            "profession": [
+                "Jardinero"
+            ],
             "info": "Lince",
             "rating": 3,
             "services": [
@@ -53,12 +59,15 @@
             "profile_picture": "https://i.pravatar.cc/150?u=a04258a2462d826712d",
             "role": "professional",
             "password": "password",
-            "bio": "Me especializo en el cuidado del césped y poda de árboles, brindando servicios de diseño de jardines. Disfruto transformando espacios verdes en hermosos jardines que embellecen cualquier hogar."
+            "bio": "Me especializo en el cuidado del césped y poda de árboles, brindando servicios de diseño de jardines. Disfruto transformando espacios verdes en hermosos jardines que embellecen cualquier hogar.",
+            "isBanned": false
         },
         {
             "id": 3,
             "name": "Roberto García",
-            "profession": ["Carpintero"],
+            "profession": [
+                "Carpintero"
+            ],
             "info": "Comas",
             "rating": 4.9,
             "services": [
@@ -80,12 +89,16 @@
             "profile_picture": "https://i.pravatar.cc/150?u=a042581f4e29026704d",
             "role": "professional",
             "password": "password",
-            "bio": "Con más de 15 años de experiencia, me dedico a crear muebles personalizados y reparar estructuras del hogar. Además, restauro piezas de madera, devolviéndoles su encanto original."
+            "bio": "Con más de 15 años de experiencia, me dedico a crear muebles personalizados y reparar estructuras del hogar. Además, restauro piezas de madera, devolviéndoles su encanto original.",
+            "isBanned": false
         },
         {
             "id": 4,
             "name": "Laura Fernández",
-            "profession": ["Plomero", "Gasfitero"],
+            "profession": [
+                "Plomero",
+                "Gasfitero"
+            ],
             "info": "Miraflores",
             "rating": 4.7,
             "services": [
@@ -107,12 +120,15 @@
             "profile_picture": "https://i.pravatar.cc/150?u=a04258114e29026302d",
             "role": "professional",
             "password": "password",
-            "bio": "Experta en la reparación de tuberías y detección de fugas, brindo servicios de instalación de sanitarios en la zona de Miraflores. Tengo 8 años de experiencia en el sector."
+            "bio": "Experta en la reparación de tuberías y detección de fugas, brindo servicios de instalación de sanitarios en la zona de Miraflores. Tengo 8 años de experiencia en el sector.",
+            "isBanned": false
         },
         {
             "id": 5,
             "name": "Diego Sánchez",
-            "profession": ["Pintor"],
+            "profession": [
+                "Pintor"
+            ],
             "info": "Surco",
             "rating": 4.6,
             "services": [
@@ -134,12 +150,15 @@
             "profile_picture": "https://i.pravatar.cc/150?u=a04258114e29026708c",
             "role": "professional",
             "password": "password",
-            "bio": "Soy pintor profesional con 12 años de experiencia. Ofrezco servicios de pintura de interiores y exteriores, además de decoración mural para personalizar y embellecer los espacios."
+            "bio": "Soy pintor profesional con 12 años de experiencia. Ofrezco servicios de pintura de interiores y exteriores, además de decoración mural para personalizar y embellecer los espacios.",
+            "isBanned": false
         },
         {
             "id": 6,
             "name": "Carmen Rojas",
-            "profession": ["Diseñador"],
+            "profession": [
+                "Diseñador"
+            ],
             "info": "La Molina",
             "rating": 4.8,
             "services": [
@@ -161,12 +180,15 @@
             "profile_picture": "https://i.pravatar.cc/150?u=a04258a2462d826712d",
             "role": "professional",
             "password": "password",
-            "bio": "Soy diseñadora de interiores con experiencia en diseño gráfico y web. Me apasiona transformar espacios y proyectos visuales en soluciones creativas, aportando elegancia y funcionalidad."
+            "bio": "Soy diseñadora de interiores con experiencia en diseño gráfico y web. Me apasiona transformar espacios y proyectos visuales en soluciones creativas, aportando elegancia y funcionalidad.",
+            "isBanned": false
         },
         {
             "id": 7,
             "name": "Javier Mendoza",
-            "profession": ["Electricista"],
+            "profession": [
+                "Electricista"
+            ],
             "info": "Jesús María",
             "rating": 4.9,
             "services": [
@@ -188,12 +210,15 @@
             "profile_picture": "https://i.pravatar.cc/150?u=a04258114e29026708c",
             "role": "professional",
             "password": "password",
-            "bio": "Ofrezco instalación y reparación de sistemas eléctricos con 14 años de experiencia. Trabajo en Jesús María y mi objetivo es garantizar el correcto funcionamiento de cada instalación."
+            "bio": "Ofrezco instalación y reparación de sistemas eléctricos con 14 años de experiencia. Trabajo en Jesús María y mi objetivo es garantizar el correcto funcionamiento de cada instalación.",
+            "isBanned": false
         },
         {
             "id": 8,
             "name": "Patricia Vargas",
-            "profession": ["Diseñador"],
+            "profession": [
+                "Diseñador"
+            ],
             "info": "San Borja",
             "rating": 4.7,
             "services": [
@@ -215,12 +240,15 @@
             "profile_picture": "https://i.pravatar.cc/150?u=a042581f4e29026704d",
             "role": "professional",
             "password": "password",
-            "bio": "Diseño espacios funcionales y estéticamente agradables. Tengo 11 años de experiencia en asesoría de decoración y remodelaciones, transformando hogares y oficinas en San Borja."
+            "bio": "Diseño espacios funcionales y estéticamente agradables. Tengo 11 años de experiencia en asesoría de decoración y remodelaciones, transformando hogares y oficinas en San Borja.",
+            "isBanned": false
         },
         {
             "id": 9,
             "name": "Andrés Quiroga",
-            "profession": ["Electricista"],
+            "profession": [
+                "Electricista"
+            ],
             "info": "Magdalena",
             "rating": 4.6,
             "services": [
@@ -242,12 +270,15 @@
             "profile_picture": "https://i.pravatar.cc/150?u=a042581f4e29026704d",
             "role": "professional",
             "password": "password",
-            "bio": "Soy especialista en la instalación y mantenimiento de sistemas de climatización, con 13 años de experiencia. Trabajo en Magdalena y mi objetivo es optimizar la eficiencia de los equipos."
+            "bio": "Soy especialista en la instalación y mantenimiento de sistemas de climatización, con 13 años de experiencia. Trabajo en Magdalena y mi objetivo es optimizar la eficiencia de los equipos.",
+            "isBanned": false
         },
         {
             "id": 10,
             "name": "Sofía Romero",
-            "profession": ["Gasfitero"],
+            "profession": [
+                "Gasfitero"
+            ],
             "info": "Pueblo Libre",
             "rating": 4.7,
             "services": [
@@ -269,12 +300,15 @@
             "profile_picture": "https://i.pravatar.cc/150?u=a04258a2462d826713d",
             "role": "professional",
             "password": "password",
-            "bio": "Experta en instalación y mantenimiento de sistemas de gas. Con 6 años de experiencia en el sector, me dedico a garantizar la seguridad en el uso de gas en hogares y empresas."
+            "bio": "Experta en instalación y mantenimiento de sistemas de gas. Con 6 años de experiencia en el sector, me dedico a garantizar la seguridad en el uso de gas en hogares y empresas.",
+            "isBanned": false
         },
         {
             "id": 11,
             "name": "Fernando López",
-            "profession": ["Carpintero"],
+            "profession": [
+                "Carpintero"
+            ],
             "info": "San Juan de Lurigancho",
             "rating": 4.8,
             "services": [
@@ -296,15 +330,22 @@
             "profile_picture": "https://i.pravatar.cc/150?u=a04258a2462d826713d",
             "role": "professional",
             "password": "password",
-            "bio": "Con más de 9 años de experiencia, me especializo en la fabricación de muebles a medida y en la reparación de estructuras de madera. Mi objetivo es brindar soluciones personalizadas a cada cliente."
+            "bio": "Con más de 9 años de experiencia, me especializo en la fabricación de muebles a medida y en la reparación de estructuras de madera. Mi objetivo es brindar soluciones personalizadas a cada cliente.",
+            "isBanned": false
         },
         {
             "id": 12,
             "name": "Lucía Torres",
-            "profession": ["Diseñador"],
+            "profession": [
+                "Diseñador"
+            ],
             "info": "San Martín de Porres",
             "rating": 4.5,
-            "services": ["Diseño gráfico", "Branding", "Diseño web"],
+            "services": [
+                "Diseño gráfico",
+                "Branding",
+                "Diseño web"
+            ],
             "availability": true,
             "portfolio_gallery": [
                 "https://picsum.photos/600/400?random=34",
@@ -319,12 +360,15 @@
             "profile_picture": "https://i.pravatar.cc/150?u=a04258a2462d826713d",
             "role": "professional",
             "password": "password",
-            "bio": "Soy diseñadora gráfica con experiencia en branding y diseño web. Me apasiona crear identidades visuales que resalten y representen a cada marca de manera única."
+            "bio": "Soy diseñadora gráfica con experiencia en branding y diseño web. Me apasiona crear identidades visuales que resalten y representen a cada marca de manera única.",
+            "isBanned": false
         },
         {
             "id": 13,
             "name": "Ricardo Salas",
-            "profession": ["Pintor"],
+            "profession": [
+                "Pintor"
+            ],
             "info": "Callao",
             "rating": 4.6,
             "services": [
@@ -346,12 +390,16 @@
             "profile_picture": "https://i.pravatar.cc/150?u=a04258a2462d826713d",
             "role": "professional",
             "password": "password",
-            "bio": "Pintor con 8 años de experiencia en el sector. Me especializo en acabados decorativos y restauración de fachadas, ayudando a revitalizar los espacios de mis clientes."
+            "bio": "Pintor con 8 años de experiencia en el sector. Me especializo en acabados decorativos y restauración de fachadas, ayudando a revitalizar los espacios de mis clientes.",
+            "isBanned": false
         },
         {
             "id": 14,
             "name": "Natalia Benítez",
-            "profession": ["Jardinero", "Paisajista"],
+            "profession": [
+                "Jardinero",
+                "Paisajista"
+            ],
             "info": "Rimac",
             "rating": 0,
             "services": [
@@ -373,12 +421,15 @@
             "profile_picture": "https://i.pravatar.cc/150?u=a04258a2462d826713d",
             "role": "professional",
             "password": "password",
-            "bio": "Con 7 años de experiencia como jardinera y paisajista, diseño y mantengo espacios verdes que embellecen cada hogar. Me encanta transformar cualquier área en un lugar acogedor y lleno de vida."
+            "bio": "Con 7 años de experiencia como jardinera y paisajista, diseño y mantengo espacios verdes que embellecen cada hogar. Me encanta transformar cualquier área en un lugar acogedor y lleno de vida.",
+            "isBanned": false
         },
         {
             "id": 15,
             "name": "Ana Martínez",
-            "profession": ["Carpintero"],
+            "profession": [
+                "Carpintero"
+            ],
             "info": "Lima",
             "rating": 4.8,
             "services": [
@@ -400,12 +451,15 @@
             "profile_picture": "https://i.pravatar.cc/150?u=a042581f4e29026704d",
             "role": "professional",
             "password": "password",
-            "bio": "Con más de 12 años de experiencia, me especializo en la creación de muebles personalizados y la restauración de piezas antiguas."
+            "bio": "Con más de 12 años de experiencia, me especializo en la creación de muebles personalizados y la restauración de piezas antiguas.",
+            "isBanned": false
         },
         {
             "id": 16,
             "name": "Luis Fernández",
-            "profession": ["Carpintero"],
+            "profession": [
+                "Carpintero"
+            ],
             "info": "San Isidro",
             "rating": 4.7,
             "services": [
@@ -427,12 +481,15 @@
             "profile_picture": "https://i.pravatar.cc/150?u=a042581f4e29026704d",
             "role": "professional",
             "password": "password",
-            "bio": "Soy un carpintero apasionado con 10 años de experiencia en la fabricación de muebles únicos y funcionales."
+            "bio": "Soy un carpintero apasionado con 10 años de experiencia en la fabricación de muebles únicos y funcionales.",
+            "isBanned": false
         },
         {
             "id": 17,
             "name": "Carlos Pérez",
-            "profession": ["Carpintero"],
+            "profession": [
+                "Carpintero"
+            ],
             "info": "Miraflores",
             "rating": 4.9,
             "services": [
@@ -454,12 +511,15 @@
             "profile_picture": "https://i.pravatar.cc/150?u=a042581f4e29026704d",
             "role": "professional",
             "password": "password",
-            "bio": "Con más de 8 años de experiencia, me especializo en la creación de muebles de cocina personalizados y reparaciones de madera."
+            "bio": "Con más de 8 años de experiencia, me especializo en la creación de muebles de cocina personalizados y reparaciones de madera.",
+            "isBanned": false
         },
         {
             "id": 18,
             "name": "María López",
-            "profession": ["Carpintero"],
+            "profession": [
+                "Carpintero"
+            ],
             "info": "La Molina",
             "rating": 4.6,
             "services": [
@@ -481,12 +541,15 @@
             "profile_picture": "https://i.pravatar.cc/150?u=a042581f4e29026704d",
             "role": "professional",
             "password": "password",
-            "bio": "Soy carpintera con 9 años de experiencia, especializada en la construcción de muebles de oficina y decoración en madera."
+            "bio": "Soy carpintera con 9 años de experiencia, especializada en la construcción de muebles de oficina y decoración en madera.",
+            "isBanned": false
         },
         {
             "id": 19,
             "name": "José Ramírez",
-            "profession": ["Plomero"],
+            "profession": [
+                "Plomero"
+            ],
             "info": "Magdalena",
             "rating": 4.5,
             "services": [
@@ -508,12 +571,15 @@
             "profile_picture": "https://i.pravatar.cc/150?u=a042581f4e29026704d",
             "role": "professional",
             "password": "password",
-            "bio": "Soy plomero con 7 años de experiencia, especializado en desatascos y reparaciones de fontanería."
+            "bio": "Soy plomero con 7 años de experiencia, especializado en desatascos y reparaciones de fontanería.",
+            "isBanned": false
         },
         {
             "id": 20,
             "name": "Sofia Torres",
-            "profession": ["Plomero"],
+            "profession": [
+                "Plomero"
+            ],
             "info": "Magdalena",
             "rating": 4.6,
             "services": [
@@ -535,12 +601,15 @@
             "profile_picture": "https://i.pravatar.cc/150?u=a042581f4e29026704d",
             "role": "professional",
             "password": "password",
-            "bio": "Con 6 años de experiencia, me especializo en instalaciones y reparaciones de tuberías."
+            "bio": "Con 6 años de experiencia, me especializo en instalaciones y reparaciones de tuberías.",
+            "isBanned": false
         },
         {
             "id": 21,
             "name": "Miguel Ángel",
-            "profession": ["Plomero"],
+            "profession": [
+                "Plomero"
+            ],
             "info": "Santa Anita",
             "rating": 4.7,
             "services": [
@@ -562,12 +631,15 @@
             "profile_picture": "https://i.pravatar.cc/150?u=a042581f4e29026704d",
             "role": "professional",
             "password": "password",
-            "bio": "Soy un plomero con más de 8 años de experiencia en mantenimiento y reparaciones."
+            "bio": "Soy un plomero con más de 8 años de experiencia en mantenimiento y reparaciones.",
+            "isBanned": false
         },
         {
             "id": 22,
             "name": "Claudia Silva",
-            "profession": ["Plomero"],
+            "profession": [
+                "Plomero"
+            ],
             "info": "Los Olivos",
             "rating": 4.4,
             "services": [
@@ -589,12 +661,15 @@
             "profile_picture": "https://i.pravatar.cc/150?u=a042581f4e29026704d",
             "role": "professional",
             "password": "password",
-            "bio": "Plomera con 5 años de experiencia, especializada en desatascos y reparaciones de fontanería."
+            "bio": "Plomera con 5 años de experiencia, especializada en desatascos y reparaciones de fontanería.",
+            "isBanned": false
         },
         {
             "id": 23,
             "name": "Fernando Huerta",
-            "profession": ["Plomero"],
+            "profession": [
+                "Plomero"
+            ],
             "info": "Santa Anita",
             "rating": 4.3,
             "services": [
@@ -616,12 +691,15 @@
             "profile_picture": "https://i.pravatar.cc/150?u=a042581f4e29026704d",
             "role": "professional",
             "password": "password",
-            "bio": "Con 4 años de experiencia en el sector, me dedico a la reparación e instalación de sistemas de agua."
+            "bio": "Con 4 años de experiencia en el sector, me dedico a la reparación e instalación de sistemas de agua.",
+            "isBanned": false
         },
         {
             "id": 24,
             "name": "Laura Méndez",
-            "profession": ["Plomero"],
+            "profession": [
+                "Plomero"
+            ],
             "info": "Santa Anita",
             "rating": 4.5,
             "services": [
@@ -643,13 +721,15 @@
             "profile_picture": "https://i.pravatar.cc/150?u=a042581f4e29026704d",
             "role": "professional",
             "password": "password",
-            "bio": "Soy plomera con 6 años de experiencia, especializada en desatascos y mantenimiento de sistemas de agua."
+            "bio": "Soy plomera con 6 años de experiencia, especializada en desatascos y mantenimiento de sistemas de agua.",
+            "isBanned": false
         },
-
         {
             "id": 25,
             "name": "Antonio Vega",
-            "profession": ["Pintor"],
+            "profession": [
+                "Pintor"
+            ],
             "info": "Miraflores",
             "rating": 4.8,
             "services": [
@@ -671,12 +751,15 @@
             "profile_picture": "https://i.pravatar.cc/150?u=a042581f4e29026704d",
             "role": "professional",
             "password": "password",
-            "bio": "Soy pintor con más de 10 años de experiencia, especializado en pinturas de alta calidad."
+            "bio": "Soy pintor con más de 10 años de experiencia, especializado en pinturas de alta calidad.",
+            "isBanned": false
         },
         {
             "id": 26,
             "name": "Gabriela Herrera",
-            "profession": ["Pintor"],
+            "profession": [
+                "Pintor"
+            ],
             "info": "San Isidro",
             "rating": 4.7,
             "services": [
@@ -698,12 +781,15 @@
             "profile_picture": "https://i.pravatar.cc/150?u=a042581f4e29026704d",
             "role": "professional",
             "password": "password",
-            "bio": "Con 8 años de experiencia, me especializo en pinturas decorativas y restauraciones."
+            "bio": "Con 8 años de experiencia, me especializo en pinturas decorativas y restauraciones.",
+            "isBanned": false
         },
         {
             "id": 27,
             "name": "Luis Torres",
-            "profession": ["Pintor"],
+            "profession": [
+                "Pintor"
+            ],
             "info": "Lince",
             "rating": 4.6,
             "services": [
@@ -725,13 +811,15 @@
             "profile_picture": "https://i.pravatar.cc/150?u=a042581f4e29026704d",
             "role": "professional",
             "password": "password",
-            "bio": "Soy pintor con 9 años de experiencia, experto en acabados y trabajos de calidad."
+            "bio": "Soy pintor con 9 años de experiencia, experto en acabados y trabajos de calidad.",
+            "isBanned": false
         },
-
         {
             "id": 28,
             "name": "Claudia Mendoza",
-            "profession": ["Fotógrafo"],
+            "profession": [
+                "Fotógrafo"
+            ],
             "info": "Santa Anita",
             "rating": 4.9,
             "services": [
@@ -753,12 +841,15 @@
             "profile_picture": "https://i.pravatar.cc/150?u=a042581f4e29026704d",
             "role": "professional",
             "password": "password",
-            "bio": "Soy fotógrafa con más de 12 años de experiencia especializada en bodas y eventos."
+            "bio": "Soy fotógrafa con más de 12 años de experiencia especializada en bodas y eventos.",
+            "isBanned": false
         },
         {
             "id": 29,
             "name": "Fernando Jiménez",
-            "profession": ["Fotógrafo"],
+            "profession": [
+                "Fotógrafo"
+            ],
             "info": "Miraflores",
             "rating": 4.8,
             "services": [
@@ -780,12 +871,15 @@
             "profile_picture": "https://i.pravatar.cc/150?u=a042581f4e29026704d",
             "role": "professional",
             "password": "password",
-            "bio": "Con 10 años de experiencia, me especializo en capturar momentos inolvidables en bodas."
+            "bio": "Con 10 años de experiencia, me especializo en capturar momentos inolvidables en bodas.",
+            "isBanned": false
         },
         {
             "id": 30,
             "name": "Patricia López",
-            "profession": ["Fotógrafo"],
+            "profession": [
+                "Fotógrafo"
+            ],
             "info": "Barranco",
             "rating": 4.7,
             "services": [
@@ -807,12 +901,15 @@
             "profile_picture": "https://i.pravatar.cc/150?u=a042581f4e29026704d",
             "role": "professional",
             "password": "password",
-            "bio": "Soy fotógrafa con 8 años de experiencia, especializada en bodas y eventos."
+            "bio": "Soy fotógrafa con 8 años de experiencia, especializada en bodas y eventos.",
+            "isBanned": false
         },
         {
             "id": 31,
             "name": "Raúl Pérez",
-            "profession": ["Fotógrafo"],
+            "profession": [
+                "Fotógrafo"
+            ],
             "info": "Santa Anita",
             "rating": 4.6,
             "services": [
@@ -834,12 +931,15 @@
             "profile_picture": "https://i.pravatar.cc/150?u=a042581f4e29026704d",
             "role": "professional",
             "password": "password",
-            "bio": "Con 9 años de experiencia, capturo momentos especiales en bodas y eventos."
+            "bio": "Con 9 años de experiencia, capturo momentos especiales en bodas y eventos.",
+            "isBanned": false
         },
         {
             "id": 32,
             "name": "Luis Gómez",
-            "profession": ["Jardinero"],
+            "profession": [
+                "Jardinero"
+            ],
             "info": "San Isidro",
             "rating": 4.3,
             "services": [
@@ -861,24 +961,9 @@
             "profile_picture": "https://i.pravatar.cc/150?u=a042581f4e29026705d",
             "role": "professional",
             "password": "password",
-            "bio": "Con 7 años de experiencia, me especializo en el mantenimiento y diseño de jardines en San Isidro."
+            "bio": "Con 7 años de experiencia, me especializo en el mantenimiento y diseño de jardines en San Isidro.",
+            "isBanned": false
         },
-        
-
-
-
-
-
-
-        
-
-
-
-
-
-
-
-
         {
             "id": 101,
             "name": "Juan Pérez",
@@ -890,7 +975,8 @@
             "profile_picture": "https://example.com/juan.jpg",
             "role": "client",
             "dark-theme": true,
-            "password": "password"
+            "password": "password",
+            "isBanned": false
         },
         {
             "id": 102,
@@ -902,7 +988,8 @@
             },
             "role": "client",
             "dark-theme": false,
-            "password": "password"
+            "password": "password",
+            "isBanned": false
         },
         {
             "id": 103,
@@ -914,7 +1001,8 @@
             },
             "role": "client",
             "dark-theme": true,
-            "password": "password"
+            "password": "password",
+            "isBanned": false
         },
         {
             "id": 104,
@@ -926,7 +1014,8 @@
             },
             "role": "client",
             "dark-theme": false,
-            "password": "password"
+            "password": "password",
+            "isBanned": false
         },
         {
             "id": 105,
@@ -938,7 +1027,8 @@
             },
             "role": "client",
             "dark-theme": true,
-            "password": "password"
+            "password": "password",
+            "isBanned": false
         },
         {
             "id": 106,
@@ -950,7 +1040,8 @@
             },
             "role": "client",
             "dark-theme": false,
-            "password": "password"
+            "password": "password",
+            "isBanned": false
         },
         {
             "id": 107,
@@ -962,7 +1053,8 @@
             },
             "role": "client",
             "dark-theme": true,
-            "password": "password"
+            "password": "password",
+            "isBanned": false
         },
         {
             "id": 108,
@@ -974,7 +1066,8 @@
             },
             "role": "client",
             "dark-theme": false,
-            "password": "password"
+            "password": "password",
+            "isBanned": false
         },
         {
             "id": 109,
@@ -986,7 +1079,8 @@
             },
             "role": "client",
             "dark-theme": true,
-            "password": "password"
+            "password": "password",
+            "isBanned": false
         },
         {
             "id": 110,
@@ -998,7 +1092,8 @@
             },
             "role": "client",
             "dark-theme": false,
-            "password": "password"
+            "password": "password",
+            "isBanned": false
         },
         {
             "id": 111,
@@ -1010,7 +1105,8 @@
             },
             "role": "client",
             "dark-theme": true,
-            "password": "password"
+            "password": "password",
+            "isBanned": false
         },
         {
             "id": 112,
@@ -1022,7 +1118,8 @@
             },
             "role": "client",
             "dark-theme": false,
-            "password": "password"
+            "password": "password",
+            "isBanned": false
         },
         {
             "id": 113,
@@ -1034,7 +1131,8 @@
             },
             "role": "client",
             "dark-theme": true,
-            "password": "password"
+            "password": "password",
+            "isBanned": false
         },
         {
             "id": 114,
@@ -1046,7 +1144,8 @@
             },
             "role": "client",
             "dark-theme": false,
-            "password": "password"
+            "password": "password",
+            "isBanned": false
         },
         {
             "id": 115,
@@ -1058,7 +1157,8 @@
             },
             "role": "client",
             "dark-theme": true,
-            "password": "password"
+            "password": "password",
+            "isBanned": false
         },
         {
             "id": 116,
@@ -1070,7 +1170,8 @@
             },
             "role": "client",
             "dark-theme": false,
-            "password": "password"
+            "password": "password",
+            "isBanned": false
         },
         {
             "id": 117,
@@ -1082,7 +1183,8 @@
             },
             "role": "client",
             "dark-theme": true,
-            "password": "password"
+            "password": "password",
+            "isBanned": false
         },
         {
             "id": 118,
@@ -1094,7 +1196,8 @@
             },
             "role": "client",
             "dark-theme": false,
-            "password": "password"
+            "password": "password",
+            "isBanned": false
         },
         {
             "id": 119,
@@ -1106,7 +1209,8 @@
             },
             "role": "client",
             "dark-theme": true,
-            "password": "password"
+            "password": "password",
+            "isBanned": false
         },
         {
             "id": 120,
@@ -1118,7 +1222,8 @@
             },
             "role": "client",
             "dark-theme": false,
-            "password": "password"
+            "password": "password",
+            "isBanned": false
         },
         {
             "id": 121,
@@ -1130,7 +1235,8 @@
             },
             "role": "client",
             "dark-theme": true,
-            "password": "password"
+            "password": "password",
+            "isBanned": false
         },
         {
             "id": 122,
@@ -1142,7 +1248,8 @@
             },
             "role": "client",
             "dark-theme": false,
-            "password": "password"
+            "password": "password",
+            "isBanned": false
         },
         {
             "id": 123,
@@ -1154,7 +1261,8 @@
             },
             "role": "client",
             "dark-theme": true,
-            "password": "password"
+            "password": "password",
+            "isBanned": false
         },
         {
             "id": 124,
@@ -1166,7 +1274,8 @@
             },
             "role": "client",
             "dark-theme": false,
-            "password": "password"
+            "password": "password",
+            "isBanned": false
         },
         {
             "id": 125,
@@ -1178,7 +1287,8 @@
             },
             "role": "client",
             "dark-theme": true,
-            "password": "password"
+            "password": "password",
+            "isBanned": false
         }
     ]
 }
