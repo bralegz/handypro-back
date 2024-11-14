@@ -57,14 +57,15 @@ export class MailService {
     public async jobCompleted(postedJob: Partial<PostedJob>) {
         try {
             const user = postedJob.client;
+
             await this.mailerService.sendMail({
                 to: user.email,
-                subject: '¡Tu trabajo ha sido completado en HandyPro!',
+                subject: '¡Tu trabajo ha sido completado en HandyPro! ¡Pago pendiente!',
                 template: './jobCompleted',
                 context: {
                     name: user.fullname,
                     jobTitle: postedJob.title,
-                    feedbackUrl: 'https://handypro.com/feedback',
+                    paymentUrl: 'https://handypro.com/create-payment-intent',
                     contactUrl: 'https://handypro.com/contact',
                 },
             });
