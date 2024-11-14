@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Banned User</title>
+    </head>
+    <body>
+        <div style="padding: 20px; background-color: #e4e7e9">
+            <header>
+                <p style="font-family: Arial, sans-serif; font-size: 16px; color: #333333; margin-bottom: 20px">Estimado/a <%= name %>.</p>
+            </header>
+            <main style="margin: 20px 0">
+                <p style="font-family: Arial, sans-serif; font-size: 16px; color: #333333; line-height: 1.6; margin-bottom: 20px">
+                    Lamentamos informarle que su cuenta en <a href="<%= contactUrl %>"><strong style="color: #007bff">HandyPro</strong></a> ha sido baneada debido a una violación
+                    de nuestras políticas de uso.
+                </p>
+
+                <p style="font-family: Arial, sans-serif; font-size: 16px; color: #333333; margin-bottom: 20px">
+                    Si considera que este baneo es un error, por favor contáctenos para discutir su situación.
+                </p>
+
+                <p style="font-family: Arial, sans-serif; font-size: 16px; color: #333333">
+                    Para más información, visite nuestro <a href="<%= contactUrl %>" style="color: #007bff; text-decoration: none">centro de contacto</a>.
+                </p>
+            </main>
+            <footer style="margin-top: 20px">
+                <p style="font-family: Arial, sans-serif; font-size: 16px; color: #333333; line-height: 1.6; margin-top: 20px">
+                    Atentamente,<br />
+                    <strong style="color: #007bff">El equipo de HandyPro</strong>
+                </p>
+            </footer>
+        </div>
+    </body>
+</html>

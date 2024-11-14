@@ -1,8 +1,4 @@
-import {
-    BadRequestException,
-    Injectable,
-    RequestTimeoutException,
-} from '@nestjs/common';
+import { BadRequestException, Injectable, RequestTimeoutException } from '@nestjs/common';
 import { SignupUserDto } from './dtos/signupUser.dto';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
@@ -25,6 +21,10 @@ export class UserRepository {
         private readonly mailService: MailService,
     ) {}
 
+    async prueba() {
+        return await this.mailService.prueba('banconahuel417@gmail.com');
+    }
+
     async createUser(newUser: SignupUserDto & { profileImg?: string }) {
         const createdUser = this.userRepository.create(newUser);
         await this.userRepository.save(createdUser);
@@ -43,12 +43,7 @@ export class UserRepository {
         return user;
     }
 
-    async getProfessionals(
-        categories: string,
-        page: number,
-        limit: number,
-        name?: string,
-    ) {
+    async getProfessionals(categories: string, page: number, limit: number, name?: string) {
         const users = await this.userRepository.find({
             where: { role: 'professional' },
             relations: {
@@ -70,55 +65,33 @@ export class UserRepository {
         // Filtrar por nombre
         if (name) {
             filteredUsers = filteredUsers.filter(
-                (user) =>
-                    user.fullname.toLowerCase().includes(name.toLowerCase()), // Filtro por nombre
+                (user) => user.fullname.toLowerCase().includes(name.toLowerCase()), // Filtro por nombre
             );
         }
 
         // Filtrar por Categorias
         if (categories) {
-            const professionArray = categories
-                .split(',')
-                .map((category) => category.trim().toLocaleLowerCase()); // Se divide el string y formamos un array de strings
+            const professionArray = categories.split(',').map((category) => category.trim().toLocaleLowerCase()); // Se divide el string y formamos un array de strings
 
             if (professionArray.length > 0) {
-                filteredUsers = filteredUsers.filter((user) =>
-                    user.categories.some((category) =>
-                        professionArray.includes(
-                            category.name.toLocaleLowerCase(),
-                        ),
-                    ),
-                );
+                filteredUsers = filteredUsers.filter((user) => user.categories.some((category) => professionArray.includes(category.name.toLocaleLowerCase())));
             }
         }
 
-        const usersMapped = filteredUsers.map(
-            ({
-                applications,
-                phone,
-                portfolio_gallery,
-                email,
-                role,
-                ...user
-            }) => {
-                const categoriesMapped = user.categories.map((category) => {
-                    return category?.name;
-                });
+        const usersMapped = filteredUsers.map(({ applications, phone, portfolio_gallery, email, role, ...user }) => {
+            const categoriesMapped = user.categories.map((category) => {
+                return category?.name;
+            });
 
-                const acceptedJobs = Array.isArray(applications)
-                    ? applications
-                          .filter((app) => app.status === 'accepted')
-                          .map((app) => app.postedJob)
-                    : [];
+            const acceptedJobs = Array.isArray(applications) ? applications.filter((app) => app.status === 'accepted').map((app) => app.postedJob) : [];
 
-                return {
-                    ...user,
-                    location: user.location?.name,
-                    categories: categoriesMapped,
-                    completedJobs: acceptedJobs.length,
-                };
-            },
-        );
+            return {
+                ...user,
+                location: user.location?.name,
+                categories: categoriesMapped,
+                completedJobs: acceptedJobs.length,
+            };
+        });
 
         return usersMapped;
     }
@@ -176,9 +149,7 @@ export class UserRepository {
         }
 
         const categoryNames = user?.categories.map((category) => category.name);
-        const acceptedJobs = user.applications.filter(
-            (application) => application.postedJob.status === 'completado',
-        );
+        const acceptedJobs = user.applications.filter((application) => application.postedJob.status === 'completado');
 
         return {
             ...user,
@@ -243,10 +214,7 @@ export class UserRepository {
     }
 
     async updateHashedRefreshToken(userId: string, hashedRefreshToken: string) {
-        return await this.userRepository.update(
-            { id: userId },
-            { hashedRefreshToken },
-        );
+        return await this.userRepository.update({ id: userId }, { hashedRefreshToken });
     }
 
     async findUserById(id: string) {
@@ -287,9 +255,7 @@ export class UserRepository {
             userNewInfo?.categories &&
             (await Promise.all(
                 userNewInfo.categories.map(async (category) => {
-                    const foundCategory = await this.categoryRepository.findOne(
-                        { where: { name: category } },
-                    );
+                    const foundCategory = await this.categoryRepository.findOne({ where: { name: category } });
 
                     if (!foundCategory) {
                         throw new Error('La categoría no existe');
@@ -304,5 +270,23 @@ export class UserRepository {
         await this.userRepository.save(updateUser);
 
         return updateUser;
+    }
+
+    async bannedUser(userId: string) {
+        const user = await this.userRepository.findOneBy({
+            id: userId,
+        });
+
+        if (!user) throw new BadRequestException('El usuario no existe');
+
+        await this.userRepository.update(userId, { isBanned: true });
+
+        const { password, ...userWithoutPassword } = user;
+        await this.mailService.bannedUser(userWithoutPassword);
+
+        return {
+            message: `El usuario ${userId} fue baneado exitosamente`,
+            userBanned: userWithoutPassword,
+        };
     }
 }

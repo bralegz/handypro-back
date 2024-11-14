@@ -1,8 +1,4 @@
-import {
-    BadRequestException,
-    Injectable,
-    NotFoundException,
-} from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { UserRepository } from './user.repository';
 import { UpdateUserDto } from './dtos/updateUser.dto';
 
@@ -10,18 +6,12 @@ import { UpdateUserDto } from './dtos/updateUser.dto';
 export class UserService {
     constructor(private readonly userRepository: UserRepository) {}
 
-    async getProfessionals(
-        categories: string,
-        page: number,
-        limit: number,
-        name: string,
-    ) {
-        return await this.userRepository.getProfessionals(
-            categories,
-            page,
-            limit,
-            name,
-        );
+    async pruebaEjs() {
+        return this.userRepository.prueba();
+    }
+
+    async getProfessionals(categories: string, page: number, limit: number, name: string) {
+        return await this.userRepository.getProfessionals(categories, page, limit, name);
     }
 
     async getClients(page: number, limit: number) {
@@ -75,9 +65,13 @@ export class UserService {
         try {
             const userUpdated = await this.userRepository.updateProfile(userNewInfo, userId);
 
-            return userUpdated
+            return userUpdated;
         } catch (error) {
             throw new BadRequestException(error.message);
         }
+    }
+
+    async bannedUser(userId: string) {
+        return this.userRepository.bannedUser(userId);
     }
 }
