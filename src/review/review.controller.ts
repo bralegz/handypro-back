@@ -22,6 +22,9 @@ export class ReviewController {
         description: 'Se requiere el id del posteo, debe ser de tipo UUID',
         example: '9d0eaae9-a2e1-4373-9c50-a42fcce25ead',
     })
+    @ApiBody({
+        type: CreateReview,
+    })
     @ApiOkResponse({
         schema: {
             example: {
@@ -39,5 +42,10 @@ export class ReviewController {
         @Body() review?: CreateReview,
     ) {
         return this.reviewsService.createReviews(review, postedId);
+    }
+
+    @Get('delete-review/:postedId')
+    deleteReview(@Param('postedId', ParseUUIDPipe) postedId: string) {
+        return this.reviewsService.deleteReview(postedId)
     }
 }

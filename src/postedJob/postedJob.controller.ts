@@ -6,6 +6,8 @@ import {
     ParseUUIDPipe,
     Post,
     Put,
+    UseGuards,
+    Patch,
 } from '@nestjs/common';
 import { PostedJobService } from './postedJob.service';
 
@@ -15,19 +17,74 @@ import {
     ApiParam,
     ApiResponse,
     ApiTags,
+    ApiOperation,
+    ApiBearerAuth,
 } from '@nestjs/swagger';
 import { CreatePostedJobDto } from './dto/createPostedJob.dto';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth/jwt-auth.guard';
 
 @ApiTags('posted-jobs')
 @Controller('posted-jobs')
 export class PostedJobController {
     constructor(private readonly postedJobService: PostedJobService) {}
 
+    @ApiOperation({
+        summary:
+            'Obtiene una lista de todos los trabajos posteados que no han sido restringidos por el administrador y posteados por usuarios no baneados.',
+    })
+    @ApiOkResponse({
+        description: 'Lista de todos los trabajos posteados',
+        schema: {
+            example: [
+                {
+                    id: '4b3809fb-7a03-43b3-8e2d-9472dada3111',
+                    title: 'Jardín necesita amor',
+                    description: 'Mantenimiento de jardín trasero',
+                    date: '2024-06-28',
+                    priority: 'baja',
+                    photos: [
+                        'https://example.com/job242_1.jpg',
+                        'https://example.com/job242_2.jpg',
+                    ],
+                    status: 'pendiente',
+                    client: {
+                        id: '9a2df9c4-95b5-469f-92f9-fa2c6efa95dd',
+                        fullname: 'María Rodríguez',
+                    },
+                    review: {
+                        rating: '5.00',
+                        comment:
+                            'Mantenimiento de césped impecable, muy profesional.',
+                    },
+                    location: 'Pueblo Libre',
+                    categories: ['Jardinero'],
+                    applications: [
+                        {
+                            status: 'accepted',
+                            professional: {
+                                id: '2036ced0-b3d6-4c79-9812-d5499d854f5c',
+                                fullname: 'Ana López',
+                                profileImg:
+                                    'https://i.pravatar.cc/150?u=a04258a2462d826712d',
+                                rating: 3,
+                                years_experience: 7,
+                                availability: true,
+                            },
+                        },
+                    ],
+                },
+            ],
+        },
+    })
     @Get()
     findAll() {
         return this.postedJobService.findAll();
     }
 
+    @ApiOperation({
+        summary:
+            'Obtiene una lista de trabajos posteados que coinciden con las categorías del profesional y filtradas según postulaciones.',
+    })
     @ApiParam({
         name: 'professionalId',
         required: true,
@@ -35,7 +92,7 @@ export class PostedJobController {
     })
     @ApiOkResponse({
         description:
-            'Lista de posteos que coinciden con las categorias del profesional y ademas filtradas de acuerdo a si ya hice su postulacion o no',
+            'Lista de posteos que coinciden con las categorias del profesional y ademas filtradas de acuerdo a si ya hizo su postulacion o no',
         schema: {
             example: [
                 {
@@ -85,6 +142,10 @@ export class PostedJobController {
         return this.postedJobService.postedJobsForProfessionals(idProfessional);
     }
 
+    @ApiOperation({
+        summary:
+            'Obtiene una lista de trabajos posteados por un cliente específico, incluyendo todas las postulaciones y profesionales.',
+    })
     @ApiParam({
         name: 'clientId',
         required: false,
@@ -153,14 +214,9 @@ export class PostedJobController {
         return postedJobs;
     }
 
-    @Get(':id')
-    async findJob(@Param('id', ParseUUIDPipe) id: string) {
-        const postedJob = await this.postedJobService.findJob(id);
-
-        return postedJob;
-    }
-
-    @Post('post-job/:clientId')
+    @ApiOperation({
+        summary: 'Permite a un cliente postear un nuevo trabajo.',
+    })
     @ApiResponse({
         status: 201,
         description: 'Trabajo posteado exitosamente',
@@ -191,6 +247,7 @@ export class PostedJobController {
             'Datos del trabajo a postear. El location y el category tienen que ser escritos exactamente como están en la base de datos o devolverá un error.',
         type: CreatePostedJobDto,
     })
+    @Post('post-job/:clientId')
     async createPostedJob(
         @Param('clientId', ParseUUIDPipe) clientId: string,
         @Body() newPostedJob: CreatePostedJobDto,
@@ -211,6 +268,9 @@ export class PostedJobController {
         return postedJob;
     }
 
+    @ApiOperation({
+        summary: 'Permite completar un trabajo posteado específico.',
+    })
     @ApiResponse({
         status: 200,
         description: 'Trabajo completado exitosamente',
@@ -235,11 +295,69 @@ export class PostedJobController {
         description: 'UUID del trabajo que se completará',
         name: 'postedJobId',
     })
-    @Put('complete-job/:postedJobId')
+    @Patch('complete-job/:postedJobId')
     async completeJob(
         @Param('postedJobId', ParseUUIDPipe) postedJobId: string,
     ) {
         const postedJob = await this.postedJobService.completeJob(postedJobId);
+
+        return postedJob;
+    }
+
+    @ApiOperation({
+        summary:
+            'Permite al administrador cambiar el estado activo de un trabajo posteado.',
+    })
+    @ApiParam({
+        name: 'postedJobId',
+        description:
+            'El ID del trabajo posteado cuyo estado activo se cambiará. Debe ser un UUID válido.',
+        example: '123e4567-e89b-12d3-a456-426614174000',
+    })
+    @ApiResponse({
+        status: 200,
+        description:
+            'El estado activo del trabajo posteado ha sido cambiado exitosamente.',
+    })
+    @ApiResponse({
+        status: 400,
+        description: 'Solicitud inválida. El ID es incorrecto.',
+    })
+    @ApiResponse({
+        status: 404,
+        description: 'Trabajo posteado no encontrado.',
+    })
+    // @ApiBearerAuth()
+    // @UseGuards(JwtAuthGuard)
+    @Patch('toggleActiveStatus/:postedJobId')
+    async togglePostedJobActiveStatus(
+        @Param('postedJobId', ParseUUIDPipe) postedJobId: string,
+    ) {
+        return this.postedJobService.togglePostedJobActiveStatus(postedJobId);
+    }
+
+    //Get all inactive jobs
+    @ApiOperation({
+        summary:
+            'Obtiene una lista de todos los trabajos posteados que están inactivos.',
+    })
+    @ApiOkResponse({
+        description: 'Lista de todos los trabajos posteados inactivos',
+    })
+    @Get('inactive')
+    findAllInactive() {
+        return this.postedJobService.findAllInactive();
+    }
+
+
+    //Get posted job by id
+    @ApiOperation({
+        summary:
+            'Obtiene los detalles de un trabajo posteado específico por su ID.',
+    })
+    @Get(':id')
+    async findJob(@Param('id', ParseUUIDPipe) id: string) {
+        const postedJob = await this.postedJobService.findJob(id);
 
         return postedJob;
     }

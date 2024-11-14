@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, CreateDateColumn } from 'typeorm';
 import { User } from 'src/user/user.entity';
 import { PostedJob } from 'src/postedJob/postedJob.entity';
 
@@ -21,6 +21,9 @@ export class Payment {
 
     @Column('varchar', { length: 255, nullable: true }) 
     reason: string;
+
+    @CreateDateColumn({type: 'timestamp'})
+    created_at: Date;
 
     @ManyToOne(() => User, (user) => user.payments)
     @JoinColumn({ name: 'clientId' })
