@@ -146,7 +146,7 @@ export class MailService {
     //     }
     // }
 
-    public async bannedUser(user: Partial<User>): Promise<void> {
+    public async bannedUser(user: Partial<User>) {
         try {
             await this.mailerService.sendMail({
                 to: user.email,
