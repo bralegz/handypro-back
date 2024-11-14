@@ -72,6 +72,7 @@ export class MailService {
         
     }
 
+    //SEND MAIL WHEN REVIEW IS POSTED
     public async reviewReceived( postedJob: Partial<PostedJob>){
         try {
             const professional = postedJob.applications.filter((app) => app.status === ApplicationStatusEnum.ACCEPTED).map(app => app.professional)

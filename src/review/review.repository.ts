@@ -98,7 +98,7 @@ export class ReviewRepository {
                 await this.usersRepository.save(professional);
             }
             
-            // await this.mailService.reviewReceived(postedJob)
+            await this.mailService.reviewReceived(postedJob)
             
         return {
             message: 'Reseña creada con exito',
