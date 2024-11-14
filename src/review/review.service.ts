@@ -5,8 +5,12 @@ import { CreateReview } from './dtos/createReview.dto';
 @Injectable()
 export class ReviewService {
     constructor(private readonly reviewsRepository: ReviewRepository) {}
-
+    
     async createReviews(review: CreateReview, postedId: string) {
         return this.reviewsRepository.createReviews(review, postedId);
+    }
+
+    async deleteReview(postedId: string) {
+        return await this.reviewsRepository.deleteReview(postedId)
     }
 }

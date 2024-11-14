@@ -6,7 +6,7 @@ export class PostedJobService {
     constructor(private readonly postedJobRepository: PostedJobRepository) {}
 
     async findAll() {
-        return this.postedJobRepository.findAll();
+        return this.postedJobRepository.findAllActive();
     }
 
     async postedJobsByClient(clientId: string) {
@@ -88,6 +88,34 @@ export class PostedJobService {
             const job = await this.postedJobRepository.completeJob(postedJobId);
 
             return job;
+        } catch (error) {
+            throw new BadRequestException(error.message);
+        }
+    }
+
+    async togglePostedJobActiveStatus(postedJobId: string) {
+        try {
+            const job = await this.postedJobRepository.togglePostedJobActiveStatus(postedJobId);
+
+            if (!job) {
+                throw new Error('Trabajo posteado no encontrado');
+            }
+
+            return job;
+        } catch (error) {
+            throw new BadRequestException(error.message);
+        }
+    }
+
+    async findAllInactive() {
+        try {
+            const postedJobs = await this.postedJobRepository.findAllInactive();
+
+            if (postedJobs.length === 0) {
+                throw new Error('No hay trabajos inactivos');
+            }
+
+            return postedJobs;
         } catch (error) {
             throw new BadRequestException(error.message);
         }

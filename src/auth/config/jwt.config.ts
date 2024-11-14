@@ -5,7 +5,7 @@ import { config as dotenvConfig } from 'dotenv';
 dotenvConfig({ path: '.env' });
 
 export default registerAs(
-    'jwt',
+    'jwt', // This is the namespace for the JWT configuration
     (): JwtModuleOptions => ({
         secret: process.env.JWT_SECRET,
         signOptions: {

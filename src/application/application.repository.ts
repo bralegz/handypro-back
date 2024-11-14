@@ -203,4 +203,37 @@ export class ApplicationRepository {
             },
         };
     }
+
+    async rejectApplication(applicationId: string) {
+        const application = await this.applicationsRepository.findOne({
+            where: { id: applicationId },
+            relations: {
+                professional: true,
+                postedJob: true,
+            },
+        });
+
+        if (!application) throw new Error('La aplicación no existe');
+
+        if (application.status === ApplicationStatusEnum.REJECTED) throw new Error('La aplicación ya fue rechazada');
+
+        // Cambiar el estado de la aplicación a rechazada
+        application.status = ApplicationStatusEnum.REJECTED;
+        await this.applicationsRepository.save(application);
+
+        return {
+            id: application.id,
+            status: application.status,
+            professional: {
+                id: application.professional.id,
+                fullname: application.professional.fullname,
+                rating: application.professional.rating,
+                services: application.professional.services,
+            },
+            postedJob: {
+                id: application.postedJob.id,
+                title: application.postedJob.title,
+            },
+        };
+    }
 }

@@ -5,31 +5,43 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Banned User</title>
     </head>
-    <body>
-        <div style="padding: 20px; background-color: #e4e7e9">
-            <header>
-                <p style="font-family: Arial, sans-serif; font-size: 16px; color: #333333; margin-bottom: 20px">Estimado/a <%= name %>.</p>
-            </header>
-            <main style="margin: 20px 0">
-                <p style="font-family: Arial, sans-serif; font-size: 16px; color: #333333; line-height: 1.6; margin-bottom: 20px">
-                    Lamentamos informarle que su cuenta en <a href="<%= contactUrl %>"><strong style="color: #007bff">HandyPro</strong></a> ha sido baneada debido a una violación
-                    de nuestras políticas de uso.
-                </p>
+    <body style="font-family: Arial, sans-serif; font-size: 16px; color: #333333; background-color: #e6f2f7; margin: 0; padding: 0">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color: #e6f2f7; padding: 20px 0">
+            <tr>
+                <td align="center">
+                    <table
+                        width="600"
+                        border="0"
+                        cellspacing="0"
+                        cellpadding="0"
+                        style="background-color: #f4f4f4; border: 1px solid #cccccc; border-radius: 8px; overflow: hidden"
+                    >
+                        <tr>
+                            <td style="padding: 20px">
+                                <h1 style="font-size: 24px; color: #d9534f; margin: 0; text-align: center">Notificación de Suspensión de Cuenta</h1>
 
-                <p style="font-family: Arial, sans-serif; font-size: 16px; color: #333333; margin-bottom: 20px">
-                    Si considera que este baneo es un error, por favor contáctenos para discutir su situación.
-                </p>
+                                <hr style="border: none; border-top: 1px solid #cccccc; margin: 20px 0" />
 
-                <p style="font-family: Arial, sans-serif; font-size: 16px; color: #333333">
-                    Para más información, visite nuestro <a href="<%= contactUrl %>" style="color: #007bff; text-decoration: none">centro de contacto</a>.
-                </p>
-            </main>
-            <footer style="margin-top: 20px">
-                <p style="font-family: Arial, sans-serif; font-size: 16px; color: #333333; line-height: 1.6; margin-top: 20px">
-                    Atentamente,<br />
-                    <strong style="color: #007bff">El equipo de HandyPro</strong>
-                </p>
-            </footer>
-        </div>
+                                <p style="margin: 0 0 10px">Estimado/a <%= name %>,</p>
+
+                                <p style="margin: 0 0 10px">Te informamos que tu cuenta en HandyPro ha sido suspendida debido a una violación de nuestras políticas de uso.</p>
+
+                                <p style="margin: 0 0 10px">
+                                    Si deseas apelar esta decisión o necesitas más detalles, visita nuestra página de soporte y apelaciones en el siguiente enlace:
+                                    <a href="<%= contactUrl %>" style="color: #1a73e8; text-decoration: none">Formulario de apelación</a>.
+                                </p>
+
+                                <p style="margin: 20px 0 0">Gracias por tu comprensión.</p>
+
+                                <p style="margin: 20px 0 0">
+                                    Atentamente,<br />
+                                    <strong>Equipo de HandyPro</strong>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
     </body>
 </html>

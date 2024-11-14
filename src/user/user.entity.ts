@@ -1,10 +1,11 @@
 import { PostedJob } from 'src/postedJob/postedJob.entity';
 import { Location } from '../location/location.entity';
-import { BeforeInsert, Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { BeforeInsert, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Category } from 'src/category/category.entity';
 import { Application } from '../application/application.entity';
 import * as bcrypt from 'bcrypt';
 import { Payment } from 'src/payment/payment.entity';
+import { Chat } from 'src/chat/chat.entity';
 
 @Entity()
 export class User {
@@ -51,6 +52,15 @@ export class User {
 
     @Column({ nullable: true })
     hashedRefreshToken: string;
+
+    @Column({ type: 'boolean', default: true })
+    is_active: boolean;
+
+    @CreateDateColumn({ type: 'timestamp' })
+    created_at: Date;
+
+    @Column({ type: 'text', array: true, nullable: true })
+    chatRooms: string[];
 
     @Column({ type: 'boolean', default: false })
     isBanned: boolean;

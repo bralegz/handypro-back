@@ -10,6 +10,9 @@ export class Location {
     @Column({ type: 'varchar', length: 50 })
     name: string;
 
+    @Column({ type: 'boolean', default: true })
+    is_active: boolean;
+
     @OneToMany(() => User, (user) => user.location)
     users: User[];
 

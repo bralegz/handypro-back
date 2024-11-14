@@ -8,6 +8,10 @@ import { Category } from '../category/category.entity';
 import { UpdateUserDto } from './dtos/updateUser.dto';
 import { Location } from '../location/location.entity';
 import { MailService } from '../mail/mail.service';
+import { UserRole } from './enums/user-role.enum';
+import { PostedJobStatusEnum } from 'src/postedJob/enums/postedJobStatus.enum';
+import { application } from 'express';
+import { ApplicationStatusEnum } from 'src/application/enums/applicationStatus.enum';
 
 @Injectable()
 export class UserRepository {
@@ -21,19 +25,17 @@ export class UserRepository {
         private readonly mailService: MailService,
     ) {}
 
-    async prueba() {
-        return await this.mailService.prueba('banconahuel417@gmail.com');
-    }
-
-    async createUser(newUser: SignupUserDto & { profileImg?: string }) {
+    async createUser(newUser: SignupUserDto & { profileImg?: string; role?: UserRole }) {
+        if (newUser.email.endsWith('@handypro.site')) {
+            newUser.role = UserRole.ADMIN;
+        }
         const createdUser = this.userRepository.create(newUser);
         await this.userRepository.save(createdUser);
 
         await this.mailService.sendUserWelcome(newUser);
 
-        return {
-            createdUser,
-        };
+        const { password, ...userWithoutPassword } = createdUser;
+        return userWithoutPassword;
     }
 
     async findUserByEmail(email: string) {
@@ -45,7 +47,7 @@ export class UserRepository {
 
     async getProfessionals(categories: string, page: number, limit: number, name?: string) {
         const users = await this.userRepository.find({
-            where: { role: 'professional' },
+            where: { role: 'professional', is_active: true },
             relations: {
                 applications: {
                     postedJob: true,
@@ -78,12 +80,14 @@ export class UserRepository {
             }
         }
 
-        const usersMapped = filteredUsers.map(({ applications, phone, portfolio_gallery, email, role, ...user }) => {
+        const usersMapped = filteredUsers.map(({ applications, portfolio_gallery, role, password, hashedRefreshToken, is_active, ...user }) => {
             const categoriesMapped = user.categories.map((category) => {
                 return category?.name;
             });
 
-            const acceptedJobs = Array.isArray(applications) ? applications.filter((app) => app.status === 'accepted').map((app) => app.postedJob) : [];
+            const acceptedJobs = Array.isArray(applications)
+                ? applications.filter((app) => app.status === ApplicationStatusEnum.ACCEPTED && app.postedJob.status === PostedJobStatusEnum.COMPLETED).map((app) => app.postedJob)
+                : [];
 
             return {
                 ...user,
@@ -100,6 +104,7 @@ export class UserRepository {
         const users = await this.userRepository.find({
             where: {
                 role: 'client',
+                is_active: true,
             },
             relations: {
                 postedJobs: {
@@ -111,7 +116,7 @@ export class UserRepository {
             take: limit,
         });
 
-        const usersMapped = users.map((user) => {
+        const usersMapped = users.map(({ password, hashedRefreshToken, is_active, rating, services, availability, bio, portfolio_gallery, years_experience, ...user }) => {
             return { ...user, location: user.location?.name };
         });
         return usersMapped;
@@ -129,30 +134,25 @@ export class UserRepository {
                 categories: true,
                 location: true,
             },
-            select: {
-                id: true,
-                fullname: true,
-                profileImg: true,
-                role: true,
-                rating: true,
-                services: true,
-                bio: true,
-                availability: true,
-                portfolio_gallery: true,
-                years_experience: true,
-                hashedRefreshToken: true,
-            },
         });
 
         if (!user) {
             throw new BadRequestException('El usuario no existe.');
         }
 
+        if (!user.is_active) {
+            throw new BadRequestException('Este usuario se encuentra inhabilitado');
+        }
+
         const categoryNames = user?.categories.map((category) => category.name);
-        const acceptedJobs = user.applications.filter((application) => application.postedJob.status === 'completado');
+
+        // Filter accepted jobs
+        const acceptedJobs = user.applications?.filter((application) => application.status === ApplicationStatusEnum.ACCEPTED);
+
+        const { password, hashedRefreshToken, is_active, ...userWithoutSensitiveInfo } = user;
 
         return {
-            ...user,
+            ...userWithoutSensitiveInfo,
             location: user.location?.name,
             categories: categoryNames,
             applications: acceptedJobs.map((app) => ({
@@ -180,8 +180,18 @@ export class UserRepository {
             relations: { postedJobs: { review: true }, location: true },
         });
 
+        if (!user) {
+            throw new BadRequestException('El usuario no existe.');
+        }
+
+        if (!user.is_active) {
+            throw new BadRequestException('Este usuario se encuentra inhabilitado');
+        }
+
+        const { password, hashedRefreshToken, ...userWithoutSensitiveInfo } = user;
+
         return {
-            ...user,
+            ...userWithoutSensitiveInfo,
             location: user.location?.name,
         };
     }
@@ -190,6 +200,14 @@ export class UserRepository {
         const user = await this.userRepository.findOne({
             where: { id: userId },
         });
+
+        if (!user) {
+            throw new BadRequestException('El usuario no existe.');
+        }
+
+        if (!user.is_active) {
+            throw new BadRequestException('Este usuario se encuentra inhabilitado');
+        }
 
         return user;
     }
@@ -201,6 +219,10 @@ export class UserRepository {
 
         if (!user) {
             return user;
+        }
+
+        if (!user.is_active) {
+            throw new BadRequestException('Este usuario se encuentra inhabilitado');
         }
 
         if (role === user.role) {
@@ -233,27 +255,35 @@ export class UserRepository {
             throw new Error('El usuario no existe');
         }
 
-        let location = null;
+        if (!updateUser.is_active) {
+            throw new BadRequestException('Este usuario se encuentra inhabilitado');
+        }
+
+        // Handle location if provided
         if (userNewInfo.location) {
-            location = await this.locationRepository.findOne({
+            const location = await this.locationRepository.findOne({
                 where: { name: userNewInfo.location },
             });
 
             if (!location) {
                 throw new Error('La ubicación no existe');
             }
+            updateUser.location = location;
         }
 
-        updateUser.fullname = userNewInfo?.fullname;
-        updateUser.location = location && location;
-        updateUser.phone = userNewInfo?.phone;
-        updateUser.profileImg = userNewInfo?.profileImg;
-        updateUser.years_experience = userNewInfo?.years_experience;
-        updateUser.services = userNewInfo?.services;
+        // Only update fields that are present in userNewInfo
+        if (userNewInfo.fullname !== undefined) updateUser.fullname = userNewInfo.fullname;
+        if (userNewInfo.phone !== undefined) updateUser.phone = userNewInfo.phone;
+        if (userNewInfo.profileImg !== undefined) updateUser.profileImg = userNewInfo.profileImg;
+        if (userNewInfo.years_experience !== undefined) updateUser.years_experience = userNewInfo.years_experience;
+        if (userNewInfo.services !== undefined) updateUser.services = userNewInfo.services;
+        if (userNewInfo.portfolio_gallery !== undefined) updateUser.portfolio_gallery = userNewInfo.portfolio_gallery;
+        if (userNewInfo.bio !== undefined) updateUser.bio = userNewInfo.bio;
+        if (userNewInfo.availability !== undefined) updateUser.availability = userNewInfo.availability;
 
-        const categories =
-            userNewInfo?.categories &&
-            (await Promise.all(
+        // Handle categories if provided
+        if (userNewInfo.categories) {
+            const categories = await Promise.all(
                 userNewInfo.categories.map(async (category) => {
                     const foundCategory = await this.categoryRepository.findOne({ where: { name: category } });
 
@@ -263,30 +293,97 @@ export class UserRepository {
 
                     return foundCategory;
                 }),
-            ));
-
-        updateUser.categories = categories;
+            );
+            updateUser.categories = categories;
+        }
 
         await this.userRepository.save(updateUser);
 
-        return updateUser;
+        const { password, hashedRefreshToken, ...userWithoutSensitiveInfo } = updateUser;
+
+        return userWithoutSensitiveInfo;
     }
 
-    async bannedUser(userId: string) {
-        const user = await this.userRepository.findOneBy({
-            id: userId,
-        });
+    async toggleUserActiveStatus(userId: string) {
+        const user = await this.userRepository.findOne({ where: { id: userId } });
 
-        if (!user) throw new BadRequestException('El usuario no existe');
+        if (!user) {
+            throw new BadRequestException('El usuario no existe.');
+        }
 
-        await this.userRepository.update(userId, { isBanned: true });
+        user.is_active = !user.is_active;
+        await this.userRepository.save(user);
 
-        const { password, ...userWithoutPassword } = user;
-        await this.mailService.bannedUser(userWithoutPassword);
+        if (user.is_active === false) {
+            await this.mailService.bannedUser(user);
+        }
 
         return {
-            message: `El usuario ${userId} fue baneado exitosamente`,
-            userBanned: userWithoutPassword,
+            id: user.id,
+            fullname: user.fullname,
+            email: user.email,
+            is_active: user.is_active,
+        };
+    }
+
+    async getInactiveUsers() {
+        const users = await this.userRepository.find({
+            where: { is_active: false },
+            relations: ['location', 'categories', 'applications', 'applications.postedJob', 'applications.postedJob.review'],
+        });
+
+        return users.map((user) => {
+            const categoryNames = user?.categories?.map((category) => category.name);
+            const acceptedJobs = user.applications?.filter((application) => application.postedJob.status === 'completado');
+
+            const { password, hashedRefreshToken, is_active, ...userWithoutSensitiveInfo } = user;
+
+            return {
+                ...userWithoutSensitiveInfo,
+                location: user.location?.name,
+                categories: categoryNames,
+                applications: acceptedJobs.map((app) => ({
+                    status: app.status,
+                    postedJob: {
+                        id: app.postedJob.id,
+                        title: app.postedJob.title,
+                        description: app.postedJob.description,
+                        date: app.postedJob.date,
+                        priority: app.postedJob.priority,
+                        photos: app.postedJob.photos,
+                        status: app.postedJob.status,
+                        review: {
+                            rating: app.postedJob.review?.rating,
+                            comment: app.postedJob.review?.comment,
+                        },
+                    },
+                })),
+            };
+        });
+    }
+
+    async getUsersByRole(role: UserRole) {
+        const users = await this.userRepository.find({
+            where: { role },
+        });
+
+        return users;
+    }
+
+    async deleteUser(userId: string) {
+        const user = await this.userRepository.findOne({ where: { id: userId } });
+        if (!user) {
+            throw new BadRequestException('El usuario no existe.');
+        }
+        await this.userRepository.remove(user);
+
+        return {
+            result: 'Usuario eliminado',
+            user: {
+                id: user.id,
+                fullname: user.fullname,
+                email: user.email,
+            },
         };
     }
 }
