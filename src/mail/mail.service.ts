@@ -13,6 +13,7 @@ import { PostedJobStatusEnum } from 'src/postedJob/enums/postedJobStatus.enum';
 export class MailService {
     constructor(private mailerService: MailerService) {}
 
+    //SEND MAIL WHEN USEER IS CREATED
     public async sendUserWelcome(user: SignupUserDto): Promise<void> {
         try {
             await this.mailerService.sendMail({
@@ -31,6 +32,7 @@ export class MailService {
         }
     }
 
+    //SEND MAIL WHEN USER IS BANNED
     public async bannedUser(user: Partial<User>): Promise<void> {
         try {
             await this.mailerService.sendMail({
