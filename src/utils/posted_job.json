@@ -788,12 +788,12 @@
                 "name": "Pueblo Libre"
             },
             "posted_job_date": "2024-10-30",
-            "posted_job_priority": "pendiente",
+            "posted_job_priority": "media",
             "posted_job_photos": [
                 "https://example.com/job270_1.jpg",
                 "https://example.com/job270_2.jpg"
             ],
-            "posted_job_status": "media",
+            "posted_job_status": "pendiente",
             "categories": [
                 {
                     "id": 5,
