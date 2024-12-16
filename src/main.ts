@@ -15,7 +15,7 @@ async function bootstrap() {
     );
 
     const swaggerConfig = new DocumentBuilder()
-        .setTitle('Proyecto Final para ver si nos graduamos')
+        .setTitle('Handypro API Documentation')
         .setDescription('HandyPro API description and documentation')
         .setVersion('1.0')
         .addBearerAuth()
